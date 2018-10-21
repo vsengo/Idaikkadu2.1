@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h5 class="page-header">
+    Please upload photos by clicking the button below.
+  </h5>
+  <p>Select all the photos you want to upload and then click open button to
+    upload all the photos
+  </p>
+  <div class="row">
+      {% block photos_content %}
+      {% endblock %}
+  </div>
+
+  <div class="row">
+  <form method="post" action="{% url 'photos:clear_database' %}">
+    {% csrf_token %}
+    <input type="hidden" name="next" value="{{ request.path }}">
+    <button type="submit" class="btn btn-danger pull-right">
+      <span class="glyphicon glyphicon-trash"></span> Clear Database
+    </button>
+  </form>
+  </div>
+{% endblock %}
