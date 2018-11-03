@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'crispy_forms',
     'photos',
+    'web',
 ]
 
 MIDDLEWARE = [
@@ -89,7 +90,7 @@ WSGI_APPLICATION = 'idaikkadu.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'idaikkadu_db',
+        'NAME': 'Idaikkadu_db',
         'USER': 'webadmin',
         'PASSWORD': 'Idaikkadu2005',
         'HOST': 'localhost',

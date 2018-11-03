@@ -2,14 +2,21 @@
 from django import forms
 
 from .models import Photo
+from .models import Album
 
 class DateInput(forms.DateInput):
     input_type = 'date'
 
-class PhotoForm(forms.ModelForm):
+class AlbumForm(forms.ModelForm):
     class Meta:
-        model = Photo
-        fields = ['title','author','email','menu','link','file']
+        model = Album
+        fields = ['title','author','email','menu','release_date']
         widgets = {
             'release_date': DateInput(),
         }
+
+
+class PhotoForm(forms.ModelForm):
+    class Meta:
+        model = Photo
+        fields = ('file', )

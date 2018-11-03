@@ -2,7 +2,7 @@ import uuid
 from django.db import models
 
 
-class Photo(models.Model):
+class Album(models.Model):
     MENU_CHOICES = (
         ('A', 'Australia'),
         ('C', 'Canada'),
@@ -30,16 +30,32 @@ class Photo(models.Model):
     email = models.EmailField()
     menu = models.CharField(max_length=1, choices=MENU_CHOICES)
     approved = models.CharField(max_length=1, choices=APPROVAL_CHOICES)
-    countLike = models.PositiveSmallIntegerField()
-    countDisLike = models.PositiveSmallIntegerField()
+    countLike = models.PositiveSmallIntegerField(default=0)
+    countDisLike = models.PositiveSmallIntegerField(default=0)
     imageDir = models.FileField(upload_to='Image/%Y')
     link = models.URLField(blank=True, help_text="Optional : any link to share")
-    file = models.FileField(upload_to='photos/')
     create_date = models.DateField(auto_now=True)
     release_date = models.DateField()
     updated_by = models.CharField(max_length=128)
 
-    def __init__(self):
-        self.countLike = 0
-        self.countDisLike = 0
-        self.approved = 'N'
+
+class Photo(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    file = models.FileField(upload_to='photos/')
+    countLike = models.PositiveSmallIntegerField(default=0)
+    countDisLike = models.PositiveSmallIntegerField(default=0)
+    create_date = models.DateField(auto_now_add=True)
+    album =   models.ForeignKey(Album,models.SET_NULL,blank=True,null=True)
+
+class Comment(models.Model):
+    APPROVAL_CHOICES = (
+        ('Y','Yes'),
+        ('N','No'),
+    )
+
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    comment =  models.TextField()
+    updated_by   = models.CharField(max_length=128)
+    create_date = models.DateField(auto_now=True)
+    approved = models.CharField(max_length=1, choices=APPROVAL_CHOICES,default='Y')
+    photo =   models.ForeignKey(Photo,on_delete=models.CASCADE)
