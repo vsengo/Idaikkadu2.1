@@ -1,7 +1,7 @@
-<!doctype html>
-
+{% extends 'base.html' %}
 {% load crispy_forms_tags %}
-<html lang="en">
+
+{% block content %}
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -14,7 +14,7 @@
         <div class="col-8">
           <h1 class="mt-2">Add News</h1>
           <hr class="mt-0 mb-4">
-          <form action="/web/news/save/" method="post">
+          <form action="/news/save" method="post">
             {% csrf_token %}
             <table>
             {{ form|crispy }}
@@ -26,6 +26,5 @@
       </div>
     </div>
   </body>
-</html>
-
+{% endblock %}
 

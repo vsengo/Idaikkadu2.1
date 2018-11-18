@@ -31,17 +31,15 @@ class Content(models.Model):
     approved = models.CharField(max_length=1, choices=APPROVAL_CHOICES,default='N')
     countLike = models.PositiveSmallIntegerField(default=0)
     countDisLike = models.PositiveSmallIntegerField(default=0)
-    imageDir = models.FileField(upload_to='Image/%Y')
+    imageDir = models.FileField(blank=True,upload_to='Image/%Y/')
     link = models.URLField(blank=True, help_text="Optional : any link to share")
+    content= models.TextField()
+    document = models.FileField(blank=True,help_text="Optional : Any document in .pdf format")
     create_date = models.DateField(auto_now=True)
     release_date = models.DateField()
     updated_by   = models.CharField(max_length=128)
 
 
-class News(Content):
-    imageFileName  = models.ImageField(upload_to="Image%Y",help_text="Please load one image here.")
-    content= models.TextField()
-    document = models.FileField(blank=True,help_text="Optional : Any document in .pdf format")
 
 class Comment(models.Model):
     APPROVAL_CHOICES = (
