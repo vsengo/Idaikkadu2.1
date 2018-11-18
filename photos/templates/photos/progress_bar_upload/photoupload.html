@@ -19,9 +19,7 @@
   <p>Select all the photos you want to upload and then click open button to
     upload all the photos.
   </p>
-  <p>
-    Once uploaded all photos click Save Photos to provide Title and other information for this Album.
-  </p>
+
   <div style="margin-bottom: 20px;">
     <button type="button" class="btn btn-primary js-upload-photos">
       <span class="glyphicon glyphicon-cloud-upload"></span> Upload photos
@@ -31,32 +29,37 @@
            data-url="{% url 'photos:progress_bar_upload' %}"
            data-form-data='{"csrfmiddlewaretoken": "{{ csrf_token }}"}'>
   </div>
-
-  <div>
-  <form method="post" action="{% url 'photos:get_description' %}">
-    {% csrf_token %}
-    <input type="hidden" name="next" value="{{ request.path }}">
-    <button type="submit" class="btn btn-danger pull-right">
-      <span class="glyphicon glyphicon-trash"></span> Create New Album
-    </button>
-  </form>
-  </div>
-  <br>
-
-  <div>
-  <form method="post" action="{% url 'photos:add_to_album' %}">
-    {% csrf_token %}
-    <input type="hidden" name="next" value="{{ request.path }}">
-    <button type="submit" class="btn btn-danger pull-right">
-      <span class="glyphicon glyphicon-trash"></span> Add to  existingg Album
-    </button>
-  </form>
-  </div>
+    <p>
+      Once uploaded all photos click Create New Album to provide Title and other information for this Album.
+      Or Click Add to Existing album to choose the album you want to add to.
+    </p>
+    <table id="gallery" class="table table-bordered">
+      <tr>
+        <td>
+        <form method="post" action="{% url 'photos:get_description' %}">
+          {% csrf_token %}
+          <input type="hidden" name="next" value="{{ request.path }}">
+          <button type="submit" class="btn btn-danger pull-right">
+            <span class="glyphicon glyphicon-trash"></span> Create New Album
+          </button>
+        </form>
+    </td>
+    <td>
+    <form method="post" action="{% url 'photos:choose_album' %}">
+      {% csrf_token %}
+      <input type="hidden" name="next" value="{{ request.path }}">
+      <button type="submit" class="btn btn-danger pull-right">
+        <span class="glyphicon glyphicon-trash"></span> Add to existing Album
+      </button>
+    </form>
+    </td>
+    </tr>
+  </table>
 
   <table id="gallery" class="table table-bordered">
     <thead>
       <tr>
-        <th>Photo</th>
+        <th>Uploaded Photos</th>
       </tr>
     </thead>
     <tbody>
