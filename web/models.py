@@ -34,7 +34,7 @@ class Content(models.Model):
     imageDir = models.FileField(blank=True,upload_to='Image/%Y/')
     link = models.URLField(blank=True, help_text="Optional : any link to share")
     content= models.TextField()
-    document = models.FileField(blank=True,help_text="Optional : Any document in .pdf format")
+    document = models.FileField(blank=True,upload_to='Doc/%Y/', help_text="Optional : Any document in .pdf format")
     create_date = models.DateField(auto_now=True)
     release_date = models.DateField()
     updated_by   = models.CharField(max_length=128)
