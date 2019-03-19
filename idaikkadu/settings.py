@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'crispy_forms',
     'photos',
+    'bootstrap4',
 ]
 
 MIDDLEWARE = [
@@ -90,8 +91,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'idaikkadu_db',
-        'USER': 'webadmin',
-        'PASSWORD': 'Idaikkadu2005',
+        'USER': 'root',
+        'PASSWORD': '',
         'HOST': 'localhost',
         'PORT': '3306'
     }

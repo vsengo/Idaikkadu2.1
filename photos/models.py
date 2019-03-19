@@ -30,16 +30,16 @@ class Photo(models.Model):
     email = models.EmailField()
     menu = models.CharField(max_length=1, choices=MENU_CHOICES)
     approved = models.CharField(max_length=1, choices=APPROVAL_CHOICES)
-    countLike = models.PositiveSmallIntegerField()
-    countDisLike = models.PositiveSmallIntegerField()
+    countLike = models.PositiveSmallIntegerField(default=0)
+    countDisLike = models.PositiveSmallIntegerField(default=0)
     imageDir = models.FileField(upload_to='Image/%Y')
     link = models.URLField(blank=True, help_text="Optional : any link to share")
     file = models.FileField(upload_to='photos/')
     create_date = models.DateField(auto_now=True)
-    release_date = models.DateField()
+    release_date = models.DateField(auto_now=True)
     updated_by = models.CharField(max_length=128)
 
-    def __init__(self):
+    """ def __init__(self):
         self.countLike = 0
         self.countDisLike = 0
-        self.approved = 'N'
+        self.approved = 'N' """

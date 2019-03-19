@@ -9,7 +9,7 @@ class DateInput(forms.DateInput):
 class PhotoForm(forms.ModelForm):
     class Meta:
         model = Photo
-        fields = ['title','author','email','menu','link','file']
+        fields = ('file', )
         widgets = {
             'release_date': DateInput(),
         }
