@@ -1,10 +1,35 @@
 {% extends 'base.html' %}
 
 {% block content %}
- <div class="row">
-   <div class="col-12" align="center">
 
-  <h5 class="page-header">
+<header class="mb-6">
+    <div class="carousel slide bg-dark" data-ride="carousel" id="carouselExampleIndicators">
+        <div class="carousel-inner" role="listbox">
+          {% for photo in photos %}
+          <div class="carousel-item {% if forloop.counter == 1 %}active{% endif %}" style="background-image: url({{  photo.file.url }})">
+            <div class="carousel-caption d-none d-md-block">
+              <h5 class="display-4">{{  photo.file.name }}</h5>
+                {{  photo.file.url }}
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+        <a class="carousel-control-prev" data-slide="prev" href="#carouselExampleIndicators" role="button">
+              <span aria-hidden="true" class="carousel-control-prev-icon"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+        <a class="carousel-control-next" data-slide="next" href="#carouselExampleIndicators" role="button">
+              <span aria-hidden="true" class="carousel-control-next-icon"></span>
+              <span class="sr-only">Next</span>
+            </a>
+      </div>
+</header>
+<section class="py-5">
+    <div class="container">
+
+ <div class="row">
+   <div class="col-12 " align="center">
+  <h5>
     Please upload photos by clicking the button below.
   </h5>
   <p>Select all the photos you want to upload and then click open button to
@@ -21,4 +46,8 @@
       <span class="glyphicon glyphicon-trash"></span> Clear Database
     </button>
   </form>
+   </div>
+ </div>
+    </div>
+</section>
 {% endblock %}

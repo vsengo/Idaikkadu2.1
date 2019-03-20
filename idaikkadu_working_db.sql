@@ -326,7 +326,7 @@ CREATE TABLE `photos_photo` (
 
 LOCK TABLES `photos_photo` WRITE;
 /*!40000 ALTER TABLE `photos_photo` DISABLE KEYS */;
-INSERT INTO `photos_photo` VALUES ('00c45eb4f0b4496e87ed33c7682de844','','','','','',0,0,'','','photos/village10.png','2019-03-19','2019-03-19',''),('0e1ba32704b6454990c34e18773f91dc','','','','','',0,0,'','','photos/village11.png','2019-03-19','2019-03-19',''),('a975aab4da674588b58777246fa749db','','','','','',0,0,'','','photos/village10_KFD0xUj.png','2019-03-19','2019-03-19','');
+INSERT INTO `photos_photo` VALUES ('00c45eb4f0b4496e87ed33c7682de844','','','','','',0,0,'','','photos/2018_valalai7.jpg','2019-03-19','2019-03-19',''),('0e1ba32704b6454990c34e18773f91dc','','','','','',0,0,'','','photos/2018_valalai7_5pvXb3g.jpg','2019-03-19','2019-03-19',''),('a975aab4da674588b58777246fa749db','','','','','',0,0,'','','photos/2018_valalai8.jpg','2019-03-19','2019-03-19','');
 /*!40000 ALTER TABLE `photos_photo` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
