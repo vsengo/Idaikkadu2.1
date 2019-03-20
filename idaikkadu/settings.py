@@ -92,7 +92,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'idaikkadu_db',
         'USER': 'root',
-        'PASSWORD': '71191Vibu',
+        'PASSWORD': '',
         'HOST': 'localhost',
         'PORT': '3306'
     }
