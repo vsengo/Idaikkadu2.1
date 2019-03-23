@@ -9,7 +9,27 @@
     <!-- Heading Row -->
     <div class="row align-items-center my-5">
       <div class="col-lg-7">
-        <img class="img-fluid rounded mb-4 mb-lg-0" src="http://placehold.it/900x400" alt="">
+        <!--<img class="img-fluid rounded mb-4 mb-lg-0" src="http://placehold.it/900x400" alt="">-->
+          <div class="carousel slide bg-dark" data-ride="carousel" id="carouselExampleIndicators">
+        <div class="carousel-inner" role="listbox">
+          {% for photo in photos %}
+          <div class="carousel-item {% if forloop.counter == 1 %}active{% endif %}" style="background-image: url({{  photo.file.url }})">
+            <div class="carousel-caption d-none d-md-block">
+              <h5 class="display-4">{{  photo.file.name }}</h5>
+                {{  photo.file.url }}
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+        <a class="carousel-control-prev" data-slide="prev" href="#carouselExampleIndicators" role="button">
+              <span aria-hidden="true" class="carousel-control-prev-icon"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+        <a class="carousel-control-next" data-slide="next" href="#carouselExampleIndicators" role="button">
+              <span aria-hidden="true" class="carousel-control-next-icon"></span>
+              <span class="sr-only">Next</span>
+            </a>
+      </div>
       </div>
       <!-- /.col-lg-8 -->
       <div class="col-lg-5">
