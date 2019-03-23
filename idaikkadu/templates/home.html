@@ -4,19 +4,17 @@
     <div class="container">
  <div class="row">
 
-      <!-- Post Content Column -->
-      <div class="col-lg-9">
-    <!-- Heading Row -->
-    <div class="row align-items-center my-5">
-      <div class="col-lg-7">
+   <!-- Heading Row -->
+
+      <div class="col-lg-8">
+
         <!--<img class="img-fluid rounded mb-4 mb-lg-0" src="http://placehold.it/900x400" alt="">-->
           <div class="carousel slide bg-dark" data-ride="carousel" id="carouselExampleIndicators">
         <div class="carousel-inner" role="listbox">
           {% for photo in photos %}
-          <div class="carousel-item {% if forloop.counter == 1 %}active{% endif %}" style="background-image: url({{  photo.file.url }})">
+            <div class="carousel-item {% if forloop.counter == 1 %}active{% endif %}" style="background-image: url({{  photo.file.url }})">
             <div class="carousel-caption d-none d-md-block">
-              <h5 class="display-4">{{  photo.file.name }}</h5>
-                {{  photo.file.url }}
+              <h6 class="display-6">{{  photo.file.name }}</h6>
             </div>
           </div>
           {% endfor %}
@@ -31,16 +29,16 @@
             </a>
       </div>
       </div>
+
       <!-- /.col-lg-8 -->
-      <div class="col-lg-5">
+      <div class="col-lg-4">
         <h1 class="font-weight-light">Idaikkadu</h1>
-        <p>This is the place where Tharsiga and her family lives in currently. Tharsiga, also known as Abi, has a home - recently renovated - here.</p>
+        <p>This is the place where Tharsiga along with her family lives in currently. Tharsiga, also known as Abi, has a home - recently renovated - here. </p>
         <a class="btn btn-primary" href="#">Read more</a>
       </div>
       <!-- /.col-md-4 -->
     </div>
     <!-- /.row -->
-
     <!-- Call to Action Well -->
     <div class="card text-white bg-secondary my-5 py-4 text-center">
       <div class="card-body">
@@ -104,20 +102,19 @@
         </div>
       </div>
       <!-- /.col-md-4 -->
-    </div>
-      </div>
-   <div class="col-lg-3">
-        <div class="card">
-          <div class="card-body">
-            <h2 class="card-title">Advertisement</h2>
-            <img class="img-fluid rounded mb-4" src="http://placehold.it/300x600" alt="">
-            <ul style="list-style-type:disc">
-                <li>Daily Quotes</li>
-                <li>Event Annoucements</li>
-                <li>Advertisements</li>
-              </ul>
-          </div>
-        </div>
+
+    <!--<div class="col-md-4 mb-5">-->
+        <!--<div class="card">-->
+          <!--<div class="card-body">-->
+            <!--<h2 class="card-title">Advertisement</h2>-->
+            <!--<img class="img-fluid rounded mb-4" src="http://placehold.it/300x600" alt="">-->
+            <!--<ul style="list-style-type:disc">-->
+                <!--<li>Daily Quotes</li>-->
+                <!--<li>Event Annoucements</li>-->
+                <!--<li>Advertisements</li>-->
+              <!--</ul>-->
+          <!--</div>-->
+        <!--</div>-->
       </div>
    </div>
  </div>
