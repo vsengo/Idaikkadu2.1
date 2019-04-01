@@ -13,9 +13,6 @@
         <div class="carousel-inner" role="listbox">
           {% for photo in photos %}
             <div class="carousel-item {% if forloop.counter == 1 %}active{% endif %}" style="background-image: url({{  photo.file.url }})">
-            <div class="carousel-caption d-none d-md-block">
-              <h6 class="display-6">{{  photo.file.name }}</h6>
-            </div>
           </div>
           {% endfor %}
         </div>
@@ -41,8 +38,8 @@
     <!-- /.row -->
     <!-- Call to Action Well -->
     <div class="card text-white bg-secondary my-5 py-4 text-center">
-      <div class="card-body">
-        <p class="text-white m-0">Latest News : "Tharsiga woke up today at 9am.</p>
+            <div class="card-body">
+        <p class="text-white m-0">{{ news.title }}</p>
       </div>
     </div>
 
