@@ -25,6 +25,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     url(r'^$', views.home.as_view(), name='home'),
     url(r'^photos/', include(('photos.urls', 'photos'), namespace='photos')),
+    url(r'^news/', include(('news.urls', 'news'), namespace='news')),
 ]
 
 
