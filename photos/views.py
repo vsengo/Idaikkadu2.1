@@ -1,20 +1,21 @@
 import time
 
-from django.shortcuts import render, redirect
 from django.http import JsonResponse
+from django.shortcuts import render, redirect
 from django.views import View
 
 from .forms import PhotoForm
 from .models import Photo
 
 
-class ProgressBarUploadView(View):
+class upload_photos(View):
     def get(self, request):
         photos_list = Photo.objects.all()
-        return render(self.request, 'photos/progress_bar_upload/index.html', {'photos': photos_list})
+        return render(self.request, 'photos/photo-upload.html', {'photos': photos_list})
 
     def post(self, request):
-        time.sleep(1)  # You don't need this line. This is just to delay the process so you can see the progress bar testing locally.
+        time.sleep(
+            1)  # You don't need this line. This is just to delay the process so you can see the progress bar testing locally.
         form = PhotoForm(self.request.POST, self.request.FILES)
         if form.is_valid():
             photo = form.save()
@@ -34,7 +35,7 @@ def clear_database(request):
 class DragAndDropUploadView(View):
     def get(self, request):
         photos_list = Photo.objects.all()
-        return render(self.request, 'photos/progress_bar_upload/index.html', {'photos': photos_list})
+        return render(self.request, 'photos/photo-upload.html', {'photos': photos_list})
 
     def post(self, request):
         form = PhotoForm(self.request.POST, self.request.FILES)

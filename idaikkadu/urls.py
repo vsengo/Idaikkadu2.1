@@ -19,11 +19,9 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path
 
-from idaikkadu import views
-
 urlpatterns = [
     path('admin/', admin.site.urls),
-    url(r'^$', views.home.as_view(), name='home'),
+    url(r'^$', include(('web.urls', 'web'), namespace='web')),
     url(r'^photos/', include(('photos.urls', 'photos'), namespace='photos')),
     url(r'^news/', include(('news.urls', 'news'), namespace='news')),
 ]

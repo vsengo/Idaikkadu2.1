@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 import os
 
 from django.core.exceptions import ImproperlyConfigured
+
+
 def get_env_variable(var_name):
     try:
         return os.environ[var_name]
@@ -21,10 +23,8 @@ def get_env_variable(var_name):
         raise ImproperlyConfigured(error_msg)
 
 
-
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
@@ -36,7 +36,6 @@ SECRET_KEY = '*b9@3$g%@3%9k@dftvjogfuxhko8sbg!)e5qgfl1re28n*#5qa'
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -52,6 +51,7 @@ INSTALLED_APPS = [
     'photos',
     'bootstrap4',
     'news',
+    'web'
 ]
 
 MIDDLEWARE = [
@@ -84,21 +84,24 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'idaikkadu.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
 DATABASES = {
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.mysql',
+    #     'NAME': 'idaikkadu_db',
+    #     'USER': 'root',
+    #     'PASSWORD': '',
+    #     'HOST': 'localhost',
+    #     'PORT': '3306'
+    # }
+
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'idaikkadu_db',
-        'USER': 'root',
-        'PASSWORD': '',
-        'HOST': 'localhost',
-        'PORT': '3306'
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-
 
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
 
@@ -116,7 +119,6 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
@@ -146,8 +148,7 @@ EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'vsengo@gmail.com'
-EMAIL_HOST_PASSWORD ='AmmanKovil'
-
+EMAIL_HOST_PASSWORD = 'AmmanKovil'
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
