@@ -1,0 +1,37 @@
+{% extends 'web/base.html' %}
+
+{% block content %}
+
+<section class="py-5">
+    <div class="container">
+
+        <div class="row">
+            <div class="col-12 " align="center">
+                <h2>
+                    Gallery
+                </h2>
+
+                <div class="container">
+                    <hr class="mt-2 mb-5">
+                    <div class="row text-center text-lg-left">
+                        {% for photo in photo_list %}
+                        <div class="col-lg-3 col-md-4 col-6">
+                            <a href="#" class="d-block mb-4 h-100">
+                                <img class="img-fluid img-thumbnail" src="{{  photo.file.url }}" alt="">
+                            </a>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <form method="post" action="{% url 'photos:clear_database' %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="next" value="{{ request.path }}">
+                    <button type="submit" class="btn btn-danger pull-right">
+                        <span class="glyphicon glyphicon-trash"></span> Clear Database
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock content %}

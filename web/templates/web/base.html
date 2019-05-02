@@ -29,29 +29,35 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link disabled" href="#">School</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled" href="#">Associations</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled" href="#">Photos</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled " href="#">Temples</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled" href="#">Archive</a>
-                </li>
+<!--                <li class="nav-item">-->
+<!--&lt;!&ndash;                    <a class="nav-link disabled" href="#">School</a>&ndash;&gt;-->
+<!--                </li>-->
+<!--                <li class="nav-item">-->
+<!--                    <a class="nav-link disabled" href="#">Associations</a>-->
+<!--                </li>-->
+<!--                <li class="nav-item">-->
+<!--                    <a class="nav-link disabled" href="#">Photos</a>-->
+<!--                </li>-->
+<!--                <li class="nav-item">-->
+<!--                    <a class="nav-link disabled " href="#">Temples</a>-->
+<!--                </li>-->
+<!--                <li class="nav-item">-->
+<!--                    <a class="nav-link disabled" href="#">Archive</a>-->
+<!--                </li>-->
                 <!--<li class="nav-item">-->
                 <!--<a class="nav-link disabled" href="#">Utilities</a>-->
                 <!--</li>                -->
+<!--                <li class="nav-item">-->
+<!--                    <a class="nav-link" href="news/add-news">News</a>-->
+<!--                </li>-->
                 <li class="nav-item">
-                    <a class="nav-link" href="news/add-news">Add News</a>
+                    <a class="nav-link" href="{% url 'photos:view-photos' %}">Photos</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="photos/upload-photos">Add Photos</a>
+                    <a class="nav-link" href="{% url 'news:add-news' %}">Add News</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'photos:upload-photos' %}">Add Photos</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link disabled" href="#">Login</a>

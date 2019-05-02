@@ -20,7 +20,7 @@
                     </button>
                     <input id="fileupload" type="file" name="file" multiple
                            style="display: none;"
-                           data-url="{% url 'photos:progress_bar_upload' %}"
+                           data-url="{% url 'photos:upload-photos' %}"
                            data-form-data='{"csrfmiddlewaretoken": "{{ csrf_token }}"}'>
                 </div>
 
@@ -43,43 +43,17 @@
                 <div class="upload-drop-zone">
                     Just drag and drop files here
                     <input id="fileupload2" type="file" name="file" multiple style="display: none;"
-                           data-url="{% url 'photos:progress_bar_upload' %}"
+                           data-url="{% url 'photos:upload-photos' %}"
                            data-form-data='{"csrfmiddlewaretoken": "{{ csrf_token }}"}'>
                 </div>
-
                 <div>
+                    <h3>Recently uploaded</h3>
                     <table id="gallery" class="table table-bordered">
-                        <thead>
-                        <tr>
-                            <th>Photo</th>
-                        </tr>
-                        </thead>
+
                         <tbody>
                         </tbody>
                     </table>
                 </div>
-                <div class="container">
-
-                    <hr class="mt-2 mb-5">
-
-                    <div class="row text-center text-lg-left">
-                        {% for photo in photos %}
-                        <div class="col-lg-3 col-md-4 col-6">
-                            <a href="#" class="d-block mb-4 h-100">
-                                <img class="img-fluid img-thumbnail" src="{{  photo.file.url }}" alt="">
-                            </a>
-                        </div>
-                        {% endfor %}
-                    </div>
-                </div>
-
-                <form method="post" action="{% url 'photos:clear_database' %}">
-                    {% csrf_token %}
-                    <input type="hidden" name="next" value="{{ request.path }}">
-                    <button type="submit" class="btn btn-danger pull-right">
-                        <span class="glyphicon glyphicon-trash"></span> Clear Database
-                    </button>
-                </form>
             </div>
         </div>
     </div>
@@ -96,5 +70,5 @@
 <script src="{% static 'js/jquery-file-upload/jquery.fileupload.js' %}"></script>
 
 {# PHOTOS PAGE SCRIPTS #}
-<script src="{% static 'photos/js/progress-bar-upload.js' %}"></script>
+<script src="{% static 'js/progress-bar-upload.js' %}"></script>
 {% endblock %}
