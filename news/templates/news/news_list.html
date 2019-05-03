@@ -1,0 +1,30 @@
+{% extends 'web/base.html' %}
+
+{% block content %}
+
+<section class="py-5">
+    <div class="container">
+
+        <div class="row">
+            <div class="col-12 " align="center">
+                <h2>
+                    News Gallery
+                </h2>
+
+                <div class="container">
+                    <hr class="mt-2 mb-5">
+                    <div class="row text-center text-lg-left">
+                        {% for news in news_list %}
+                        <div class="col-lg-3 col-md-4 col-6">
+                            <a href="#" class="d-block mb-4 h-100">
+                                {{news.title}}
+                            </a>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock content %}
