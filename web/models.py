@@ -35,7 +35,7 @@ class Content(models.Model):
     countDisLike = models.PositiveSmallIntegerField()
     imageDir = models.FileField(upload_to='Image/%Y')
     link = models.URLField(blank=True, help_text="Optional : any link to share")
-    create_date = models.DateField(auto_now=True)
+    #create_date = models.DateField(auto_now=True)
     release_date = models.DateField()
     updated_by = models.CharField(max_length=128)
 

@@ -1,5 +1,7 @@
-from django.http import HttpResponseRedirect
+from datetime import time
+from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
+from django.views import View
 from django.views.generic import ListView, CreateView
 
 from news.forms import NewsForm
@@ -17,3 +19,9 @@ class AddNewsView(CreateView):
 
     def form_valid(self, form):
         return super().form_valid(form)
+
+
+class DetailNewsView(ListView):
+    model = News
+    def get_queryset(self):
+        return News.objects.filter(id=self.kwargs['pk'])
