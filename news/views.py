@@ -21,3 +21,18 @@ class DetailNewsView(ListView):
     model = News
     def get_queryset(self):
         return News.objects.filter(id=self.kwargs['pk'])
+
+class JaffnaNewsView(ListView):
+    model = News
+    def get_queryset(self):
+        return News.objects.filter(category = 'jaffna')
+
+class SrilankaNewsView(ListView):
+    model = News
+    def get_queryset(self):
+        return News.objects.filter(category = 'srilanka')
+
+class InternationalNewsView(ListView):
+    model = News
+    def get_queryset(self):
+        return News.objects.filter(category = 'international')
