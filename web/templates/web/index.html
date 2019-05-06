@@ -39,7 +39,7 @@
     <!-- Call to Action Well -->
     <div class="card text-white bg-secondary my-5 py-4 text-center">
             <div class="card-body">
-        <p class="text-white m-0">{{ news.title }}</p>
+        <p class="text-white m-0">{{ newsLatest }}</p>
       </div>
     </div>
 
@@ -49,13 +49,7 @@
         <div class="card h-100">
           <div class="card-body">
             <h2 class="card-title">Old News</h2>
-            <ul style="list-style-type:disc">
-                <li>Apri 22: Cras justo odio</li>
-                <li>Mar 10: Dapibus ac facilisis in</li>
-                <li>Morbi leo risus</li>
-                <li>Porta ac consectetur ac</li>
-                <li>Vestibulum at eros</li>
-              </ul>
+            <p class="text-black m-0">{{ newsInternational }}</p>
           </div>
           <div class="card-footer">
             <a href="#" class="btn btn-primary btn-sm">More Info</a>
@@ -67,13 +61,7 @@
         <div class="card h-100">
           <div class="card-body">
             <h2 class="card-title">Jaffna News</h2>
-            <ul style="list-style-type:disc">
-                <li>Apri 22: Cras justo odio</li>
-                <li>Mar 10: Dapibus ac facilisis in</li>
-                <li>Morbi leo risus</li>
-                <li>Porta ac consectetur ac</li>
-                <li>Vestibulum at eros</li>
-              </ul>
+            <p class="text-black m-0">{{ newsIdaikkadu }}</p>
           </div>
           <div class="card-footer">
             <a href="#" class="btn btn-primary btn-sm">More Info</a>
@@ -85,16 +73,10 @@
         <div class="card h-100">
           <div class="card-body">
             <h2 class="card-title">Srilankan News</h2>
-            <ul style="list-style-type:disc">
-                <li>Apri 22: Cras justo odio</li>
-                <li>Mar 10: Dapibus ac facilisis in</li>
-                <li>Morbi leo risus</li>
-                <li>Porta ac consectetur ac</li>
-                <li>Vestibulum at eros</li>
-              </ul>
+            <p class="text-black m-0">{{ newsSrilanka }}</p>
           </div>
           <div class="card-footer">
-            <a href="#" class="btn btn-primary btn-sm">More Info</a>
+            <a href="{% url 'news:detail-news' newsIdaikkaduId %}" class="btn btn-primary btn-sm">More Info</a>
           </div>
         </div>
       </div>
