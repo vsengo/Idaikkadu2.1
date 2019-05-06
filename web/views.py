@@ -13,9 +13,8 @@ class IndexView(ListView):
     def get_context_data(self, **kwargs):
         context = super(IndexView, self).get_context_data(**kwargs)
         context['news'] = News.objects.all().order_by('-create_date')
-        context['news_latest'] = News.objects.all().order_by('-create_date').first().title
-        context['news_international'] = context['news'].filter(category='international').first().title
-        context['news_srilanka'] = context['news'].filter(category='srilanka').first().title
-        context['news_jaffna'] = context['news'].filter(category='jaffna').first().title
-        context['news_jaffna_id'] = context['news'].filter(category='jaffna').first().id
+        context['news_latest'] = News.objects.all().order_by('-create_date').first()
+        context['news_international'] = context['news'].filter(category='international').first()
+        context['news_srilanka'] = context['news'].filter(category='srilanka').first()
+        context['news_jaffna'] = context['news'].filter(category='jaffna').first()
         return context

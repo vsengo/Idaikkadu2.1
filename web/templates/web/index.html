@@ -28,8 +28,8 @@
 
         <!-- /.col-lg-8 -->
         <div class="col-lg-4 my-auto">
-            <h1 class="font-weight-light">News title</h1>
-            <p>{{news_latest}} </p>
+            <h1 class="font-weight-light">{{ news_latest.title }}</h1>
+            <p>{{news_latest.content}} </p>
             <a class="btn btn-primary" href="#">Read more</a>
         </div>
         <!-- /.col-md-4 -->
@@ -48,15 +48,20 @@
         <div class="col-md-4 mb-5">
             <div class="card h-100">
                 <img class="card-img-top"
-                     src="https://dummyimage.com/600x400/105759/ffffff&text=Upload+image+else+set+to+default"
+                     src={{  news_international.image.url }}
                      alt="Card image cap">
 
                 <div class="card-body">
-                    <h3 class="card-title"> News title</h3>
-                    <p class="text-black m-0">{{ news_international }}</p>
+                    {% if news_international %}
+                    <h3 class="card-subtitle">{{ news_international.title }}</h3>
+                    <p class="text-black m-0">{{ news_international.content }}</p>
+                    {% else %}
+                    <h3 class="card-subtitle">None</h3>
+                    <p class="text-black m-0">None</p>
+                    {% endif %}
                 </div>
                 <div class="card-footer">
-                    <a href="#" class="btn btn-primary btn-sm">More Info</a>
+                    <a href="{% url 'news:detail-news' news_international.id %}" class="btn btn-primary btn-sm">More</a>
                 </div>
             </div>
         </div>
@@ -64,15 +69,20 @@
         <div class="col-md-4 mb-5">
             <div class="card h-100">
                 <img class="card-img-top"
-                     src="https://dummyimage.com/600x400/105759/ffffff&text=Upload+image+else+set+to+default"
+                     src={{  news_jaffna.image.url }}
                      alt="Card image cap">
 
                 <div class="card-body">
-                    <h3 class="card-title">News title</h3>
-                    <p class="text-black m-0">{{ news_jaffna }}</p>
+                    {% if news_jaffna %}
+                    <h3 class="card-subtitle">{{  news_jaffna.title }}</h3>
+                    <p class="text-black m-0">{{ news_jaffna.content }}</p>
+                    {% else %}
+                    <h3 class="card-subtitle">None</h3>
+                    <p class="text-black m-0">None</p>
+                    {% endif %}
                 </div>
                 <div class="card-footer">
-                    <a href="#" class="btn btn-primary btn-sm">More Info</a>
+                    <a href="{% url 'news:detail-news' news_jaffna.id %}" class="btn btn-primary btn-sm">More</a>
                 </div>
             </div>
         </div>
@@ -80,14 +90,19 @@
         <div class="col-md-4 mb-5">
             <div class="card h-100">
                 <img class="card-img-top"
-                     src="https://dummyimage.com/600x400/105759/ffffff&text=Upload+image+else+set+to+default"
+                     src={{  news_srilanka.image.url }}
                      alt="Card image cap">
                 <div class="card-body">
-                    <h3 class="card-subtitle">News title</h3>
-                    <p class="text-black m-0">{{ news_srilanka }}</p>
+                    {% if news_srilanka %}
+                    <h3 class="card-subtitle">{{  news_srilanka.title }}</h3>
+                    <p class="text-black m-0">{{ news_srilanka.content }}</p>
+                    {% else %}
+                    <h3 class="card-subtitle">None</h3>
+                    <p class="text-black m-0">None</p>
+                    {% endif %}
                 </div>
                 <div class="card-footer">
-                    <a href="{% url 'news:detail-news' news_jaffna_id %}" class="btn btn-primary btn-sm">More</a>
+                    <a href="{% url 'news:detail-news' news_srilanka.id %}" class="btn btn-primary btn-sm">More</a>
                 </div>
             </div>
         </div>
