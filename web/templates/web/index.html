@@ -1,109 +1,106 @@
 {% extends 'web/base.html' %}
 
 {% block content %}
-    <div class="container">
- <div class="row">
+<div class="container-fluid">
+    <div class="row">
+        <!-- Heading Row -->
 
-   <!-- Heading Row -->
-
-      <div class="col-lg-8">
-
-        <!--<img class="img-fluid rounded mb-4 mb-lg-0" src="http://placehold.it/900x400" alt="">-->
-          <div class="carousel slide bg-dark" data-ride="carousel" id="carouselExampleIndicators">
-        <div class="carousel-inner" role="listbox">
-          {% for photo in photos %}
-            <div class="carousel-item {% if forloop.counter == 1 %}active{% endif %}" style="background-image: url({{  photo.file.url }})">
-          </div>
-          {% endfor %}
+        <div class="col-lg-8">
+            <!--<img class="img-fluid rounded mb-4 mb-lg-0" src="http://placehold.it/900x400" alt="">-->
+            <div class="carousel slide bg-dark" data-ride="carousel" id="carouselExampleIndicators">
+                <div class="carousel-inner" role="listbox">
+                    {% for photo in photos %}
+                    <div class="carousel-item {% if forloop.counter == 1 %}active{% endif %}"
+                         style="background-image: url({{  photo.file.url }})">
+                    </div>
+                    {% endfor %}
+                </div>
+                <a class="carousel-control-prev" data-slide="prev" href="#carouselExampleIndicators" role="button">
+                    <span aria-hidden="true" class="carousel-control-prev-icon"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" data-slide="next" href="#carouselExampleIndicators" role="button">
+                    <span aria-hidden="true" class="carousel-control-next-icon"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
         </div>
-        <a class="carousel-control-prev" data-slide="prev" href="#carouselExampleIndicators" role="button">
-              <span aria-hidden="true" class="carousel-control-prev-icon"></span>
-              <span class="sr-only">Previous</span>
-            </a>
-        <a class="carousel-control-next" data-slide="next" href="#carouselExampleIndicators" role="button">
-              <span aria-hidden="true" class="carousel-control-next-icon"></span>
-              <span class="sr-only">Next</span>
-            </a>
-      </div>
-      </div>
 
-      <!-- /.col-lg-8 -->
-      <div class="col-lg-4 my-auto">
-        <!--<h1 class="font-weight-light">Idaikkadu</h1>-->
-        <p>This is the place where Tharsiga along with her family lives in currently. Tharsiga, also known as Abi, has a home - recently renovated - here. </p>
-        <a class="btn btn-primary" href="#">Read more</a>
-      </div>
-      <!-- /.col-md-4 -->
+        <!-- /.col-lg-8 -->
+        <div class="col-lg-4 my-auto">
+            <h1 class="font-weight-light">News title</h1>
+            <p>{{news_latest}} </p>
+            <a class="btn btn-primary" href="#">Read more</a>
+        </div>
+        <!-- /.col-md-4 -->
     </div>
     <!-- /.row -->
     <!-- Call to Action Well -->
     <div class="card text-white bg-secondary my-5 py-4 text-center">
-            <div class="card-body">
-        <p class="text-white m-0">{{ newsLatest }}</p>
-      </div>
+        <div class="card-body">
+            <h3>Breaking news</h3>
+            <p class="text-white m-0">..........Breaking news............</p>
+        </div>
     </div>
 
     <!-- Content Row -->
     <div class="row">
-      <div class="col-md-4 mb-5">
-        <div class="card h-100">
-          <div class="card-body">
-            <h2 class="card-title">Old News</h2>
-            <p class="text-black m-0">{{ newsInternational }}</p>
-          </div>
-          <div class="card-footer">
-            <a href="#" class="btn btn-primary btn-sm">More Info</a>
-          </div>
-        </div>
-      </div>
-      <!-- /.col-md-4 -->
-      <div class="col-md-4 mb-5">
-        <div class="card h-100">
-          <div class="card-body">
-            <h2 class="card-title">Jaffna News</h2>
-            <p class="text-black m-0">{{ newsIdaikkadu }}</p>
-          </div>
-          <div class="card-footer">
-            <a href="#" class="btn btn-primary btn-sm">More Info</a>
-          </div>
-        </div>
-      </div>
-      <!-- /.col-md-4 -->
-      <div class="col-md-4 mb-5">
-        <div class="card h-100">
-          <div class="card-body">
-            <h2 class="card-title">Srilankan News</h2>
-            <p class="text-black m-0">{{ newsSrilanka }}</p>
-          </div>
-          <div class="card-footer">
-            <a href="{% url 'news:detail-news' newsIdaikkaduId %}" class="btn btn-primary btn-sm">More Info</a>
-          </div>
-        </div>
-      </div>
-      <!-- /.col-md-4 -->
+        <div class="col-md-4 mb-5">
+            <div class="card h-100">
+                <img class="card-img-top"
+                     src="https://dummyimage.com/600x400/105759/ffffff&text=Upload+image+else+set+to+default"
+                     alt="Card image cap">
 
-    <!--<div class="col-md-4 mb-5">-->
-        <!--<div class="card">-->
-          <!--<div class="card-body">-->
-            <!--<h2 class="card-title">Advertisement</h2>-->
-            <!--<img class="img-fluid rounded mb-4" src="http://placehold.it/300x600" alt="">-->
-            <!--<ul style="list-style-type:disc">-->
-                <!--<li>Daily Quotes</li>-->
-                <!--<li>Event Annoucements</li>-->
-                <!--<li>Advertisements</li>-->
-              <!--</ul>-->
-          <!--</div>-->
-        <!--</div>-->
-      </div>
-   </div>
- </div>
+                <div class="card-body">
+                    <h3 class="card-title"> News title</h3>
+                    <p class="text-black m-0">{{ news_international }}</p>
+                </div>
+                <div class="card-footer">
+                    <a href="#" class="btn btn-primary btn-sm">More Info</a>
+                </div>
+            </div>
+        </div>
+        <!-- /.col-md-4 -->
+        <div class="col-md-4 mb-5">
+            <div class="card h-100">
+                <img class="card-img-top"
+                     src="https://dummyimage.com/600x400/105759/ffffff&text=Upload+image+else+set+to+default"
+                     alt="Card image cap">
 
-  <!-- Footer -->
-  <footer class="footer navbar-fixed-bottom py-3 bg-dark">
-    <div class="container">
-      <p class="m-0 text-center text-white">Copyright &copy; Your Website 2019, all shortcuts and links, Copy right, Hit counts</p>
+                <div class="card-body">
+                    <h3 class="card-title">News title</h3>
+                    <p class="text-black m-0">{{ news_jaffna }}</p>
+                </div>
+                <div class="card-footer">
+                    <a href="#" class="btn btn-primary btn-sm">More Info</a>
+                </div>
+            </div>
+        </div>
+        <!-- /.col-md-4 -->
+        <div class="col-md-4 mb-5">
+            <div class="card h-100">
+                <img class="card-img-top"
+                     src="https://dummyimage.com/600x400/105759/ffffff&text=Upload+image+else+set+to+default"
+                     alt="Card image cap">
+                <div class="card-body">
+                    <h3 class="card-subtitle">News title</h3>
+                    <p class="text-black m-0">{{ news_srilanka }}</p>
+                </div>
+                <div class="card-footer">
+                    <a href="{% url 'news:detail-news' news_jaffna_id %}" class="btn btn-primary btn-sm">More</a>
+                </div>
+            </div>
+        </div>
     </div>
-    <!-- /.container -->
-  </footer>
+
+    <!-- Footer -->
+    <footer class="footer navbar-fixed-bottom py-3 bg-dark">
+        <div class="container">
+            <p class="m-0 text-center text-white">Copyright &copy; Your Website 2019, all shortcuts and links, Copy
+                right,
+                Hit counts</p>
+        </div>
+        <!-- /.container -->
+    </footer>
     <!-- /.row -->
     {% endblock %}

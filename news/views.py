@@ -1,7 +1,3 @@
-from datetime import time
-from django.http import HttpResponseRedirect, JsonResponse
-from django.shortcuts import render
-from django.views import View
 from django.views.generic import ListView, CreateView
 
 from news.forms import NewsForm

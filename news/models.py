@@ -3,7 +3,7 @@ from django.db import models
 CATEGORY_CHOICES = (
     ('international','International'),
     ('srilanka', 'Sri Lanka'),
-    ('idaikkadu','Idaikkadu'),
+    ('jaffna','Jaffna'),
 )
 
 class News(models.Model):
