@@ -23,12 +23,18 @@
 <div class="d-flex" id="wrapper">
 
     <div class="bg-light border-right" id="sidebar-wrapper">
-        <div class="sidebar-heading"><a href="/"> IDAIKKADU</a></div>
-        <div class="list-group list-group-flush">
-            <a class="nav-link" href="{% url 'news:jaffna-news' %}" class="list-group-item list-group-item-action bg-light">Jaffna News</a>
-            <a class="nav-link" href="{% url 'news:srilanka-news' %}" class="list-group-item list-group-item-action bg-light">Sri Lanka News</a>
-            <a class="nav-link" href="{% url 'news:international-news' %}" class="list-group-item list-group-item-action bg-light">International News</a>
-            <a class="nav-link" href="{% url 'news:international-news' %}" class="list-group-item list-group-item-action bg-light">Events</a>
+        <div class="sidebar-heading">
+            <a href="/"><img src="{% static 'images/logo.jpeg' %}" alt="" width="200" height="80"></a>
+        </div>
+        <div class="list-group list-group-flush text-center">
+            <a href="{% url 'news:jaffna-news' %}"
+               class="list-group-item list-group-item-action bg-light">Jaffna News</a>
+            <a href="{% url 'news:srilanka-news' %}"
+               class="list-group-item list-group-item-action bg-light">Sri Lanka News</a>
+            <a href="{% url 'news:international-news' %}"
+               class="list-group-item list-group-item-action bg-light">International News</a>
+            <a href="{% url 'news:international-news' %}"
+               class="list-group-item list-group-item-action bg-light">Events</a>
         </div>
     </div>
 
@@ -66,19 +72,19 @@
         {% block content %}
         {% endblock %}
 
-<!--        <div>-->
-<!--            <div class="card">-->
-<!--                <div class="card-body">-->
-<!--                    <h2 class="card-title">Advertisement</h2>-->
-<!--                    <img class="img-fluid rounded" src="http://placehold.it/300x600" alt="">-->
-<!--                    <ul style="list-style-type:disc">-->
-<!--                        <li>Daily Quotes</li>-->
-<!--                        <li>Event Annoucements</li>-->
-<!--                        <li>Advertisements</li>-->
-<!--                    </ul>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
+        <!--        <div>-->
+        <!--            <div class="card">-->
+        <!--                <div class="card-body">-->
+        <!--                    <h2 class="card-title">Advertisement</h2>-->
+        <!--                    <img class="img-fluid rounded" src="http://placehold.it/300x600" alt="">-->
+        <!--                    <ul style="list-style-type:disc">-->
+        <!--                        <li>Daily Quotes</li>-->
+        <!--                        <li>Event Annoucements</li>-->
+        <!--                        <li>Advertisements</li>-->
+        <!--                    </ul>-->
+        <!--                </div>-->
+        <!--            </div>-->
+        <!--        </div>-->
     </div>
 </div>
 
@@ -87,6 +93,10 @@
       e.preventDefault();
       $("#wrapper").toggleClass("toggled");
     });
+
+
+
+
 
 
 

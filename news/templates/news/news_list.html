@@ -2,39 +2,33 @@
 
 {% block content %}
 
-<section class="py-5">
-    <div class="container">
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12 mb-4 mt-4" align="center">
+            <h2>
+                News Gallery
+            </h2>
+            <hr class="mt-2 mb-5">
+        </div>
 
-        <div class="row">
-            <div class="col-12 " align="center">
-                <h2>
-                    News Gallery
-                </h2>
-
-                <div class="container">
-                    <hr class="mt-2 mb-5">
-                    <div class="row text-center text-lg-left">
-                        {% for news in news_list %}
-                        <div class="col-lg-3 col-md-4 col-6">
-                            <a href="#" class="d-block mb-4 h-100">
-                                {{news.title}}
-                            </a>
-                        </div>
-                        <div class="col-lg-3 col-md-4 col-6">
-                            <a href="#" class="d-block mb-4 h-100">
-                                {{news.content}}
-                            </a>
-                        </div>
-                        <div class="col-lg-3 col-md-4 col-6">
-                            <img class="card-img-top"
-                     src={{  news.image.url }}
+        <div class="row text-center justify-content-center">
+            {% for news in news_list %}
+            <div class="col-md-3 col-sm-6 mt-2 mb-2 mx-2 card">
+                <img class="card-img-top"
+                     src={{ news.image.url }}
                      alt="Card image cap">
-                        </div>
-                        {% endfor %}
-                    </div>
+                <div class="card-body">
+                    <h3 class="card-title">{{ news.title }}</h3>
+                    <p>{{news.content}}</p>
+                </div>
+                <div class="card-footer">
+                    <a href="#" class="btn btn-primary btn-sm"> Read more</a>
                 </div>
             </div>
+            {% endfor %}
         </div>
     </div>
-</section>
+</div>
+
+
 {% endblock content %}

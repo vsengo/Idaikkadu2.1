@@ -20,6 +20,47 @@ body {
   width: 15rem;
 }
 
+#sidebar-wrapper .list-group {
+  width: 15rem;
+}
+
+#sidebar-wrapper a:link{
+    color: #585656;
+}
+
+#sidebar-wrapper a:hover {
+    text-decoration: none;
+    color: #0062cc;
+}
+
+#sidebar-wrapper a:visited {
+    text-decoration: none;
+}
+
+#page-content-wrapper .btn{
+
+  text-transform: uppercase;
+  font-weight: 500;
+  color: #585656;
+  background-color: #fff;
+  border-color: #585656;
+  border-radius: 20px;
+  transition: all 0.3s ease 0s;
+  cursor: pointer;
+  outline: none;
+
+}
+
+#page-content-wrapper .btn:hover {
+  background-color: #585656;
+  box-shadow: 0px 15px 20px;
+  color: #fff;
+  transform: translateY(-4px);
+    outline: none;
+
+}
+
+
 #page-content-wrapper {
   min-width: 100vw;
 }
