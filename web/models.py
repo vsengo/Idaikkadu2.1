@@ -1,5 +1,6 @@
 import uuid
 
+from django.contrib.auth.models import AbstractUser
 from django.db import models
 
 
@@ -35,7 +36,7 @@ class Content(models.Model):
     countDisLike = models.PositiveSmallIntegerField()
     imageDir = models.FileField(upload_to='Image/%Y')
     link = models.URLField(blank=True, help_text="Optional : any link to share")
-    #create_date = models.DateField(auto_now=True)
+    # create_date = models.DateField(auto_now=True)
     release_date = models.DateField()
     updated_by = models.CharField(max_length=128)
 
@@ -56,3 +57,14 @@ class Comment(models.Model):
 
     def __init__(self):
         approved = 'Y'
+
+
+class User(AbstractUser):
+    first_name = models.CharField('First Name of User', blank=True, max_length=20)
+    last_name = models.CharField('Last Name of User', blank=True, max_length=20)
+
+
+class Meta:
+    permissions = (("view_add_delete", "To provide update edit facility"),
+                   ("view_add", "To provide add facility"),
+                   ("view", "To provide update view facility"))

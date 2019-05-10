@@ -10,4 +10,6 @@ urlpatterns = [
     url(r'^jaffna-news$', views.JaffnaNewsView.as_view(), name='jaffna-news'),
     url(r'^srilanka-news$', views.SrilankaNewsView.as_view(), name='srilanka-news'),
     url(r'^international-news$', views.InternationalNewsView.as_view(), name='international-news'),
+    url(r'^(?P<pk>\d+)/edit-news$', views.NewsUpdate.as_view(), name='edit-news'),
+    url(r'^(?P<pk>\d+)/delete-news$', views.NewsDelete.as_view(), name='delete-news'),
 ]
