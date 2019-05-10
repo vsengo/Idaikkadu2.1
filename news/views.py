@@ -18,6 +18,20 @@ class AddNewsView(CreateView):
         return super().form_valid(form)
 
 
+class NewsUpdate(UpdateView):
+    model = News
+    form_class = NewsForm
+    template_name = 'news/add-news.html'
+
+    def get_queryset(self):
+        return News.objects.filter(id=self.kwargs['pk'])
+
+
+class NewsDelete(DeleteView):
+    model = News
+    success_url = reverse_lazy('news:news_list')
+
+
 class DetailNewsView(ListView):
     model = News
 
@@ -44,17 +58,3 @@ class InternationalNewsView(ListView):
 
     def get_queryset(self):
         return News.objects.filter(category='international')
-
-
-class NewsUpdate(UpdateView):
-    model = News
-    form_class = NewsForm
-    template_name = 'news/add-news.html'
-
-    def get_queryset(self):
-        return News.objects.filter(id=self.kwargs['pk'])
-
-
-class NewsDelete(DeleteView):
-    model = News
-    success_url = 'view-news'

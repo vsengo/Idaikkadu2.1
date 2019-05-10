@@ -20,15 +20,12 @@
                 <div class="card-body">
                     <h3 class="card-title">{{ news.title }}</h3>
                     <p>{{news.content}}</p>
-                </div>
-                <div class="card-footer">
                     <a href="#" class="btn btn-primary btn-sm"> Read more</a>
                 </div>
+
                 <div class="card-footer">
                     <a href="{% url 'news:edit-news' news.id %}" class="btn btn-primary btn-sm">Edit</a>
-                </div>
-                <div class="card-footer">
-                    <a href="{% url 'news:delete -news' news.id %}" class="btn btn-primary btn-sm">Delete</a>
+                    <a href="{% url 'news:delete-news' news.id %}" class="btn btn-primary btn-sm">Delete</a>
                 </div>
             </div>
             {% endfor %}
