@@ -51,7 +51,7 @@ INSTALLED_APPS = [
     'photos',
     'bootstrap4',
     'news',
-    'web'
+    'web',
 ]
 
 MIDDLEWARE = [
@@ -154,3 +154,5 @@ MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 AUTH_USER_MODEL = "web.User"
+
+LOGIN_REDIRECT_URL = '/'

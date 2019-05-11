@@ -1,8 +1,9 @@
+from django.utils.decorators import method_decorator
+from django.views.decorators.csrf import ensure_csrf_cookie, csrf_protect
 from django.views.generic import ListView
 
 from news.models import News
 from photos.models import Photo
-
 
 class IndexView(ListView):
     # queryset = Photo.objects.order_by('-create_date')
@@ -10,6 +11,7 @@ class IndexView(ListView):
     context_object_name = 'photos'
     template_name = 'web/index.html'
 
+    method_decorator(csrf_protect)
     def get_context_data(self, **kwargs):
         context = super(IndexView, self).get_context_data(**kwargs)
         context['news'] = News.objects.all().order_by('-create_date')

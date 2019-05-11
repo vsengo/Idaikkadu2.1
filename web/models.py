@@ -67,4 +67,4 @@ class User(AbstractUser):
 class Meta:
     permissions = (("view_add_delete", "To provide update edit facility"),
                    ("view_add", "To provide add facility"),
-                   ("view", "To provide update view facility"))
+                   ("view_only", "To provide update view facility"))
