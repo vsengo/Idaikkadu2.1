@@ -21,9 +21,12 @@ class UploadPhotosView(View):
     def post(self, request):
         time.sleep(1)
         form = PhotoForm(self.request.POST, self.request.FILES)
+        print("before form")
         if form.is_valid():
+            print("after form")
             photo = form.save()
             data = {'is_valid': True, 'name': photo.file.name, 'url': photo.file.url}
+            print("success")
         else:
             data = {'is_valid': False}
         return JsonResponse(data)
