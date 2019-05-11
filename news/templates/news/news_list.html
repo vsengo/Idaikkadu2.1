@@ -10,12 +10,14 @@
             </h2>
             <hr class="mt-2 mb-5">
         </div>
+    </div>
 
-        <div class="row text-center justify-content-center">
-            {% for news in news_list %}
-            <div class="col-md-3 col-sm-6 mt-2 mb-2 mx-2 card">
+    <div class="row text-center justify-content-center">
+        {% for news in news_list %}
+        <div class="col-md-4 col-sm-6 mt-2 mb-2">
+            <div class="card h-100">
                 <img class="card-img-top"
-                     src={{ news.image.url }}
+                     src={{ news.image.url }} class="img-responsive" width="100%"
                      alt="Card image cap">
                 <div class="card-body">
                     <h3 class="card-title">{{ news.title }}</h3>
@@ -28,10 +30,9 @@
                     <a href="{% url 'news:delete-news' news.id %}" class="btn btn-primary btn-sm">Delete</a>
                 </div>
             </div>
-            {% endfor %}
         </div>
+        {% endfor %}
     </div>
 </div>
-
 
 {% endblock content %}

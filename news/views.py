@@ -1,5 +1,5 @@
 from django.urls import reverse_lazy
-from django.views.generic import ListView, CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
 
 from news.forms import NewsForm
 from news.models import News
@@ -22,6 +22,7 @@ class NewsUpdate(UpdateView):
     model = News
     form_class = NewsForm
     template_name = 'news/add-news.html'
+    success_url = reverse_lazy('news:news_list')
 
     def get_queryset(self):
         return News.objects.filter(id=self.kwargs['pk'])
@@ -32,7 +33,7 @@ class NewsDelete(DeleteView):
     success_url = reverse_lazy('news:news_list')
 
 
-class DetailNewsView(ListView):
+class DetailNewsView(DetailView):
     model = News
 
     def get_queryset(self):

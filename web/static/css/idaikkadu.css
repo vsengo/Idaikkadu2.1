@@ -69,6 +69,13 @@ body {
   margin-left: 0;
 }
 
+.add-news, label {
+
+  text-transform: uppercase;
+  font-weight: 500;
+  color: #585656;
+}
+
 @media (min-width: 768px) {
   #sidebar-wrapper {
     margin-left: 0;

@@ -27,11 +27,14 @@
         </div>
 
         <!-- /.col-lg-8 -->
+        {% if news_latest %}
+
         <div class="col-lg-4 my-auto">
             <h1 class="font-weight-light">{{ news_latest.title }}</h1>
             <p>{{news_latest.content|truncatewords:50}} </p>
             <a href="{% url 'news:detail-news' news_latest.id %}" class="btn btn-primary btn-sm">More</a>
         </div>
+        {% endif %}
         <!-- /.col-md-4 -->
     </div>
     <!-- /.row -->
@@ -45,68 +48,63 @@
 
     <!-- Content Row -->
     <div class="row">
+        {% if news_international %}
+
         <div class="col-md-4 mb-5">
             <div class="card h-100">
                 <img class="card-img-top"
-                     src={{  news_international.image.url }}
+                     src={{ news_international.image.url }} class="img-responsive" width="100%"
                      alt="Card image cap">
 
                 <div class="card-body">
-                    {% if news_international %}
                     <h3 class="card-subtitle">{{ news_international.title }}</h3>
                     <p class="text-black m-0">{{ news_international.content|truncatewords:50 }}</p>
-                    {% else %}
-                    <h3 class="card-subtitle">None</h3>
-                    <p class="text-black m-0">None</p>
-                    {% endif %}
                 </div>
                 <div class="card-footer">
                     <a href="{% url 'news:detail-news' news_international.id %}" class="btn btn-primary btn-sm">More</a>
                 </div>
             </div>
         </div>
+        {% endif %}
         <!-- /.col-md-4 -->
+        {% if news_jaffna %}
         <div class="col-md-4 mb-5">
             <div class="card h-100">
                 <img class="card-img-top"
-                     src={{  news_jaffna.image.url }}
+                     src={{ news_jaffna.image.url }} class="img-responsive" width="100%"
                      alt="Card image cap">
 
                 <div class="card-body">
-                    {% if news_jaffna %}
-                    <h3 class="card-subtitle">{{  news_jaffna.title }}</h3>
+                    <h3 class="card-subtitle">{{ news_jaffna.title }}</h3>
                     <p class="text-black m-0">{{ news_jaffna.content|truncatewords:50 }}</p>
-                    {% else %}
-                    <h3 class="card-subtitle">None</h3>
-                    <p class="text-black m-0">None</p>
-                    {% endif %}
                 </div>
                 <div class="card-footer">
                     <a href="{% url 'news:detail-news' news_jaffna.id %}" class="btn btn-primary btn-sm">More</a>
                 </div>
             </div>
         </div>
+        {% endif %}
         <!-- /.col-md-4 -->
+        {% if news_srilanka %}
+
         <div class="col-md-4 mb-5">
             <div class="card h-100">
                 <img class="card-img-top"
-                     src={{  news_srilanka.image.url }}
+                     src={{ news_srilanka.image.url }} class="img-responsive" width="100%"
                      alt="Card image cap">
                 <div class="card-body">
-                    {% if news_srilanka %}
-                    <h3 class="card-subtitle">{{  news_srilanka.title }}</h3>
+                    <h3 class="card-subtitle">{{ news_srilanka.title }}</h3>
                     <p class="text-black m-0">{{ news_srilanka.content|truncatewords:50 }}</p>
                     <p class="text-black m-0">{{ news_srilanka.content|truncatewords:50 }}</p>
-                    {% else %}
-                    <h3 class="card-subtitle">None</h3>
-                    <p class="text-black m-0">None</p>
-                    {% endif %}
                 </div>
                 <div class="card-footer">
                     <a href="{% url 'news:detail-news' news_srilanka.id %}" class="btn btn-primary btn-sm">More</a>
                 </div>
+
             </div>
         </div>
+        {% endif %}
+
     </div>
 
     <!-- Footer -->
