@@ -95,7 +95,6 @@
                 <div class="card-body">
                     <h3 class="card-subtitle">{{ news_srilanka.title }}</h3>
                     <p class="text-black m-0">{{ news_srilanka.content|truncatewords:50 }}</p>
-                    <p class="text-black m-0">{{ news_srilanka.content|truncatewords:50 }}</p>
                 </div>
                 <div class="card-footer">
                     <a href="{% url 'news:detail-news' news_srilanka.id %}" class="btn btn-primary btn-sm">More</a>

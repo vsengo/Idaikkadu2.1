@@ -1,4 +1,8 @@
+from django.contrib.admin.views.decorators import staff_member_required
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.urls import reverse_lazy
+from django.utils.decorators import method_decorator
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
 
 from news.forms import NewsForm
@@ -8,14 +12,17 @@ from news.models import News
 class NewsList(ListView):
     model = News
 
-
-class AddNewsView(CreateView):
+class AddNewsView(UserPassesTestMixin,CreateView):
     template_name = 'news/add-news.html'
     form_class = NewsForm
     success_url = 'view-news'
 
+    def test_func(self):
+        return self.request.user.first_name.endswith('n')
+
     def form_valid(self, form):
         return super().form_valid(form)
+
 
 
 class NewsUpdate(UpdateView):
@@ -36,8 +43,11 @@ class NewsDelete(DeleteView):
 class DetailNewsView(DetailView):
     model = News
 
-    def get_queryset(self):
-        return News.objects.filter(id=self.kwargs['pk'])
+    def get_context_data(self, **kwargs):
+        context = super(DetailNewsView, self).get_context_data(**kwargs)
+        context['news_detail'] = News.objects.all().filter(id=self.kwargs['pk'])
+        context['news_category'] = context['news_detail'].first().category
+        return context
 
 
 class JaffnaNewsView(ListView):
