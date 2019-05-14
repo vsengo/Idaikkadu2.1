@@ -22,13 +22,14 @@
                 <div class="card-body">
                     <h3 class="card-title">{{ news.title }}</h3>
                     <p>{{news.content}}</p>
-                    <a href="#" class="btn btn-primary btn-sm"> Read more</a>
+                     <a href="{% url 'news:detail-news' news.id %}" class="btn btn-primary btn-sm">Read More</a>
                 </div>
-
+                {% if user.is_authenticated %}
                 <div class="card-footer">
                     <a href="{% url 'news:edit-news' news.id %}" class="btn btn-primary btn-sm">Edit</a>
                     <a href="{% url 'news:delete-news' news.id %}" class="btn btn-primary btn-sm">Delete</a>
                 </div>
+                {% endif %}
             </div>
         </div>
         {% endfor %}
