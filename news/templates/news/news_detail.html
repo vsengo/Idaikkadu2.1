@@ -13,15 +13,14 @@
     </div>
 
     <div class="row text-center justify-content-center">
-        {% for news in news_detail %}
         <div class="col-md-4 col-sm-6 mt-2 mb-2">
             <div class="card h-100">
                 <img class="card-img-top"
                      src={{ news.image.url }} class="img-responsive" width="100%"
                      alt="Card image cap">
                 <div class="card-body">
-                    <h3 class="card-title">{{ news.title }}</h3>
-                    <p>{{news.content}}</p>
+                    <h3 class="card-title">{{ news_title }}</h3>
+                    <p>{{  news_content }}</p>
                 </div>
                 {% if user.is_authenticated %}
                 <div class="card-footer">
@@ -31,7 +30,6 @@
                 {% endif %}
             </div>
         </div>
-        {% endfor %}
     </div>
 </div>
 

@@ -43,6 +43,8 @@ class DetailNewsView(DetailView):
     def get_context_data(self, **kwargs):
         context = super(DetailNewsView, self).get_context_data(**kwargs)
         context['news_detail'] = News.objects.all().filter(id=self.kwargs['pk'])
+        context['news_title'] = context['news_detail'].first().title
+        context['news_content'] = context['news_detail'].first().content
         context['news_category'] = context['news_detail'].first().category
         return context
 
