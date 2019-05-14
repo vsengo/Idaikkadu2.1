@@ -2,47 +2,75 @@
 
 {% block content %}
 <div class="container-fluid">
-    <div class="row">
-        <!-- Heading Row -->
+    <div class="card mx-2 mt-2 mb-2">
+        <div class="row">
 
-        <div class="col-lg-8">
-            <!--<img class="img-fluid rounded mb-4 mb-lg-0" src="http://placehold.it/900x400" alt="">-->
-            <div class="carousel slide bg-dark" data-ride="carousel" id="carouselExampleIndicators">
-                <div class="carousel-inner" role="listbox">
-                    {% for photo in photos %}
-                    <div class="carousel-item {% if forloop.counter == 1 %}active{% endif %}"
-                         style="background-image: url({{  photo.file.url }})">
+            <div class="col-md-8">
+                <!--<img class="img-fluid rounded mb-4 mb-lg-0" src="http://placehold.it/900x400" alt="">-->
+                <div class="carousel slide bg-dark mx-2 mt-2 mb-2" data-ride="carousel" id="carouselExampleIndicators">
+                    <div class="carousel-inner" role="listbox">
+                        {% for photo in photos %}
+                        <div class="carousel-item {% if forloop.counter == 1 %}active{% endif %}"
+                             style="background-image: url({{  photo.file.url }})" width="100%">
+                        </div>
+                        {% endfor %}
                     </div>
-                    {% endfor %}
+                    <a class="carousel-control-prev" data-slide="prev" href="#carouselExampleIndicators" role="button">
+                        <span aria-hidden="true" class="carousel-control-prev-icon"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" data-slide="next" href="#carouselExampleIndicators" role="button">
+                        <span aria-hidden="true" class="carousel-control-next-icon"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
                 </div>
-                <a class="carousel-control-prev" data-slide="prev" href="#carouselExampleIndicators" role="button">
-                    <span aria-hidden="true" class="carousel-control-prev-icon"></span>
-                    <span class="sr-only">Previous</span>
-                </a>
-                <a class="carousel-control-next" data-slide="next" href="#carouselExampleIndicators" role="button">
-                    <span aria-hidden="true" class="carousel-control-next-icon"></span>
-                    <span class="sr-only">Next</span>
-                </a>
             </div>
+
+            <!-- /.col-lg-8 -->
+            {% if news_latest %}
+
+            <div class="col-md-4 my-auto  align-middle">
+                <h1 class="font-weight-light">{{ news_latest.title }}</h1>
+                <p>{{news_latest.content|truncatewords:50}} </p>
+                <a href="{% url 'news:detail-news' news_latest.id %}" class="btn btn-primary btn-sm">More</a>
+            </div>
+            {% endif %}
         </div>
 
-        <!-- /.col-lg-8 -->
-        {% if news_latest %}
-
-        <div class="col-lg-4 my-auto">
-            <h1 class="font-weight-light">{{ news_latest.title }}</h1>
-            <p>{{news_latest.content|truncatewords:50}} </p>
-            <a href="{% url 'news:detail-news' news_latest.id %}" class="btn btn-primary btn-sm">More</a>
-        </div>
-        {% endif %}
-        <!-- /.col-md-4 -->
     </div>
+
+
     <!-- /.row -->
     <!-- Call to Action Well -->
-    <div class="card text-white bg-secondary my-5 py-4 text-center">
+<!--    <div class="card text-white bg-secondary my-5 py-4 text-center">-->
+<!--        <div class="card-body">-->
+<!--            <h3>Breaking news</h3>-->
+<!--            <p class="text-white m-0">..........Breaking news............</p>-->
+<!--        </div>-->
+<!--    </div>-->
+
+    <div class="card my-5 py-4 text-center">
         <div class="card-body">
-            <h3>Breaking news</h3>
-            <p class="text-white m-0">..........Breaking news............</p>
+               <div class="text-center align-middle">
+        <div class="card">
+
+            <a class="weatherwidget-io" href="https://forecast7.com/en/40d71n74d01/new-york/"
+               data-label_1="NEW YORK" data-label_2="WEATHER" data-font="Roboto" data-icons="Climacons Animated"
+               data-theme="pure">NEW YORK WEATHER</a>
+            <script>
+!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','weatherwidget-io-js');
+
+
+
+
+
+
+            </script>
+
+
+            <!-- /.col-md-4 -->
+        </div>
+    </div>
         </div>
     </div>
 
@@ -61,7 +89,8 @@
                     <p class="text-black m-0">{{ news_international.content|truncatewords:50 }}</p>
                 </div>
                 <div class="card-footer">
-                    <a href="{% url 'news:detail-news' news_international.id %}" class="btn btn-primary btn-sm">More</a>
+                    <a href="{% url 'news:detail-news' news_international.id %}"
+                       class="btn btn-primary btn-sm">More</a>
                 </div>
             </div>
         </div>
