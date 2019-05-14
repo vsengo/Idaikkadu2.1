@@ -25,7 +25,7 @@ urlpatterns = [
     url(r'^$', include(('web.urls', 'web'), namespace='web')),
     url(r'^photos/', include(('photos.urls', 'photos'), namespace='photos')),
     url(r'^news/', include(('news.urls', 'news'), namespace='news')),
-    path('accounts/', include('django.contrib.auth.urls'))
+    url('accounts/', include('django.contrib.auth.urls'), {'template_name': 'web/login.html'}, name='login'),
 ]
 
 

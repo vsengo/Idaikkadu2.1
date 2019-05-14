@@ -12,17 +12,14 @@ from news.models import News
 class NewsList(ListView):
     model = News
 
-class AddNewsView(UserPassesTestMixin,CreateView):
+
+class AddNewsView(CreateView):
     template_name = 'news/add-news.html'
     form_class = NewsForm
     success_url = 'view-news'
 
-    def test_func(self):
-        return self.request.user.first_name.endswith('n')
-
     def form_valid(self, form):
         return super().form_valid(form)
-
 
 
 class NewsUpdate(UpdateView):
