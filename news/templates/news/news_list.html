@@ -5,9 +5,19 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-12 mb-4 mt-4" align="center">
-            <h2>
-                News Gallery
+            {% if news_list.0.category == "jaffna" %}
+                <h2>
+                Jaffna News
             </h2>
+            {% elif news_list.0.category == "international" %}
+                <h2>
+                International News
+                </h2>
+            {% else %}
+                <h2>
+                Sri Lanka News
+                </h2>
+        {% endif %}
             <hr class="mt-2 mb-5">
         </div>
     </div>
@@ -17,7 +27,7 @@
         <div class="col-md-4 col-sm-6 mt-2 mb-2">
             <div class="card h-100">
                 <img class="card-img-top"
-                     src={{ news.image.url }} class="img-responsive" width="100%"
+                     src= {{ news.image.url }} class="img-responsive" width="100%"
                      alt="Card image cap">
                 <div class="card-body">
                     <h3 class="card-title">{{ news.title }}</h3>
