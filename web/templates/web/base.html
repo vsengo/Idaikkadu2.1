@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
           integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Merriweather&display=swap" rel="stylesheet">
 
     {% load static %}
 
@@ -40,12 +41,6 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'photos:view-photos' %}">Photos</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'news:news_list' %}">News</a>
-                </li>
                 {% if user.is_authenticated %}
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
@@ -79,7 +74,7 @@
                    class="list-group-item list-group-item-action bg-light">Sri Lanka News</a>
                 <a href="{% url 'news:international-news' %}"
                    class="list-group-item list-group-item-action bg-light">International News</a>
-                <a href="{% url 'news:international-news' %}"
+                <a href="{% url 'photos:view-photos' %}"
                    class="list-group-item list-group-item-action bg-light">Events</a>
             </div>
 
@@ -110,7 +105,10 @@
     });
 
 
+</script>
 
+<script>
+!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','weatherwidget-io-js');
 
 
 
