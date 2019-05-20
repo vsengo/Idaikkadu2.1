@@ -5,17 +5,21 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-12 mb-4 mt-4" align="center">
-            {% if news_list.0.category == "jaffna" %}
+            {% if request.path == "/news/view-news" %}
+                <h2>
+                All News
+                </h2>
+            {% elif request.path == "/news/jaffna-news" %}
                 <h2>
                 Jaffna News
-            </h2>
-            {% elif news_list.0.category == "international" %}
+                </h2>
+            {% elif request.path == "/news/srilanka-news" %}
                 <h2>
-                International News
+                Sri Lanka News
                 </h2>
             {% else %}
                 <h2>
-                Sri Lanka News
+                International News
                 </h2>
         {% endif %}
             <hr class="mt-2 mb-5">
