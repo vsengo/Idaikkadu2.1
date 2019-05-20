@@ -7,8 +7,35 @@ h1, h2, h3, h4, h5, h6, p{
  }
 
 .home-pic{
- height:100%;
- overflow:hidden;
+  object-fit: cover; /* Do not scale the image */
+  object-position: center; /* Center the image within the element */
+  height: 100%;
+  max-height: 600px;
+}
+
+.card-pic{
+  object-fit: cover; /* Do not scale the image */
+  object-position: center; /* Center the image within the element */
+  width: 100%;
+  max-height: 200px;
+}
+
+.detail-pic{
+  object-fit: cover; /* Do not scale the image */
+  object-position: center; /* Center the image within the element */
+  width: 100%;
+  max-height: 300px;
+}
+
+.card-header, a:link {
+  text-transform: uppercase;
+  font-weight: 300;
+  color: #585656;
+}
+
+.card-header, a:hover {
+  color: #000;
+text-decoration: none;
 }
 
 .login,
