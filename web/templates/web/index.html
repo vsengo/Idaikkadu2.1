@@ -53,14 +53,14 @@
         <div class="col-md-4 mb-5">
             <div class="card h-100">
                 <div class="card-header">
-                    <a href="{% url 'news:international-news' %}"><h3>International</h3></a>
+                    <a href="{% url 'news:international-news' %}"><h4>International</h4></a>
                 </div>
                 <img class="card-img-top card-pic"
                      src={{ news_international.image.url }}
                      alt="Card image cap">
 
                 <div class="card-body">
-                    <h4 class="card-subtitle">{{ news_international.title }}</h4>
+                    <h5 class="card-subtitle">{{ news_international.title }}</h5>
                     <hr>
                     <p class="text-black m-0">{{ news_international.content|truncatewords:50 }}</p>
                 </div>
@@ -76,14 +76,14 @@
         <div class="col-md-4 mb-5">
             <div class="card h-100">
                 <div class="card-header">
-                    <a href="{% url 'news:jaffna-news' %}"><h3>Jaffna</h3></a>
+                    <a href="{% url 'news:jaffna-news' %}"><h4>Jaffna</h4></a>
                 </div>
                 <img class="card-img-top card-pic"
                      src={{ news_jaffna.image.url }}
                      alt="Card image cap">
 
                 <div class="card-body">
-                    <h4 class="card-subtitle">{{ news_jaffna.title }}</h4>
+                    <h5 class="card-subtitle">{{ news_jaffna.title }}</h5>
                     <hr>
 
                     <p class="text-black m-0">{{ news_jaffna.content|truncatewords:50 }}</p>
@@ -100,13 +100,13 @@
         <div class="col-md-4 mb-5">
             <div class="card h-100">
                 <div class="card-header">
-                    <a href="{% url 'news:srilanka-news' %}"><h3>Sri lanka</h3></a>
+                    <a href="{% url 'news:srilanka-news' %}"><h4>Sri lanka</h4></a>
                 </div>
                 <img class="card-img-top card-pic"
                      src={{ news_srilanka.image.url }}
                      alt="Card image cap">
                 <div class="card-body">
-                    <h4 class="card-subtitle">{{ news_srilanka.title }}</h4>
+                    <h5 class="card-subtitle">{{ news_srilanka.title }}</h5>
                     <hr>
 
                     <p class="text-black m-0">{{ news_srilanka.content|truncatewords:50 }}</p>
