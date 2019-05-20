@@ -17,7 +17,7 @@
 
                         <div class="col-md-6 col-lg-6 my-auto  align-middle">
                             <h1 class="font-weight-light">{{ news_latest.title }}</h1>
-                            <p>{{news_latest.content|truncatewords:50}} </p>
+                            <p>{{news_latest.content|truncatewords:100}} </p>
                             <a href="{% url 'news:detail-news' news_latest.id %}"
                                class="btn btn-primary btn-sm">More</a>
                         </div>
@@ -54,7 +54,7 @@
 
                 <div class="card-body">
                     <h3 class="card-subtitle">{{ news_international.title }}</h3>
-                    <p class="text-black m-0">{{ news_international.content|truncatewords:50 }}</p>
+                    <p class="text-black m-0">{{ news_international.content|truncatewords:100 }}</p>
                 </div>
                 <div class="card-footer">
                     <a href="{% url 'news:detail-news' news_international.id %}"
@@ -73,7 +73,7 @@
 
                 <div class="card-body">
                     <h3 class="card-subtitle">{{ news_jaffna.title }}</h3>
-                    <p class="text-black m-0">{{ news_jaffna.content|truncatewords:50 }}</p>
+                    <p class="text-black m-0">{{ news_jaffna.content|truncatewords:100 }}</p>
                 </div>
                 <div class="card-footer">
                     <a href="{% url 'news:detail-news' news_jaffna.id %}" class="btn btn-primary btn-sm">More</a>
@@ -91,7 +91,7 @@
                      alt="Card image cap">
                 <div class="card-body">
                     <h3 class="card-subtitle">{{ news_srilanka.title }}</h3>
-                    <p class="text-black m-0">{{ news_srilanka.content|truncatewords:50 }}</p>
+                    <p class="text-black m-0">{{ news_srilanka.content|truncatewords:100 }}</p>
                 </div>
                 <div class="card-footer">
                     <a href="{% url 'news:detail-news' news_srilanka.id %}" class="btn btn-primary btn-sm">More</a>

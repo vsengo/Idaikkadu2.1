@@ -25,7 +25,7 @@ class Photo(models.Model):
     )
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    title = models.CharField(max_length=256, default='a', unique=True)
+    title = models.CharField(max_length=256, default='a')
     description = models.CharField(max_length=256, default='a')
     # author = models.CharField(max_length=128, help_text="Author of the News or Article", default='admin')
     # email = models.EmailField(default='temp')
