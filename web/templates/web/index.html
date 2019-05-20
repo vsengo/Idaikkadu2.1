@@ -10,14 +10,14 @@
                     <div class="row">
                         {% if news_latest %}
                         <div class="col-md-6 col-lg-6">
-                            <img class="card-img-top"
-                                 src={{ news_latest.image.url }} class="img-responsive" height=100%
+                            <img class="card-img-top home-pic"
+                                 src={{ news_latest.image.url }} class="img-responsive"
                                  alt="Card image cap">
                         </div>
 
                         <div class="col-md-6 col-lg-6 my-auto  align-middle">
                             <h1 class="font-weight-light">{{ news_latest.title }}</h1>
-                            <p>{{news_latest.content|truncatewords:100}} </p>
+                            <p>{{news_latest.content|truncatewords:50}} </p>
                             <a href="{% url 'news:detail-news' news_latest.id %}"
                                class="btn btn-primary btn-sm">More</a>
                         </div>
@@ -26,7 +26,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-2 col-lg-2 my-auto  align-middle">
+        <div class="col-md-4 col-lg-2 my-auto  align-middle">
             <div class="card mx-2 mt-2 mb-2">
                 <a class="weatherwidget-io" href="https://forecast7.com/en/9d8080d12/idaikkadu/"
                    data-label_1="IDAIKKADU" data-label_2="WEATHER" data-theme="pure">IDAIKKADU WEATHER</a>

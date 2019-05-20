@@ -31,7 +31,7 @@
                      alt="Card image cap">
                 <div class="card-body">
                     <h3 class="card-title">{{ news.title }}</h3>
-                    <p>{{news.content}}</p>
+                    <p>{{news.content | truncatewords:50}}</p>
                      <a href="{% url 'news:detail-news' news.id %}" class="btn btn-primary btn-sm">Read More</a>
                 </div>
                 {% if user.is_authenticated %}
