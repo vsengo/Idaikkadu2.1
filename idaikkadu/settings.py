@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'photos',
     'bootstrap4',
+    'tempus_dominus',
     'news',
     'web',
 ]
@@ -89,13 +90,13 @@ WSGI_APPLICATION = 'idaikkadu.wsgi.application'
 
 DATABASES = {
     # 'default': {
-    #     'ENGINE': 'django.db.backends.mysql',
-    #     'NAME': 'idaikkadu_db',
-    #     'USER': 'root',
-    #     'PASSWORD': '',
-    #     'HOST': 'localhost',
-    #     'PORT': '3306'
-    # }
+     #    'ENGINE': 'mysql.connector.django',
+      #   'NAME': 'idaikkadu_webdb',
+       #  'USER': 'webadmin',
+        # 'PASSWORD': 'Idaikkadu2020',
+         #'HOST': 'localhost',
+         #'PORT': '8888'
+     #}
 
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',

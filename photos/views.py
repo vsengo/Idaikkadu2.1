@@ -5,13 +5,25 @@ from django.shortcuts import redirect, render
 from django.views import View
 from django.views.generic import ListView
 
-from .forms import PhotoForm
+from .forms import PhotoForm, PhotoUpload
 from .models import Photo
 
 
 class PhotoList(ListView):
     model = Photo
 
+def upload_photos2(request):
+    if request.method == "POST":
+        form = PhotoUpload(request.POST, request.FILES)
+        photos = request.FILES.getlist('file')
+        if form.is_valid():
+            for f in photos:
+                file_instance = Photo(file=f)
+                file_instance.save()
+        return redirect('upload-photos')
+    else:
+        form = PhotoUpload()
+        return render(request, 'photos/add_photo.html', {'form': form})
 
 class UploadPhotosView(View):
 
