@@ -1,10 +1,37 @@
 {% extends "web/base.html" %}
 {% load crispy_forms_tags %}
 {% block content %}
-    <h1>Upload Photos</h1>
-    <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form|crispy }}
-        <button type="submit" class="btn btn-primary">Upload Photos</button>
-    </form> 
+    <h4>Add Event Album</h4>
+    <div class="row justify-content-center add-news">
+        <div class="col-lg-8 col-md-10 col-sm-10">
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                    {{ album.title|as_crispy_field }}
+                   </div>
+                 <div class="form-group col-md-6">
+                  {{ album.release_date|as_crispy_field }}
+                </div>
+              </div>
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        {{ album.category|as_crispy_field }}
+                    </div>
+                    <div class="form-group col-md-4">
+                        {{ album.menu|as_crispy_field }}
+                    </div>
+                </div>
+                <div class="form-row">
+                 <div class="form-group col-md-6">
+                  {{ album.author|as_crispy_field }}
+                 </div></div>
+                <div>
+                    <h8> Click browse to select multiple photos and upload</h8>
+                    {% csrf_token %}
+                    {{ photo |crispy }}
+                    <button type="submit" class="btn btn-primary">Upload Photos</button>
+                </div>
+                </form>
+        </div></div>
 {% endblock content %}

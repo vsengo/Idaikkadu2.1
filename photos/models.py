@@ -46,7 +46,7 @@ class PhotoAlbum (models.Model):
     updated_by = models.CharField(max_length=128, null=True)
 
     def default(self):
-        return self.album.fitler(default=True).first()
+        return self.album.filter(default=True).first()
 
 class Photo(models.Model):
     file = models.FileField(upload_to='photos/', blank=True,null=True)

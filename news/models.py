@@ -61,4 +61,4 @@ class Comment(models.Model):
         comment = models.TextField()
         updated_by = models.CharField(max_length=128)
         create_date = models.DateField(auto_now=True)
-        content_id = models.ForeignKey(News, on_delete=models.CASCADE)
+        news = models.ForeignKey(News, on_delete=models.CASCADE)
