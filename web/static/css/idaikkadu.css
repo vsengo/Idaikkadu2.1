@@ -250,3 +250,8 @@ text-decoration: none;
   -o-background-size: cover;
   background-size: cover;
 }
+.photo-thumb {
+    height:100px;
+    border: 1px solid #000;
+    margin: 10px 5px 0 0;
+}

@@ -1,4 +1,13 @@
 {% extends "web/base.html" %}
+<style>
+ .thumb {
+    height:100px;
+    border: 1px solid #000;
+    margin: 10px 5px 0 0;
+    }
+</style>
+
+
 {% load crispy_forms_tags %}
 {% block content %}
     <h4>Add Event Album</h4>
@@ -24,13 +33,71 @@
                 </div>
                 <div class="form-row">
                  <div class="form-group col-md-6">
+
                   {{ album.author|as_crispy_field }}
                  </div></div>
                 <div>
-                    <h8> Click browse to select multiple photos and upload</h8>
-                    {% csrf_token %}
-                    {{ photo |crispy }}
-                    <button type="submit" class="btn btn-primary">Upload Photos</button>
+                    <div class="form-row">
+                     <p>
+                        Choose Files in the order you want the photos displayed.<br>
+                         Once verified click Upload Photos to Save to Website<br>
+                     </p>
+                       <div class=form-row">
+                    <input type="file" id="files" name="files[]" multiple />
+
+                        <table id="photo-list">
+                    </table>
+                    <script>
+                      function handleFileSelect(evt) {
+                    var files = evt.target.files; // FileList object
+                    var colcnt = 0
+                    var rowcnt = 1
+                    // Loop through the FileList and render image files as thumbnails.
+
+                    var d = document.createElement('div')
+                    for (var i = 0, f; f = files[i]; i++) {
+
+                      // Only process image files.
+                      if (!f.type.match('image.*')) {
+                        continue;
+                      }
+                      if (colcnt == 0){
+                        d = document.createElement('tr')
+                        d.id = 'table_row' + rowcnt.toString()
+                        document.getElementById('photo-list').insertBefore(d, null);
+                      }
+
+                      var reader = new FileReader();
+
+                      // Closure to capture the file information.
+                      reader.onload = (function(theFile, elName) {
+                        return function(e) {
+                          // Render thumbnail.
+                          var span = document.createElement('td');
+                          span.className = 'form-group col-md-4'
+                          span.innerHTML = ['<img style="margin: 10px 5p x 0 0;border: 1px solid #000;"  height="180" src="', e.target.result,
+                                            '" title="', escape(theFile.name), '"/>'].join('');
+                          document.getElementById(elName).insertBefore(span, null);
+                        };
+                      })(f,d.id);
+
+                      colcnt +=  1
+                      if (colcnt > 3 ){
+                        rowcnt +=  1
+                        colcnt = 0
+                      }
+
+                      // Read in the image file as a data URL.
+                      reader.readAsDataURL(f);
+                    }
+                  }
+
+                  document.getElementById('files').addEventListener('change', handleFileSelect, false);
+                 </script>
+
+                   <div class="form-group col-md-4">
+                            <button type="submit" class="btn btn-primary">Upload Photos</button></div>
+                    </div>
                 </div>
                 </form>
         </div></div>

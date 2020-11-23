@@ -3,29 +3,27 @@ from django.db import models
 
 class PhotoAlbum (models.Model):
     CATEGORY_CHOICES = (
-        ('international', 'International'),
+        ('idaikkadu', 'Idaikkadu'),
         ('srilanka', 'Sri Lanka'),
         ('jaffna', 'Jaffna'),
-        ('idaikkadu', 'Idaikkadu'),
-        ('australia', 'Australia'),
-        ('canada', 'Canada'),
-        ('swiss', 'Swiss'),
-        ('uk', 'UK'),
+        ('australia', 'Australia/New Zealand'),
+        ('canada', 'America/Canada'),
+        ('uk', 'United Kingdom'),
+        ('swiss', 'Switzerland'),
         ('europe', 'Europe'),
+        ('asia', 'Singapore/Asia'),
         ('middle_east', 'Middle East'),
+        ('international', 'International'),
     )
 
     MENU_CHOICES = (
-        ('N', 'News'),
-        ('S', 'Story'),
         ('O', 'Associations'),
         ('T', 'Temples'),
         ('L', 'Libraries'),
-        ('B', 'Articles'),
-        ('D', 'Obituaries'),
         ('W', 'Wedding'),
-        ('I', 'Invitation'),
-        ('X', 'Other'),
+        ('B', 'Birthday'),
+        ('F', 'Funeral'),
+        ('X', 'Other Events'),
     )
 
     APPROVAL_CHOICES = (
@@ -36,7 +34,7 @@ class PhotoAlbum (models.Model):
     author = models.CharField(max_length=128, default='webadmin', help_text="Author of the News or Article")
     email = models.EmailField(null=True)
     category = models.CharField(max_length=32, default='idaikkadu', choices=CATEGORY_CHOICES)
-    menu = models.CharField(max_length=1, default='N', choices=MENU_CHOICES)
+    menu = models.CharField(max_length=1, default='X', choices=MENU_CHOICES)
     approved = models.CharField(max_length=1, default='N', choices=APPROVAL_CHOICES)
     countLike = models.PositiveSmallIntegerField(default=0)
     countDisLike = models.PositiveSmallIntegerField(default=0)
@@ -49,5 +47,6 @@ class PhotoAlbum (models.Model):
         return self.album.filter(default=True).first()
 
 class Photo(models.Model):
-    file = models.FileField(upload_to='photos/', blank=True,null=True)
+    file = models.ImageField(upload_to='photos/', blank=True,null=True)
     album = models.ForeignKey(PhotoAlbum, related_name='album',on_delete=models.CASCADE)
+    figNo = models.IntegerField(default=0)

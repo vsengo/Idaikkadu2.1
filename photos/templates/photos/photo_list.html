@@ -1,34 +1,43 @@
 {% extends 'web/base.html' %}
-
+{% load crispy_forms_tags %}
 {% block content %}
 <div class="container-fluid">
 
         <div class="row">
-            <div class="col-12" align="center">
-                <h1 class="mt-4 mb-4">
-                    Gallery
-                </h1>
-
+                 <div class="form-row">
+                    <div class="form-group col-md-6">
+                    {{ album.title|as_crispy_field }}
+                   </div>
+                 <div class="form-group col-md-6">
+                  {{ album.release_date|as_crispy_field }}
+                </div>
+              </div>
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        {{ album.category|as_crispy_field }}
+                    </div>
+                    <div class="form-group col-md-4">
+                        {{ album.menu|as_crispy_field }}
+                    </div>
+                </div>
+                <div class="form-row">
+                 <div class="form-group col-md-6">
+             {{ album.author|as_crispy_field }}
+                 </div>
+                <h8>Enter the number for ordering the photos if required, 0 to delete the photo</h8>
+                <button type="submit" class="btn btn-primary">Upload Photos</button>
+            </div>
                 <div class="container">
                     <hr class="mt-2 mb-5">
                     <div class="row text-center text-lg-left">
                         {% for photo in photo_list %}
-                        <div class="col-lg-3 col-md-4 col-6">
-                            <a href="#" class="d-block mb-4 h-100">
-                                <img class="img-fluid img-thumbnail" src="{{  photo.file.url }}" alt="">
-                            </a>
-                        </div>
+                            <div class="col-lg-3 col-md-4 col-6">
+                                <img class="img-fluid img-thumbnail" src="{{ photo.file.url }}" alt="Could not Display Img">
+                                {{ photo.figNo}}
+                            </div>
                         {% endfor %}
                     </div>
                 </div>
-                <form method="post" action="{% url 'photos:clear_database' %}">
-                    {% csrf_token %}
-                    <input type="hidden" name="next" value="{{ request.path }}">
-                    <button type="submit" class="btn btn-danger pull-right">
-                        <span class="glyphicon glyphicon-trash"></span> Clear Database
-                    </button>
-                </form>
-            </div>
         </div>
 </div>
 {% endblock content %}

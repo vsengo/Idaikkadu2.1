@@ -6,29 +6,27 @@ from django.db import models
 
 class Content(models.Model):
     CATEGORY_CHOICES = (
-        ('international', 'International'),
+        ('idaikkadu', 'Idaikkadu'),
         ('srilanka', 'Sri Lanka'),
         ('jaffna', 'Jaffna'),
-        ('idaikkadu', 'Idaikkadu'),
-        ('australia', 'Australia'),
-        ('canada', 'Canada'),
-        ('swiss', 'Swiss'),
-        ('uk', 'UK'),
+        ('australia', 'Australia/New Zealand'),
+        ('canada', 'America/Canada'),
+        ('uk', 'United Kingdom'),
+        ('swiss', 'Switzerland'),
         ('europe', 'Europe'),
+        ('asia', 'Singapore/Asia'),
         ('middle_east', 'Middle East'),
+        ('international', 'International'),
     )
 
     MENU_CHOICES = (
-        ('N', 'News'),
-        ('S', 'Story'),
         ('O', 'Associations'),
         ('T', 'Temples'),
         ('L', 'Libraries'),
-        ('B', 'Articles'),
-        ('D', 'Obituaries'),
         ('W', 'Wedding'),
-        ('I', 'Invitation'),
-        ('X', 'Other'),
+        ('B', 'Birthday'),
+        ('F', 'Funeral'),
+        ('X', 'Other Events'),
     )
 
     APPROVAL_CHOICES = (
@@ -41,7 +39,7 @@ class Content(models.Model):
     author = models.CharField(max_length=128, default='webadmin',help_text="Author of the News or Article")
     email = models.EmailField(null=True)
     category = models.CharField(max_length=32, default='idaikkadu',choices=CATEGORY_CHOICES)
-    menu = models.CharField(max_length=1, default='N', choices=MENU_CHOICES)
+    menu = models.CharField(max_length=1, default='X', choices=MENU_CHOICES)
     approved = models.CharField(max_length=1, default='N',choices=APPROVAL_CHOICES)
     countLike = models.PositiveSmallIntegerField(default=0)
     countDisLike = models.PositiveSmallIntegerField(default=0)
@@ -50,10 +48,6 @@ class Content(models.Model):
     create_date = models.DateField(auto_now=True)
     release_date = models.DateField(default=datetime.date.today)
     updated_by = models.CharField(max_length=128, null=True)
-
-    #class Meta:
-     #   abstract = True
-
 
 
 class User(AbstractUser):
