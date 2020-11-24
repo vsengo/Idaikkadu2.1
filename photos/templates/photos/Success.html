@@ -1,10 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-    Album updated successfully
-</body>
-</html>
+{% extends "web/base.html" %}
+{% block content %}
+{% csrf_token %}
+<h4 align="center"> Album {{album.title}} successfully added to the website.</h4>
+<p align="center"> Once approved by web administrator it will appear in the home page.<br>
+Thank you for contributing to Idaikkadu.com</p>
+{% endblock content %}

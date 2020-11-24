@@ -6,9 +6,6 @@ from photos.forms import AlbumUpload, PhotoUpload
 class PhotoList(ListView):
     model = Photo
 
-def Success(request):
-    return render(request,'photos/success.html')
-
 def AddAlbum(request):
     if request.method == "POST":
         albumform = AlbumUpload(request.POST)
@@ -25,9 +22,9 @@ def AddAlbum(request):
                     file_instance.save()
                     photolist.append(file_instance)
                     fig += 1
-                return render(request,'photos/success.html')
+                return render(request,'photos/success.html', {'album':a})
         else:
-            return render(request, 'photos/photo_list.html', {'photo_list': photos})
+            return render(request, 'photos/failed.html')
     else:
         photoform = PhotoUpload()
         albumform = AlbumUpload()
