@@ -3,19 +3,22 @@
 {% block content %}
 <div class="container-fluid">
     <div class="row text-center justify-content-center">
-        <div class="col-md-12 col-lg-12">
+        <div class="col-md-12 col-lg-6">
             <div class="card mt-2 mb-2">
+                 <div class="card-header">
+                 <h4>Latest News</h4>
+                </div>
                 <div class="card-body">
 
                     <div class="row">
                         {% if news_latest %}
-                        <div class="col-md-6 col-lg-6">
+                        <div class="col-md-3 col-lg-6">
                             <img class="card-img-top home-pic"
                                  src={{ news_latest.image.url }} class="img-responsive"
                                  alt="Card image cap">
                         </div>
 
-                        <div class="col-md-6 col-lg-6 my-auto  align-middle">
+                        <div class="col-md-3 col-lg-6 my-auto  align-middle">
                             <h2 class="font-weight-light">{{ news_latest.title }}</h2>
                             <p>{{news_latest.content|truncatewords:50}} </p>
                             <a href="{% url 'news:detail-news' news_latest.id %}"
@@ -26,7 +29,36 @@
                 </div>
             </div>
         </div>
+        <div class="col-md-6">
+             <div class="card mt-2 mb-2">
+            <div class="card-header">
+                 <h4>Event Album</h4>
+                </div>
+                 <div class="card-body h-100">
+            <!--<img class="img-fluid rounded mb-4 mb-lg-0" src="http://placehold.it/900x400" alt="">-->
+            <div class="carousel slide bg-dark mx-2 mt-2 mb-2" data-ride="carousel" id="carouselExampleIndicators">
+                <div class="carousel-inner" role="listbox">
+                    {% for photo in photos %}
+                    <div class="carousel-item {% if forloop.counter == 1 %}active{% endif %}"
+                         style="background-image: url({{  photo.file.url }})">
 
+                    </div>
+                    {% endfor %}
+                </div>
+                <a class="carousel-control-prev" data-slide="prev" href="#carouselExampleIndicators" role="button">
+                    <span aria-hidden="true" class="carousel-control-prev-icon"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" data-slide="next" href="#carouselExampleIndicators" role="button">
+                    <span aria-hidden="true" class="carousel-control-next-icon"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div></div>
+                 <div class="card-footer">
+                     <a href="{% url 'news:detail-news' news_international.id %}"
+                       class="btn btn-primary btn-sm">More</a>
+                 </div>
+             </div></div>
     </div>
 
     <!-- Content Row -->
@@ -101,45 +133,10 @@
             </div>
         </div>
         {% endif %}
-
     </div>
-
-
-    <div class="row text-center justify-content-center">
-        <div class="col-12 mb-4 mt-4" align="center">
-            <h2>
-                Events
-            </h2>
-            <hr class="mt-2 mb-5">
-        </div>
-    </div>
-    <div class="row text-center justify-content-center">
-        <div class="col-md-10">
-            <!--<img class="img-fluid rounded mb-4 mb-lg-0" src="http://placehold.it/900x400" alt="">-->
-            <div class="carousel slide bg-dark mx-2 mt-2 mb-2" data-ride="carousel" id="carouselExampleIndicators">
-                <div class="carousel-inner" role="listbox">
-                    {% for photo in photos %}
-                    <div class="carousel-item {% if forloop.counter == 1 %}active{% endif %}"
-                         style="background-image: url({{  photo.file.url }})">
-
-                    </div>
-                    {% endfor %}
-                </div>
-                <a class="carousel-control-prev" data-slide="prev" href="#carouselExampleIndicators" role="button">
-                    <span aria-hidden="true" class="carousel-control-prev-icon"></span>
-                    <span class="sr-only">Previous</span>
-                </a>
-                <a class="carousel-control-next" data-slide="next" href="#carouselExampleIndicators" role="button">
-                    <span aria-hidden="true" class="carousel-control-next-icon"></span>
-                    <span class="sr-only">Next</span>
-                </a>
-            </div>
-        </div>
-    </div>
-
     <footer class="footer navbar-fixed-bottom py-3 bg-dark">
         <div class="container">
-            <p class="m-0 text-center text-white">Copyright &copy; Your Website 2019, all shortcuts and links, Copy
+            <p class="m-0 text-center text-white">Copyright &copy; Your Website 2020, all shortcuts and links, Copy
                 right,
                 Hit counts</p>
         </div>
