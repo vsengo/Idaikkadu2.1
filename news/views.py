@@ -39,6 +39,7 @@ class NewsDelete(DeleteView):
 
 class DetailNewsView(DetailView):
     model = News
+    template_name = 'news/news_detail.html'
 
     def get_context_data(self, **kwargs):
         context = super(DetailNewsView, self).get_context_data(**kwargs)
@@ -47,7 +48,6 @@ class DetailNewsView(DetailView):
         context['news_content'] = context['news_detail'].first().content
         context['news_category'] = context['news_detail'].first().category
         return context
-
 
 class JaffnaNewsView(ListView):
     model = News

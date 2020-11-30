@@ -5,13 +5,12 @@
     <div class="row text-center justify-content-center">
         <div class="col-md-12 col-lg-6">
             <div class="card mt-2 mb-2">
-                 <div class="card-header">
-                 <h4>Latest News</h4>
-                </div>
-                <div class="card-body">
-
-                    <div class="row">
-                        {% if news_latest %}
+                         {% if news_latest %}
+                        <div class="card-header">
+                            <h4>{{news_latest.category}} - {{news_latest.menu}}</h4>
+                        </div>
+                    <div class="card-body">
+                        <div class="row">
                         <div class="col-md-3 col-lg-6">
                             <img class="card-img-top home-pic"
                                  src={{ news_latest.image.url }} class="img-responsive"
@@ -20,9 +19,9 @@
 
                         <div class="col-md-3 col-lg-6 my-auto  align-middle">
                             <h2 class="font-weight-light">{{ news_latest.title }}</h2>
+
                             <p>{{news_latest.content|truncatewords:50}} </p>
-                            <a href="{% url 'news:detail-news' news_latest.id %}"
-                               class="btn btn-primary btn-sm">More</a>
+                            <a href="{% url 'news:detail-news' news_latest.id %}" class="btn btn-primary btn-sm">More</a>
                         </div>
                         {% endif %}
                     </div>
@@ -136,8 +135,7 @@
     </div>
     <footer class="footer navbar-fixed-bottom py-3 bg-dark">
         <div class="container">
-            <p class="m-0 text-center text-white">Copyright &copy; Your Website 2020, all shortcuts and links, Copy
-                right,
+            <p class="m-0 text-center text-white">Copyright &copy; Idaikkadu.com @ 2005-2020.
                 Hit counts</p>
         </div>
         <!-- /.container -->

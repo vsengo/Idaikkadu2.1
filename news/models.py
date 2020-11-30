@@ -18,12 +18,13 @@ class News(models.Model):
 
     MENU_CHOICES = (
         ('N', 'News'),
+        ('D', 'Obituary'),
         ('S', 'Story'),
-        ('O', 'Associations'),
-        ('T', 'Temples'),
-        ('L', 'Libraries'),
+        ('O', 'Association'),
         ('B', 'Articles'),
-        ('D', 'Obituaries'),
+        ('I', 'Thankyou'),
+        ('T', 'Temple'),
+        ('L', 'Library'),
         ('W', 'Wedding'),
         ('I', 'Invitation'),
         ('X', 'Other'),
@@ -35,30 +36,25 @@ class News(models.Model):
     )
 
     title = models.CharField(max_length=256, blank=True, help_text="Short Title")
+    content = models.TextField(max_length=10000)
+    #image = models.ImageField(upload_to='news/%Y',blank=True)
+    image = models.ImageField()
     author = models.CharField(max_length=128, default='webadmin', help_text="Author of the News or Article")
     email = models.EmailField(null=True)
     category = models.CharField(max_length=32, default='idaikkadu', choices=CATEGORY_CHOICES)
     menu = models.CharField(max_length=1, default='N', choices=MENU_CHOICES)
+    link = models.URLField(blank=True, help_text="Optional: any link to share", null=True)
     approved = models.CharField(max_length=1, default='N', choices=APPROVAL_CHOICES)
     countLike = models.PositiveSmallIntegerField(default=0)
     countDisLike = models.PositiveSmallIntegerField(default=0)
-    imageDir = models.FileField(upload_to='Image/%Y', null=True)
-    link = models.URLField(blank=True, help_text="Optional : any link to share", null=True)
     create_date = models.DateField(auto_now=True)
     release_date = models.DateField(default=datetime.date.today)
     updated_by = models.CharField(max_length=128, null=True)
 
-    content = models.TextField(max_length=10000)
-    image = models.ImageField()
 
 
 class Comment(models.Model):
-        APPROVAL_CHOICES = (
-            ('Y', 'Yes'),
-            ('N', 'No'),
-        )
-
-        comment = models.TextField()
-        updated_by = models.CharField(max_length=128)
-        create_date = models.DateField(auto_now=True)
-        news = models.ForeignKey(News, on_delete=models.CASCADE)
+     comment = models.TextField()
+     news = models.ForeignKey(News, on_delete=models.CASCADE)
+     updated_by = models.CharField(max_length=128)
+     create_date = models.DateField(auto_now=True)

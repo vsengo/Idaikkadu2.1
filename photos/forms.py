@@ -1,16 +1,13 @@
 from django import forms
 
-from .models import Photo, PhotoAlbum
+from .models import Photo, Album
 from django.forms import ClearableFileInput
 
 
-class DateInput(forms.DateInput):
-    input_type = 'date'
-
 class AlbumUpload(forms.ModelForm):
     class Meta:
-        model = PhotoAlbum
-        fields = ['title','category', 'menu', 'author','release_date']
+        model = Album
+        fields = ['title','description','category', 'menu', 'author','release_date']
 
 class PhotoUpload(forms.ModelForm):
     class Meta:
