@@ -17,17 +17,17 @@ class News(models.Model):
     )
 
     MENU_CHOICES = (
-        ('N', 'News'),
-        ('D', 'Obituary'),
-        ('S', 'Story'),
-        ('O', 'Association'),
-        ('B', 'Articles'),
-        ('I', 'Thankyou'),
-        ('T', 'Temple'),
-        ('L', 'Library'),
-        ('W', 'Wedding'),
-        ('I', 'Invitation'),
-        ('X', 'Other'),
+        ('News', 'News'),
+        ('Dbituary', 'Obituary'),
+        ('Story', 'Story'),
+        ('Association', 'Association'),
+        ('Article', 'Articles'),
+        ('Thankyou', 'Thankyou'),
+        ('Temple', 'Temple'),
+        ('Library', 'Library'),
+        ('Wedding', 'Wedding'),
+        ('Invitation', 'Invitation'),
+        ('Other', 'Other'),
     )
 
     APPROVAL_CHOICES = (
@@ -42,7 +42,7 @@ class News(models.Model):
     author = models.CharField(max_length=128, default='webadmin', help_text="Author of the News or Article")
     email = models.EmailField(null=True)
     category = models.CharField(max_length=32, default='idaikkadu', choices=CATEGORY_CHOICES)
-    menu = models.CharField(max_length=1, default='N', choices=MENU_CHOICES)
+    menu = models.CharField(max_length=16, default='N', choices=MENU_CHOICES)
     link = models.URLField(blank=True, help_text="Optional: any link to share", null=True)
     approved = models.CharField(max_length=1, default='N', choices=APPROVAL_CHOICES)
     countLike = models.PositiveSmallIntegerField(default=0)
@@ -51,6 +51,8 @@ class News(models.Model):
     release_date = models.DateField(default=datetime.date.today)
     updated_by = models.CharField(max_length=128, null=True)
 
+    def __str__(self):
+        return self.get_menu_display()
 
 
 class Comment(models.Model):

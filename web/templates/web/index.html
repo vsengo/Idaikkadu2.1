@@ -4,11 +4,14 @@
 <div class="container-fluid">
     <div class="row text-center justify-content-center">
         <div class="col-md-12 col-lg-6">
+            <div class="row center" >
             <div class="card mt-2 mb-2">
                          {% if news_latest %}
                         <div class="card-header">
-                            <h4>{{news_latest.category}} - {{news_latest.menu}}</h4>
+                            <h5>{{news_latest.category}}  {{news_latest.menu}} ({{ news_latest.release_date }})</h5>
+                            <div class="card-header2"> Contributed by : {{news_latest.author}}</div>
                         </div>
+
                     <div class="card-body">
                         <div class="row">
                         <div class="col-md-3 col-lg-6">
@@ -18,21 +21,35 @@
                         </div>
 
                         <div class="col-md-3 col-lg-6 my-auto  align-middle">
-                            <h2 class="font-weight-light">{{ news_latest.title }}</h2>
-
-                            <p>{{news_latest.content|truncatewords:50}} </p>
-                            <a href="{% url 'news:detail-news' news_latest.id %}" class="btn btn-primary btn-sm">More</a>
+                            <h5 class="font-weight-light">{{ news_latest.title }}</h5>
+                            <p align="left">{{news_latest.content|truncatewords:50}} </p>
+                            <a href="{% url 'news:detail-news' news_latest.id  %}" class="btn btn-primary btn-sm">More</a>
                         </div>
                         {% endif %}
                     </div>
                 </div>
+                </div>
+            </div>
+            <div class="row text-left justify-content-cente">
+            <div class="card-body h-100">
+                {% if news_old %}
+                    {%for old in news_old %}
+                    {{ old.release_date}} : {{ old.title|truncatewords:6}} <a href="{% url 'news:detail-news' old.id %}" class="btn btn-primary btn-sm">More</a>
+                    <hr>
+                   {% endfor %}
+                {% endif %}
+            </div>
             </div>
         </div>
         <div class="col-md-6">
              <div class="card mt-2 mb-2">
             <div class="card-header">
-                 <h4>Event Album</h4>
-                </div>
+                 {% if latest_album %}
+                <h5>Album - {{ latest_album.title }} ({{ latest_album.release_date }})</h5>
+                    <div class=""card_heade2">Contributed by : {{latest_album.author}}</div>
+                    <p>{{ latest_album.description }}</p>
+                {% endif %}
+            </div>
                  <div class="card-body h-100">
             <!--<img class="img-fluid rounded mb-4 mb-lg-0" src="http://placehold.it/900x400" alt="">-->
             <div class="carousel slide bg-dark mx-2 mt-2 mb-2" data-ride="carousel" id="carouselExampleIndicators">
@@ -86,24 +103,24 @@
         </div>
         {% endif %}
         <!-- /.col-md-4 -->
-        {% if news_jaffna %}
+        {% if news_idaikkadu %}
         <div class="col-md-4 mb-5">
             <div class="card h-100">
                 <div class="card-header">
-                    <a href="{% url 'news:jaffna-news' %}"><h4>Jaffna</h4></a>
+                    <a href="{% url 'news:idaikkadu-news' %}"><h4>Idaikkadu</h4></a>
                 </div>
                 <img class="card-img-top card-pic"
-                     src={{ news_jaffna.image.url }}
+                     src={{ news_idaikkadu.image.url }}
                      alt="Card image cap">
 
                 <div class="card-body">
-                    <h5 class="card-subtitle">{{ news_jaffna.title }}</h5>
+                    <h5 class="card-subtitle">{{ news_idaikkadu.title }}</h5>
                     <hr>
 
-                    <p class="text-black m-0">{{ news_jaffna.content|truncatewords:50 }}</p>
+                    <p class="text-black m-0">{{ news_idaikkadu.content|truncatewords:25 }}</p>
                 </div>
                 <div class="card-footer">
-                    <a href="{% url 'news:detail-news' news_jaffna.id %}" class="btn btn-primary btn-sm">More</a>
+                    <a href="{% url 'news:detail-news' news_idaikkadu.id %}" class="btn btn-primary btn-sm">More</a>
                 </div>
             </div>
         </div>

@@ -32,7 +32,7 @@
                     <div class="row text-center text-lg-left">
                         {% for photo in photo_list %}
                             <div class="col-lg-3 col-md-4 col-6">
-                                <img class="img-fluid img-thumbnail" src="{{ photo.file.url }}" alt="Could not Display Img">
+                                <img class="img-fluid img-thumbnail" src="{{ photo.thumb.url }}" alt="Could not Display Img">
                                 {{ photo.figNo}}
                             </div>
                         {% endfor %}

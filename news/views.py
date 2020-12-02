@@ -47,7 +47,14 @@ class DetailNewsView(DetailView):
         context['news_title'] = context['news_detail'].first().title
         context['news_content'] = context['news_detail'].first().content
         context['news_category'] = context['news_detail'].first().category
+        context['news_menu'] = context['news_detail'].first().menu
+
         return context
+
+def getDetailNews(request, news_id=2):
+        print("Got "+str(news_id)," ##")
+        news = News.objects.all().filter(id=news_id)
+        return render(request,'news/news_detail.html',{'news_latest':news})
 
 class JaffnaNewsView(ListView):
     model = News

@@ -43,7 +43,7 @@ def AddAlbum(request):
                         p.thumb=nf
                         p.save()
                         img  = Image.open(f.file)
-                        img.thumbnail((90,90))
+                        img.thumbnail((360,360))
 
                         img.save("media/"+nf)
 

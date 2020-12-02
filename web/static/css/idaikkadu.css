@@ -29,15 +29,34 @@ h1, h2, h3, h4, h5, h6, p{
 
 .card-header, a:link {
   text-transform: uppercase;
-  font-weight: 300;
+  font-weight: 200;
   color: #585656;
 }
 
 .card-header, a:hover {
   color: #000;
-text-decoration: none;
+  font-weight:300;
+  text-transform: uppercase;
 }
 
+.card-header1 {
+  text-transform: uppercase;
+  text-align:left
+  font-weight:300;
+  color: #585656;
+}
+.card-header2 {
+  text-transform:capitalize;
+  text-align:right
+  font-weight:normal;
+  color: #585656;
+}
+.archive-link, a:link {
+  text-transform:capitalize;
+  text-align:left
+  font-weight:normal;
+  color: #585656;
+}
 .login,
 .image {
   min-height: 100vh;
