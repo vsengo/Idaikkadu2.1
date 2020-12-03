@@ -34,7 +34,18 @@
             <div class="card-body h-100">
                 {% if news_old %}
                     {%for old in news_old %}
-                    {{ old.release_date}} : {{ old.title|truncatewords:6}} <a href="{% url 'news:detail-news' old.id %}" class="btn btn-primary btn-sm">More</a>
+                     <a href="{% url 'news:detail-news' old.id %}" class="btn btn-primary btn-sm">{{ old.release_date}}</a> : {{ old.title|truncatewords:6}}
+                    <hr>
+                   {% endfor %}
+                {% endif %}
+            </div>
+            </div>
+            <div class="row text-left justify-content-cente">
+            <div class="card-body h-100">
+                {% if album_old %}
+                    {%for old in album_old %}
+                    <a href="{% url 'news:detail-news' old.id %}" >
+                    <img src="{{ old.thumb.url}}" height="40px"> : {{ old.title|truncatewords:6}}</a>
                     <hr>
                    {% endfor %}
                 {% endif %}

@@ -25,7 +25,7 @@ def AddAlbum(request):
     if request.method == "POST":
         albumform = AlbumUpload(request.POST)
         if albumform.is_valid():
-            a = albumform.save()
+            a = albumform.save(commit=False)
 
             photoform = PhotoUpload(request.POST, request.FILES)
             photos = request.FILES.getlist('files[]')
@@ -39,15 +39,18 @@ def AddAlbum(request):
                     try:
                         n = f.name.find(".")
                         nf = "photos/"+today.strftime("%Y")+"/"+f.name[:n]+"_thumb.jpg"
-                        print("Thum nail File Name : "+nf)
+                        print("Thumb nail File Name : "+nf)
                         p.thumb=nf
+                        if (fig == 1):
+                            a.thumb = nf
+                            a.save()
                         p.save()
                         img  = Image.open(f.file)
                         img.thumbnail((360,360))
 
                         img.save("media/"+nf)
-
                         photolist.append(p)
+
                         fig += 1
                     except IOError:
                         pass
@@ -57,6 +60,5 @@ def AddAlbum(request):
     else:
         photoform = PhotoUpload()
         albumform = AlbumUpload()
-        print("DEBUG")
         return render(request, 'photos/add_photo.html', {'photo': photoform, 'album':albumform})
 

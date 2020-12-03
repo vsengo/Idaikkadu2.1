@@ -42,6 +42,7 @@ class Album (models.Model):
     create_date = models.DateField(auto_now=True)
     release_date = models.DateField(default=datetime.date.today)
     updated_by = models.CharField(max_length=128, null=True)
+    thumb = models.ImageField(blank=True,null=True)
 
     #def default(self):
         #return self.album.filter(approved='Y').order_by('-release_date').first()
