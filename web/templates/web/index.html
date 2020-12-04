@@ -44,7 +44,7 @@
             <div class="card-body h-100">
                 {% if album_old %}
                     {%for old in album_old %}
-                    <a href="{% url 'news:detail-news' old.id %}" >
+                    <a href="{% url 'photos:view-album' old.id %}" >
                     <img src="{{ old.thumb.url}}" height="40px"> : {{ old.title|truncatewords:6}}</a>
                     <hr>
                    {% endfor %}
@@ -82,7 +82,7 @@
                 </a>
             </div></div>
                  <div class="card-footer">
-                     <a href="{% url 'news:detail-news' news_international.id %}"
+                     <a href="{% url 'photos:view-album' latest_album.id %}"
                        class="btn btn-primary btn-sm">More</a>
                  </div>
              </div></div>

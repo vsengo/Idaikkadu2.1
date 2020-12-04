@@ -1,0 +1,58 @@
+{% extends 'web/base.html' %}
+{% load static %}
+{% block content %}
+<div class="container-fluid">
+  <div class="card-header">
+    <h5>Album : {{ album.title }} </h5>
+    <div class="card-header2"> Contributed by : {{ album.author }} Updated on: {{ album.release_date }}</div>
+    <div>{{album.description}}</div>
+  </div>
+  <div class="card-body">
+    <div class="row justify-content-center">
+    {% for p in photo %}
+        <div class="album-column">
+            <img  class="myImg"  src={{ p.file.url }} highres={{ p.file.url }} style="margin: 10px 5p x 2 2;border: 2px solid #FFF;" height="240"   alt={{p.figNo}}>
+        </div>
+        {% if p.figNo == 4 %}
+            </div><div class="row  justify-content-center">
+        {% endif %}
+    {% endfor %}
+    </div>
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+    <span class="close">&times;</span>
+    <img class="modal-content" id="img01">
+    <div id="caption"></div>
+    </div>
+   </div>
+   <div class="card-footer">
+        Comments and likes
+   </div>
+</div>
+
+<script>
+var modal = document.getElementById('myModal');
+
+var images = document.getElementsByClassName('myImg');
+var modalImg = document.getElementById("img01");
+var captionText = document.getElementById("caption");
+
+var showModal = function(){
+    modal.style.display = "block";
+    modalImg.src = this.src;
+    captionText.innerHTML = this.alt;
+}
+
+for(var i=0, len = images.length; i < len; i++){
+    images[i].addEventListener('click', showModal);
+}
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+    modal.style.display = "none";
+}
+</script>
+{% endblock %}

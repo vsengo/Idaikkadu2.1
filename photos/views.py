@@ -34,6 +34,10 @@ def AddAlbum(request):
 
             if photoform.is_valid():
                 fig = 1
+                newHeight = 360
+                newWidth = 300
+                newRatio = newWidth/newHeight
+
                 for f in photos:
                     p = Photo(file=f, album=a, figNo=fig)
                     try:
@@ -46,7 +50,15 @@ def AddAlbum(request):
                             a.save()
                         p.save()
                         img  = Image.open(f.file)
-                        img.thumbnail((360,360))
+                        width,height = img.size
+                        aspRatio  = width/height
+
+                        if newRatio == aspRatio:
+                           img.thumbnail((newWidth,newHeight),Image.LANCZOS)
+                        else:
+                            nh = round(newWidth/aspRatio)
+                            img.thumbnail((newWidth,nh),Image.LANCZOS)
+                            print("Old :"+str(width)+"x"+str(height)+" New :"+str(newWidth)+"x"+str(nh))
 
                         img.save("media/"+nf)
                         photolist.append(p)
@@ -62,3 +74,23 @@ def AddAlbum(request):
         albumform = AlbumUpload()
         return render(request, 'photos/add_photo.html', {'photo': photoform, 'album':albumform})
 
+
+def ViewAlbum(request, album_id):
+    if int(album_id) > 0:
+        album = Album.objects.all( ).filter(id=album_id).first()
+        photos = Photo.objects.all().filter(album_id=album_id)
+    else:
+        album = Album.objects.all( ).oder_by(-release_date).first()
+        photos = Photo.objects.all( ).filter(album_id=album.id)
+
+
+    figNo = 1
+    total = 0
+    for p in photos:
+        if figNo > 4:
+            figNo = 1
+        p.figNo = figNo
+        figNo += 1
+        total += 1
+        print("Album ID "+album_id + " Total img:"+str(total)+ " FigNo :"+str(p.figNo) + " title "+album.title)
+    return render(request,'photos/view_album.html', {'photo':photos, 'album':album})

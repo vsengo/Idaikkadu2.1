@@ -142,6 +142,8 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'idaikkadu/static'),
+    os.path.join(BASE_DIR, 'photos/static'),
+    os.path.join(BASE_DIR, 'web/static'),
 )
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))

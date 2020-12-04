@@ -6,5 +6,5 @@ app_name = 'photos'
 
 urlpatterns = [
     url(r'^add-album', views.AddAlbum, name='add-album'),
-    url(r'^view-photos', views.PhotoList.as_view(), name='view-photos')
+    url(r'^view-album/(?P<album_id>\d+)', views.ViewAlbum, name='view-album')
 ]
