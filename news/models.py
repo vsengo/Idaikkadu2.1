@@ -18,7 +18,7 @@ class News(models.Model):
 
     MENU_CHOICES = (
         ('News', 'News'),
-        ('Dbituary', 'Obituary'),
+        ('Obituary', 'Obituary'),
         ('Story', 'Story'),
         ('Association', 'Association'),
         ('Article', 'Articles'),

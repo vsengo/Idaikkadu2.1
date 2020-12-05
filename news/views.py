@@ -56,11 +56,11 @@ def getDetailNews(request, news_id=2):
         news = News.objects.all().filter(id=news_id)
         return render(request,'news/news_detail.html',{'news_latest':news})
 
-class JaffnaNewsView(ListView):
+class IdaikkaduNewsView(ListView):
     model = News
 
     def get_queryset(self):
-        return News.objects.filter(category='jaffna')
+        return News.objects.filter(category='idaikkadu')
 
 
 class SrilankaNewsView(ListView):

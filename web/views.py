@@ -20,18 +20,20 @@ class IndexView(ListView):
         news = News.objects.all().order_by('-release_date').order_by('-id')
         context['news'] = news
         context['news_latest'] = context['news'].first()
+        news_latest_id = context['news'].first( ).id
+        context['news_old'] = context['news'].exclude(id=news_latest_id)[:3]
 
-        news_latest_id = context['news'].first().id
+        international = context['news'].exclude(id=news_latest_id).filter(category='international')
+        context['international_new'] = international.first()
+        context['international_old'] = international.exclude(id = context['international_new'].id)[:5]
 
-        context['news_international'] = context['news'].filter(category='international').first()
-        context['news_srilanka'] = context['news'].filter(category='srilanka').first()
-        context['news_idaikkadu'] = context['news'].filter(category='idaikkadu').first()
+        strilanka = context['news'].exclude(id=news_latest_id).filter(category='srilanka')
+        context['srilanka_new'] = strilanka.first()
+        context['srilanka_old'] = strilanka[:5]
 
-
-        news_old = context['news'].exclude(id=news_latest_id)[:3]
-        #context['news_international'] = news_old.filter(category='international').first()
-        #context['news_srilanka'] = news_old.filter(category='srilanka').first()
-        context['news_old'] = news_old
+        idaikkadu = context['news'].exclude(id=news_latest_id).filter(category='idaikkadu')
+        context['idaikkadu_new'] = idaikkadu.first()
+        context['idaikkadu_old'] = idaikkadu[:5]
 
         context['albums'] = Album.objects.all().order_by('-release_date').order_by('-id')
         context['latest_album'] = context['albums'].first()

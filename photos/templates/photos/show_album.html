@@ -1,0 +1,57 @@
+{% extends 'web/base.html' %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row text-center justify-content-center">
+
+    <div class="col-md-4 mb-5">
+                <div class="card h-100">
+                    <div class="card-header">
+                        <h4>International Albums</h4>
+                    </div>
+                    <div class="card-body" align="left">
+                        {% for album in international  %}
+                            <a href="{% url 'photos:view-album' album.id %}" class="btn btn-primary btn-sm">{{ album.release_date|date:'M-d'}}</a> <img src="{{ album.thumb.url}}" height="80px">
+                            {{ album.title|truncatewords:20}}
+                            <hr>
+                        {% endfor %}
+                    </div>
+                    <div class="card-footer">
+                    </div>
+                </div>
+    </div>
+    <div class="col-md-4 mb-5">
+                <div class="card h-100">
+                    <div class="card-header">
+                        <h4>Idaikkadu Albums</h4>
+                    </div>
+                    <div class="card-body" align="left">
+                        {% for album in idaikkadu  %}
+                            <a href="{% url 'photos:view-album' album.id %}" class="btn btn-primary btn-sm">{{ album.release_date|date:'M-d'}}</a> <img src="{{ album.thumb.url}}" height="80px">
+                            {{ album.title|truncatewords:20}}
+                            <hr>
+                        {% endfor %}
+                    </div>
+                    <div class="card-footer">
+                    </div>
+                </div>
+    </div>
+    <div class="col-md-4 mb-5">
+                <div class="card h-100">
+                    <div class="card-header">
+                        <h4>Srilanka Albums</h4>
+                    </div>
+                    <div class="card-body" align="left">
+                         {% for album in srilanka  %}
+                            <a href="{% url 'photos:view-album' album.id %}" class="btn btn-primary btn-sm">{{ album.release_date|date:'M-d'}}</a> <img src="{{ album.thumb.url}}" height="80px">
+                            {{ album.title|truncatewords:20}}
+                            <hr>
+                        {% endfor %}
+                    </div>
+                    <div class="card-footer">
+                    </div>
+                </div>
+    </div>
+    </div>
+</div>
+{% endblock %}

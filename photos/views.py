@@ -3,7 +3,7 @@ from django.views.generic import ListView
 from PIL import Image
 from photos.models import Photo, Album
 from photos.forms import AlbumUpload, PhotoUpload
-import datetime
+from  datetime import datetime, timedelta
 
 class PhotoList(ListView):
     model = Album
@@ -30,7 +30,7 @@ def AddAlbum(request):
             photoform = PhotoUpload(request.POST, request.FILES)
             photos = request.FILES.getlist('files[]')
             photolist = list()
-            today = datetime.datetime.now()
+            today = datetime.now()
 
             if photoform.is_valid():
                 fig = 1
@@ -80,9 +80,8 @@ def ViewAlbum(request, album_id):
         album = Album.objects.all( ).filter(id=album_id).first()
         photos = Photo.objects.all().filter(album_id=album_id)
     else:
-        album = Album.objects.all( ).oder_by(-release_date).first()
+        album = Album.objects.all( ).order_by(-release_date).first()
         photos = Photo.objects.all( ).filter(album_id=album.id)
-
 
     figNo = 1
     total = 0
@@ -94,3 +93,13 @@ def ViewAlbum(request, album_id):
         total += 1
         print("Album ID "+album_id + " Total img:"+str(total)+ " FigNo :"+str(p.figNo) + " title "+album.title)
     return render(request,'photos/view_album.html', {'photo':photos, 'album':album})
+
+def ShowAllAlbum(request):
+    today = datetime.now()
+    lastTwoYears = today - timedelta(days=2*365)
+
+    international = Album.objects.all( ).filter(category = "international")[:20]
+    srilanka = Album.objects.all( ).filter(category = "srilanka")[:20]
+    idaikkadu = Album.objects.all( ).filter(category = "idaikkadu")[:20]
+
+    return render(request,'photos/show_album.html',{'international':international, 'idaikkadu':idaikkadu,'srilanka':srilanka})
