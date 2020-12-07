@@ -98,9 +98,9 @@ def ShowAllAlbum(request):
     today = datetime.now()
     lastTwoYears = today - timedelta(days=2*365)
 
-    international = Album.objects.all( ).filter(category = "international")[:20]
-    srilanka = Album.objects.all( ).filter(category = "srilanka")[:20]
-    idaikkadu = Album.objects.all( ).filter(category = "idaikkadu")[:20]
+    international = Album.objects.all( ).filter(section="F")[:20]
+    srilanka = Album.objects.all( ).filter(section="S")[:20]
+    idaikkadu = Album.objects.all( ).filter(section="I")[:20]
 
     return render(request,'photos/show_album.html',{'international':international, 'idaikkadu':idaikkadu,'srilanka':srilanka})
 

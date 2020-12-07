@@ -53,7 +53,7 @@ INSTALLED_APPS = [
     'tempus_dominus',
     'news',
     'web',
-]
+ ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

@@ -18,7 +18,7 @@ class NewsList(ListView):
 class AddNewsView(CreateView):
     template_name = 'news/add-news.html'
     form_class = NewsForm
-    success_url = 'view-news'
+    success_url = 'detail-news'
 
     def form_valid(self, form):
         return super().form_valid(form)
@@ -67,18 +67,18 @@ class IdaikkaduNewsView(ListView):
     model = News
 
     def get_queryset(self):
-        return News.objects.filter(category='idaikkadu')
+        return News.objects.filter(section='I')
 
 
 class SrilankaNewsView(ListView):
     model = News
 
     def get_queryset(self):
-        return News.objects.filter(category='srilanka')
+        return News.objects.filter(section='S')
 
 
 class InternationalNewsView(ListView):
     model = News
 
     def get_queryset(self):
-        return News.objects.filter(category='international')
+        return News.objects.filter(section='F')

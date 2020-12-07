@@ -36,7 +36,7 @@
             <div class="card-body h-100">
                 {% if news_old %}
                     {%for old in news_old %}
-                     <a href="{% url 'news:detail-news' old.id %}" class="btn btn-primary btn-sm">{{ old.release_date|date:'M-d'}}</a> : {{ old.title|truncatewords:20}}
+                     <a href="{% url 'news:detail-news' old.id %}" class="btn btn-primary btn-sm">{{ old.release_date|date:'M-d'}} {{old.category}}</a> {{ old.title|truncatewords:20}}
                     <hr>
                    {% endfor %}
                 {% endif %}
@@ -46,8 +46,8 @@
             <div class="card-body h-100">
                 {% if album_old %}
                     {%for old in album_old %}
-                    <a href="{% url 'photos:view-album' old.id %}" >
-                    <img src="{{ old.thumb.url}}" height="40px"> {{old.release_date | date:'M-d'}} : {{ old.title|truncatewords:6}}</a>
+                        <img src="{{ old.thumb.url}}" height="40px">
+                        <a href="{% url 'photos:view-album' old.id %}" class="btn btn-primary btn-sm">{{old.release_date | date:'M-d'}} {{old.category}}</a> {{ old.title|truncatewords:6}}
                     <hr>
                    {% endfor %}
                 {% endif %}
@@ -116,7 +116,7 @@
                     <a href="{% url 'news:detail-news' international_new.id %}"
                        class="btn btn-primary btn-sm">More</a></p> <hr>
                     {% for old in international_old %}
-                        <a href="{% url 'news:detail-news' old.id %}" class="btn btn-primary btn-sm">{{ old.release_date|date:'M-d'}}</a> : {{ old.title|truncatewords:6}}
+                        <a href="{% url 'news:detail-news' old.id %}" class="btn btn-primary btn-sm">{{ old.release_date|date:'M-d'}} </a> : {{ old.title|truncatewords:6}}
                         <hr>
                     {% endfor %}
 

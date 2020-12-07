@@ -23,15 +23,15 @@ class IndexView(ListView):
         news_latest_id = context['news'].first( ).id
         context['news_old'] = context['news'].exclude(id=news_latest_id)[:3]
 
-        international = context['news'].exclude(id=news_latest_id).filter(category='international')
+        international = context['news'].exclude(id=news_latest_id).filter(section='F')
         context['international_new'] = international.first()
         context['international_old'] = international.exclude(id = context['international_new'].id)[:5]
 
-        strilanka = context['news'].exclude(id=news_latest_id).filter(category='srilanka')
+        strilanka = context['news'].exclude(id=news_latest_id).filter(section='S')
         context['srilanka_new'] = strilanka.first()
         context['srilanka_old'] = strilanka[:5]
 
-        idaikkadu = context['news'].exclude(id=news_latest_id).filter(category='idaikkadu')
+        idaikkadu = context['news'].exclude(id=news_latest_id).filter(section='I')
         context['idaikkadu_new'] = idaikkadu.first()
         context['idaikkadu_old'] = idaikkadu[:5]
 
