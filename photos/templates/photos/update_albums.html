@@ -1,0 +1,48 @@
+{% extends 'web/base.html' %}
+{% load static %}
+{% block content %}
+<div class="row text-left justify-content-cente">
+    <div class="card mt-2 mb-2">
+    {% if albums %}
+    {% for album in albums%}
+        <div class="card-header">
+        <div class="row">
+                <div class="col-md-6">
+                    <h5 align="center">Title : {{album.title}}
+                    Category : {{album.category}} ,  Section: {{album.menu}}</h5>
+                    <div class="card-header2" align="center"> Contributed by : {{album.author}} on {{ album.release_date }}</div>
+                </div>
+                <div class="col-md-6" align="right">
+                    {% if album.approved == 'N' %}
+                    <a href="{% url 'photos:approve-album' album.id %}" class="btn btn-primary btn-sm">Approve</a>
+                    {% endif %}<br><br>
+                    <a href="{% url 'photos:delete-album' album.id %}" class="btn btn-primary btn-sm">Delete</a>
+                </div>
+            </div>
+        </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-4">
+                <img src="{{ album.thumb.url}}" height="240px">
+            </div>
+            <div class="col-md-6"
+                 {% if album.description %}
+                    <p>{{album.description}}</p>
+                {% else %}
+                    <p> No Description Provided</p>
+                {% endif %}
+                <hr>
+                <p font="italic">If you want to re-arrange the photos or delete specific photos, please contact
+                    <a href="mailto:vsengo@gmail.com">webadmin.</a>
+                </p>
+                <p font="arial italic"> Alternatively you can load a new album the order you wanted to display. When choising pictures from your disk, choose the order you wanted it to appear.
+                first photo will be used with Title of the Album.</p>
+                <a href="{% url 'photos:view-album' album.id  %}" class="btn btn-primary btn-sm">See full Album</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    {% endif %}
+    </div>
+</div>
+{% endblock %}

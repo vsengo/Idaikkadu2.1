@@ -1,6 +1,7 @@
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
@@ -11,7 +12,8 @@ from news.models import News
 
 class NewsList(ListView):
     model = News
-
+    def get_queryset(self):
+        return News.objects.filter()[:20]
 
 class AddNewsView(CreateView):
     template_name = 'news/add-news.html'
@@ -32,10 +34,22 @@ class NewsUpdate(UpdateView):
         return News.objects.filter(id=self.kwargs['pk'])
 
 
-class NewsDelete(DeleteView):
+def DeleteNews(request, pk):
+        news=News.objects.filter(id=pk).first()
+        news.approved='N'
+        news.save()
+        return render(request, 'news/news_status.html', {'news': news})
+
+def ApproveNews(request, pk):
+        news=News.objects.filter(id=pk).first()
+        news.approved='Y'
+        news.save()
+        return  render(request,'news/news_status.html',{'news':news})
+
+
+class NewsReject(DeleteView):
     model = News
     success_url = reverse_lazy('news:news_list')
-
 
 class DetailNewsView(DetailView):
     model = News
@@ -43,16 +57,9 @@ class DetailNewsView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(DetailNewsView, self).get_context_data(**kwargs)
-        context['news_detail'] = News.objects.all().filter(id=self.kwargs['pk'])
-        context['news_title'] = context['news_detail'].first().title
-        context['news_content'] = context['news_detail'].first().content
-        context['news_category'] = context['news_detail'].first().category
-        context['news_menu'] = context['news_detail'].first().menu
-
         return context
 
 def getDetailNews(request, news_id=2):
-        print("Got "+str(news_id)," ##")
         news = News.objects.all().filter(id=news_id)
         return render(request,'news/news_detail.html',{'news_latest':news})
 

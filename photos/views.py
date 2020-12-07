@@ -103,3 +103,19 @@ def ShowAllAlbum(request):
     idaikkadu = Album.objects.all( ).filter(category = "idaikkadu")[:20]
 
     return render(request,'photos/show_album.html',{'international':international, 'idaikkadu':idaikkadu,'srilanka':srilanka})
+
+def UpdateAlbum(request):
+    albums = Album.objects.all( )[:20]
+    return render(request,'photos/update_albums.html',{'albums':albums})
+
+def ApproveAlbum(request, album_id):
+        album = Album.objects.filter(id=album_id).first( )
+        album.approved = 'Y'
+        album.save( )
+        return render(request, 'photos/album_status.html', {'album': album})
+
+def DeleteAlbum(request, album_id):
+    album = Album.objects.filter(id=album_id).first( )
+    album.approved = 'N'
+    album.save( )
+    return render(request, 'photos/album_status.html', {'album': album})

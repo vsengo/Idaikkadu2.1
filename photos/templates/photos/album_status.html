@@ -8,32 +8,37 @@
             <div class="row">
                 <div class="col-12 mb-4 mt-4" align="center">
                     <h2>
-                        {{ news.title }}
+                        {{ album.title }}
                     </h2>
-                    <p> Contributed by : {{ news.author }} on {{ news.release_date }} </p>
+                    <h4>Category : {{album.category}} - Menu: {{album.menu}}</h4>
+                    <p> Contributed by : {{ album.author }} on {{ album.release_date }} </p>
                     <hr class="mt-2 mb-5">
                 </div>
             </div>
             <div class="row text-center justify-content-center mb-2">
                 <div class="card">
                     <img class="card-img-top detail-pic"
-                         src={{ news.image.url }}
+                         src={{ album.thumb.url }}
                          alt="Card image cap">
                 </div>
             </div>
             <div class="card">
                 <div class="card-body">
                     <h3 class="card-title"></h3>
-                    <p>{{ news.content }}</p>
+                    {% if album.description %}
+                    <p>{{ album.description }}</p>
+                    {%else%}
+                    <p>No description</p>
+                    {% endif %}
                 </div>
                 {% if user.is_authenticated %}
-                <div class="card-footer">
-                    <a href="{% url 'news:edit-news' news.id %}" class="btn btn-primary btn-sm">Edit</a>
-                    {% if news.approved == 'N' %}
-                        <a href="{% url 'news:approve-news' news.id %}" class="btn btn-primary btn-sm">Approve</a>
-                    {% endif %}
-                    <a href="{% url 'news:delete-news' news.id %}" class="btn btn-primary btn-sm">Delete</a>
-                </div>
+                    <div class="card-footer">
+                        <h4>Album is
+                            {% if album.approved == 'Y' %} Approved for Release on {{ album.release_date }}
+                            {% else %}
+                            Rejected. Please correct and Re-approve.
+                            {% endif %} </h4>
+                    </div>
                 {% endif %}
             </div>
         </div>
