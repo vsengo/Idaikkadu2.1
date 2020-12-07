@@ -9,7 +9,7 @@
                         <div class="card-header">
                              <div class="row">
                         <div class="col-md-9">
-                            <h5>{{news.category}}  {{news.menu}} ({{ news.release_date }})</h5>
+                            <h5>{{news.region}}  {{news.menu}} ({{ news.release_date }})</h5>
                             <div class="card-header2"> Contributed by : {{news.author}}</div>
                         </div>
                             <div class="col-md-3" align="right">
@@ -42,5 +42,5 @@
         {% endfor %}
     </div>
 </div>
-
+{% include 'web/footer.html' %}
 {% endblock content %}

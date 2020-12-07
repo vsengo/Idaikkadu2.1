@@ -10,7 +10,7 @@ class News(models.Model):
     image = models.ImageField()
     author = models.CharField(max_length=128, default='webadmin', help_text="Author of the News or Article")
     email = models.EmailField(null=True)
-    category = models.CharField(max_length=32, default='idaikkadu', choices=choice.CATEGORY_CHOICES)
+    region = models.CharField(max_length=32, default='idaikkadu', choices=choice.REGION_CHOICES)
     menu = models.CharField(max_length=16, default='N', choices=choice.MENU_CHOICES)
     section = models.CharField(max_length=1, default='D', choices=choice.SECTION_CHOICES)
     link = models.URLField(blank=True, help_text="Optional: any link to share", null=True)

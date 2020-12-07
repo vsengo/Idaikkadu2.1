@@ -19,7 +19,7 @@
 
                 <div class="form-row">
                     <div class="form-group col-md-4">
-                        {{ album.category|as_crispy_field }}
+                        {{ album.region|as_crispy_field }}
                     </div>
                     <div class="form-group col-md-4">
                         {{ album.menu|as_crispy_field }}
@@ -98,4 +98,5 @@
                 </div>
                 </form>
         </div></div>
+{% include 'web/footer.html' %}
 {% endblock content %}

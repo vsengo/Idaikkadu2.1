@@ -1,6 +1,5 @@
 class choice:
-        CATEGORY_CHOICES = (
-            ('international', 'International'),
+        REGION_CHOICES = (
             ('srilanka', 'Sri Lanka'),
             ('jaffna', 'Jaffna'),
             ('idaikkadu', 'Idaikkadu'),
