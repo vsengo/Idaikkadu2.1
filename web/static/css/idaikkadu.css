@@ -23,7 +23,7 @@ h1, h2, h3, h4, h5, h6, p{
 .detail-pic{
   object-fit: cover; /* Do not scale the image */
   object-position: center; /* Center the image within the element */
-  width: 100%;
+  width: 50%;
   max-height: 300px;
 }
 
@@ -63,7 +63,7 @@ h1, h2, h3, h4, h5, h6, p{
 }
 
 .bg-image {
-  background-image: url('../images/login_bg.jpg');
+  background-image: url('../images/login.png');
   background-size: cover;
   background-position: center;
 }
@@ -274,6 +274,6 @@ h1, h2, h3, h4, h5, h6, p{
     border: 1px solid #000;
 }
 
-p.a {
+p.contrib {
     font: 10px Arial italic;
 }

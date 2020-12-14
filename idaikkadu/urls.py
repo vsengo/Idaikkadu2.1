@@ -1,5 +1,4 @@
-"""idaikkadu URL Configuration
-
+"""
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/2.1/topics/http/urls/
 Examples:
@@ -20,13 +19,13 @@ from django.contrib import admin
 from django.urls import path
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    url(r'^$', include(('web.urls', 'web'), namespace='web')),
-    url(r'^photos/', include(('photos.urls', 'photos'), namespace='photos')),
-    url(r'^news/', include(('news.urls', 'news'), namespace='news')),
+    path('admin/',admin.site.urls),
+    url(r'^$',include(('web.urls', 'web'), namespace='web')),
+    url(r'^photos/',include(('photos.urls', 'photos'), namespace='photos')),
+    url(r'^news/',include(('news.urls', 'news'), namespace='news')),
+    url(r'^accounts/', include(('accounts.urls', 'accounts'), namespace='accounts')),
     url('accounts/', include('django.contrib.auth.urls'), {'template_name': 'web/login.html'}, name='login'),
 ]
-
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

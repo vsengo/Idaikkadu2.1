@@ -1,9 +1,51 @@
 from django.shortcuts import redirect, render
 from django.views.generic import ListView
-from PIL import Image
+from PIL import Image, ExifTags
+import os
 from photos.models import Photo, Album
 from photos.forms import AlbumUpload, PhotoUpload
 from  datetime import datetime, timedelta
+
+def flip_horizontal(im): return im.transpose(Image.FLIP_LEFT_RIGHT)
+def flip_vertical(im): return im.transpose(Image.FLIP_TOP_BOTTOM)
+def rotate_180(im): return im.transpose(Image.ROTATE_180)
+def rotate_90(im): return im.transpose(Image.ROTATE_90)
+def rotate_270(im): return im.transpose(Image.ROTATE_270)
+def transpose(im): return rotate_90(flip_horizontal(im))
+def transverse(im): return rotate_90(flip_vertical(im))
+orientation_funcs = [None,
+                 lambda x: x,
+                 flip_horizontal,
+                 rotate_180,
+                 flip_vertical,
+                 transpose,
+                 rotate_270,
+                 transverse,
+                 rotate_90
+                ]
+def apply_orientation(im):
+    """
+    Extract the oritentation EXIF tag from the image, which should be a PIL Image instance,
+    and if there is an orientation tag that would rotate the image, apply that rotation to
+    the Image instance given to do an in-place rotation.
+
+    :param Image im: Image instance to inspect
+    :return: A possibly transposed image instance
+    """
+
+    try:
+        kOrientationEXIFTag = 0x0112
+        if hasattr(im, '_getexif'): # only present in JPEGs
+            e = im._getexif()       # returns None if no EXIF data
+            if e is not None:
+                #log.info('EXIF data found: %r', e)
+                orientation = e[kOrientationEXIFTag]
+                f = orientation_funcs[orientation]
+                return f(im)
+    except:
+        # We'd be here with an invalid orientation value or some random error?
+        pass # log.exception("Error applying EXIF Orientation tag")
+    return im
 
 class PhotoList(ListView):
     model = Album
@@ -31,40 +73,55 @@ def AddAlbum(request):
             photos = request.FILES.getlist('files[]')
             photolist = list()
             today = datetime.now()
+            tWidth, tHeight  = 300,200
+            pWidth, pHeight = 1200,800
 
             if photoform.is_valid():
                 fig = 1
-                newHeight = 360
-                newWidth = 300
+                newHeight =300
+                newWidth = 200
                 newRatio = newWidth/newHeight
 
                 for f in photos:
                     p = Photo(file=f, album=a, figNo=fig)
                     try:
-                        n = f.name.find(".")
-                        nf = "photos/"+today.strftime("%Y")+"/"+f.name[:n]+"_thumb.jpg"
-                        print("Thumb nail File Name : "+nf)
-                        p.thumb=nf
+                        fname,ext = os.path.splitext(p.file.name)
+                        nfname = today.strftime("%m%d%H")+"_"+str(fig)
+                        print ("Photo file " + nfname + " original name " + p.file.name)
+                        nfthumb = "photos/" + today.strftime("%Y") + "/" + nfname + "_thumb." + ext
+                        p.thumb=nfthumb
                         if (fig == 1):
-                            a.thumb = nf
+                            a.thumb = nfthumb
                             a.save()
+
                         p.save()
-                        img  = Image.open(f.file)
-                        width,height = img.size
-                        aspRatio  = width/height
+                        #Rename
+                        opath="media/"+p.file.name
+                        npath="media/photos/"+today.strftime("%Y")+"/"+nfname+ext
+                        os.rename(opath, npath)
 
-                        if newRatio == aspRatio:
-                           img.thumbnail((newWidth,newHeight),Image.LANCZOS)
-                        else:
-                            nh = round(newWidth/aspRatio)
-                            img.thumbnail((newWidth,nh),Image.LANCZOS)
-                            print("Old :"+str(width)+"x"+str(height)+" New :"+str(newWidth)+"x"+str(nh))
+                        img = Image.open(npath)
+                        width, height = img.size
+                        if (width > pWidth):
+                            nWidth  = pWidth
+                            nHeight = pHeight
+                            img = apply_orientation(img)
+                            img.thumbnail((nWidth, nHeight), Image.HAMMING)
+                            img.save(npath)
+                            print("New Size" + npath + " size " + str(nWidth) + "x" + str(nHeight))
 
-                        img.save("media/"+nf)
+                        p.file.name = "photos/"+today.strftime("%Y") + "/" + nfname + ext
+                        p.save(update_fields=["file"])
+
+                        img.thumbnail((tWidth, tHeight), Image.LANCZOS)
+                        img.save("media/"+nfthumb)
+                        print("Thum file" + npath + " size " + str(tWidth) + "x" + str(tHeight))
+
                         photolist.append(p)
 
                         fig += 1
-                    except IOError:
+                    except IOError as err:
+                        print("Exception file processing album {0}".format(err))
                         pass
                 return render(request,'photos/success.html', {'album':a})
         else:

@@ -7,7 +7,7 @@ class News(models.Model):
 
     title = models.CharField(max_length=256, blank=True, help_text="Short Title")
     content = models.TextField(max_length=10000)
-    image = models.ImageField()
+    image = models.ImageField(upload_to='news/%Y',blank=True,null=True)
     author = models.CharField(max_length=128, default='webadmin', help_text="Author of the News or Article")
     email = models.EmailField(null=True)
     region = models.CharField(max_length=32, default='idaikkadu', choices=choice.REGION_CHOICES)

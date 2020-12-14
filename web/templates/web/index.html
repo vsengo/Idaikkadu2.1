@@ -105,14 +105,15 @@
                         alt="Card image cap">
                     </div>
                     <div class="col-md-6">
-                        <h6 class="card-subtitle" text-align:"left" >{{ international_new.title }}</h6><br>
-                        <p class="contribution"> Contributed by {{ international_new.author }} on {{ international_new.release_date}}</p>
+                        <h4 class="card-subtitle" text-align="left" >{{ international_new.title }}</h4><br>
+                        <p class="contrib"> {{ international_new.author }} </p>
+                        <p>{{ international_new.release_date}}</p>
                     <hr>
                     </div>
                 </div>
 
                 <div class="card-body">
-                    <p class="text-black m-0"  align:"left">{{ international_new.content|truncatewords:50 }}
+                    <p class="text-black m-0"  align=left">{{ international_new.content|truncatewords:20 }}
                     <a href="{% url 'news:detail-news' international_new.id %}"
                        class="btn btn-primary btn-sm">More</a></p> <hr>
                     {% for old in international_old %}
@@ -120,8 +121,6 @@
                         <hr>
                     {% endfor %}
 
-                </div>
-                <div class="card-footer">
                 </div>
             </div>
         </div>
@@ -140,23 +139,22 @@
                         alt="Card image cap">
                     </div>
                     <div class="col-md-6">
-                        <p> Contributed by {{ idaikkadu_new.author }} on {{ idaikkadu_new.release_date}}</p>
+                        <h4 class="card-subtitle" text-align="left" >{{ idaikkadu_new.title }}</h4><br>
+                        <p class="contrib"> {{ idaikkadu_new.author }} </p>
+                        <p>{{ idaikkadu_new.release_date}}</p>
                     <hr>
                     </div>
                 </div>
 
                 <div class="card-body">
-                    <h5 class="card-subtitle" text-align:"justify" >{{ idaikkadu_new.title }}</h5>
-                    <p class="text-black m-0"  >{{ idaikkadu_new.content|truncatewords:50 }}
-                    <a href="{% url 'news:detail-news' idaikkadu_new.id %}"
+                    <p class="text-black m-0"  align=left">{{ idaikkadu_new.content|truncatewords:20 }}
+                    <a href="{% url 'news:detail-news' international_new.id %}"
                        class="btn btn-primary btn-sm">More</a></p> <hr>
                     {% for old in idaikkadu_old %}
-                        <a href="{% url 'news:detail-news' old.id %}" class="btn btn-primary btn-sm">{{ old.release_date|date:'M-d'}}</a> : {{ old.title|truncatewords:6}}
+                        <a href="{% url 'news:detail-news' old.id %}" class="btn btn-primary btn-sm">{{ old.release_date|date:'M-d'}} </a> : {{ old.title|truncatewords:6}}
                         <hr>
                     {% endfor %}
 
-                </div>
-                <div class="card-footer">
                 </div>
             </div>
         </div>
