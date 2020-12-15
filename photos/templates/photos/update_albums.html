@@ -8,16 +8,20 @@
         <div class="card-header">
         <div class="row">
                 <div class="col-md-6">
-                    <h5 align="center">Title : {{album.title}}
+                    <h5 align="center">Title : {{album.title}} <br>
                     Category : {{album.region}} ,  Section: {{album.menu}}</h5>
                     <div class="card-header2" align="center"> Contributed by : {{album.author}} on {{ album.release_date }}</div>
                 </div>
+                {% if user.is_authenticated %}
                 <div class="col-md-6" align="right">
-                    {% if album.approved == 'N' %}
-                    <a href="{% url 'photos:approve-album' album.id %}" class="btn btn-primary btn-sm">Approve</a>
-                    {% endif %}<br><br>
+                    {% if user.is_staff %}
+                        {% if album.approved == 'N' %}
+                        <a href="{% url 'photos:approve-album' album.id %}" class="btn btn-primary btn-sm">Approve</a>
+                        {% endif %}<br><br>
                     <a href="{% url 'photos:delete-album' album.id %}" class="btn btn-primary btn-sm">Delete</a>
+                    {% endif %}
                 </div>
+                {% endif %}
             </div>
         </div>
     <div class="card-body">

@@ -11,6 +11,7 @@ from photos.views import apply_orientation
 
 class NewsList(ListView):
     model = News
+    template_name = 'news/news_update.html'
     def get_queryset(self):
         return News.objects.filter()[:20]
 
@@ -46,42 +47,6 @@ class AddNewsView(CreateView):
             pass
         return response
 
-
-#Not working
-def AddNews(request):
-    if request.method == "POST":
-        newsform = NewsForm(request.POST)
-        print(request.FILES)
-        today = datetime.now( )
-        twidth, theight = 300, 300
-
-        if newsform.is_valid( ):
-            a = newsform.save()
-            fname,ext = os.path.splitext(a.image.name)
-
-            opath="news/"+ today.strftime("%Y") + "/" + fname+ext
-            npath="media/news/"+today.strftime("%Y") + "/" + today.strftime("%m%d%H%M")+ext
-            print("opath " + opath + " npath " + npath)
-            try:
-                img = Image.open("media/"+opath)
-                width, height = img.size
-                if (width > twidth):
-                    img = apply_orientation(img)
-                    img.thumbnail((twidth, theight), Image.HAMMING)
-                    img.save("media/"+opath)
-                    os.rename("media/"+opath, npath)
-                    a.save(update_fields=["image"])
-            except IOError as err:
-                print("Exception file processing image {0}".format(err))
-                pass
-            return render(request,'news/Success.html', {'news':a})
-        else:
-            print(newsform.errors)
-            return render(request,'news/Failed.html')
-    else:
-        newsform = NewsForm()
-        return render(request, 'news/add_news.html', {'form': newsform})
-
 class NewsUpdate(UpdateView):
     model = News
     form_class = NewsForm
@@ -111,17 +76,9 @@ class NewsReject(DeleteView):
     model = News
     success_url = reverse_lazy('news:news_list')
 
-class DetailNewsView(DetailView):
-    model = News
-    template_name = 'news/news_detail.html'
-
-    def get_context_data(self, **kwargs):
-        context = super(DetailNewsView, self).get_context_data(**kwargs)
-        return context
-
-def getDetailNews(request, news_id=2):
-        news = News.objects.all().filter(id=news_id)
-        return render(request,'news/news_detail.html',{'news_latest':news})
+def getDetailNews(request, pk=2):
+        dnews = News.objects.all().filter(id=pk).first()
+        return render(request,'news/news_detail.html',{'news':dnews})
 
 class IdaikkaduNewsView(ListView):
     model = News
