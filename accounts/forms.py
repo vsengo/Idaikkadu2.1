@@ -2,6 +2,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django import forms
 from django.contrib.auth.models import User
 
+
 class RegisterForm(UserCreationForm):
     email = forms.EmailField(label = "Email")
     first_name = forms.CharField(label = "First Name")
@@ -13,6 +14,8 @@ class RegisterForm(UserCreationForm):
 
     def save(self, commit=True):
         print("Saving singup")
-
-        super(UserCreationForm, self).save(commit=True)
+        user = super(UserCreationForm, self).save(commit=False)
+        user.set_password(self.cleaned_data["password1"])
+        if commit:
+            user.save()
         return user
