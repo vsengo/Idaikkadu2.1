@@ -40,14 +40,20 @@ var modalImg = document.getElementById("img01");
 var captionText = document.getElementById("caption");
 
 var showModal = function(){
-    modal.style.display = "block";
     modalImg.src = this.src;
     captionText.innerHTML = this.alt;
+
+    if (modal.style.display === "none"){
+        modal.style.display = "block";
+    }else{
+        modal.style.display = "none";
+    }
 }
 
 for(var i=0, len = images.length; i < len; i++){
     images[i].addEventListener('click', showModal);
 }
+modalImg.addEventListener('click', showModal);
 
 // Get the <span> element that closes the modal
 var span = document.getElementsByClassName("close")[0];
