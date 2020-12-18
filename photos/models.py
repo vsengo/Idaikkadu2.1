@@ -25,8 +25,14 @@ class Photo(models.Model):
     album = models.ForeignKey(Album, related_name='album', on_delete=models.CASCADE)
 
 class Comment(models.Model):
-    comment = models.TextField( )
-    approved = models.CharField(max_length=1, default='N', choices=choice.APPROVAL_CHOICES)
-    album = models.ForeignKey(Album, on_delete=models.CASCADE)
-    updated_by = models.CharField(max_length=128)
-    create_date = models.DateField(auto_now=True)
+    body = models.TextField(max_length=256)
+    name = models.CharField(max_length=32)
+    created_on = models.DateTimeField(auto_now_add=True)
+    approved = models.CharField(max_length=1, default='Y', choices=choice.APPROVAL_CHOICES)
+    album = models.ForeignKey(Album, on_delete=models.CASCADE, related_name='comments')
+
+    class Meta:
+        ordering = ['created_on']
+
+    def __str__(self):
+        return 'Comment {} by {}'.format(self.body, self.name)

@@ -2,7 +2,7 @@
 {% load static %}
 {% block content %}
 <div class="container-fluid">
-  <div class="card-header">
+  <div class="card-header text-center justify-content-center">
     <h5>Album : {{ album.title }} </h5>
     <div class="card-header2"> Contributed by : {{ album.author }} Updated on: {{ album.release_date }}</div>
     <div>{{album.description}}</div>
@@ -26,7 +26,9 @@
     </div>
    </div>
    <div class="card-footer">
-        Comments and likes
+       <div class="row  justify-content-center">
+            <a href="{% url 'photos:comment-album' album.id %}" class="btn btn-primary btn-sm">{{comments.count}} Comments</a>
+        </div>
    </div>
 </div>
 

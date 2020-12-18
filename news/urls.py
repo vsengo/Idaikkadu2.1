@@ -18,4 +18,5 @@ urlpatterns = [
     url(r'^delete-news/(?P<pk>\d+)', views.DeleteNews, name='delete-news'),
     url(r'^approve-news/(?P<pk>\d+)', views.ApproveNews, name='approve-news'),
     url(r'^success-news', views.SuccessNews, name='success-news'),
+    url(r'^comment-news/(?P<pk>\d+)', views.PostComment, name='comment-news'),
 ]

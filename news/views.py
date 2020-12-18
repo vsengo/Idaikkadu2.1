@@ -1,11 +1,14 @@
-from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView
+from django.shortcuts import render, get_object_or_404
+from django.contrib import messages
+from django.contrib.auth.models import User
+
 from  datetime import datetime
 import os
 from PIL import Image, ExifTags
-from news.forms import NewsForm
-from news.models import News
+from news.forms import NewsForm, CommentForm
+from news.models import News, Comment
 from photos.views import apply_orientation
 
 
@@ -78,7 +81,8 @@ class NewsReject(DeleteView):
 
 def getDetailNews(request, pk=2):
         dnews = News.objects.all().filter(id=pk).first()
-        return render(request,'news/news_detail.html',{'news':dnews})
+        comments = Comment.objects.all( ).filter(news_id=pk).filter(approved='Y')
+        return render(request,'news/news_detail.html',{'news':dnews, 'comments':comments})
 
 class IdaikkaduNewsView(ListView):
     model = News
@@ -99,3 +103,34 @@ class InternationalNewsView(ListView):
 
     def get_queryset(self):
         return News.objects.filter(section='F')
+
+def PostComment(request, pk):
+    template_name = 'news/news_comment.html'
+    post = get_object_or_404(News, id=pk)
+    comments = Comment.objects.all().filter(news_id=pk).filter(approved='Y')
+    new_comment = None
+    # Comment posted
+    if request.method == 'POST':
+        comment_form = CommentForm(data=request.POST)
+        member = User.objects.all().filter(username=request.user.username)
+
+        if comment_form.is_valid():
+
+            # Create Comment object but don't save to database yet
+            new_comment = comment_form.save(commit=False)
+            # Assign the current post to the comment
+            new_comment.news_id = pk
+            if member:
+                new_comment.name = member.first_name
+                new_comment.approved='Y'
+            # Save the comment to the database
+            new_comment.save()
+        else:
+            print("Could not save comment by {}".format(request.user.username))
+    else:
+        comment_form = CommentForm()
+
+    return render(request, template_name, {'post': post,
+                                           'comments': comments,
+                                           'new_comment': new_comment,
+                                           'comment_form': comment_form})
