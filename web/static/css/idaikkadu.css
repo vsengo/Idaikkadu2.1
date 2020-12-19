@@ -281,8 +281,8 @@ p.contrib {
  /* Style the container with a rounded border, grey background and some padding and margin */
 .comment-container {
   border: 2px solid;
-  background-color: #476ce4;
-  color : #ffffff
+  background-color: #C6E0D8
+  color : #0E5841
   border-radius: 5px;
   padding: 16px;
   margin: 16px 0;
@@ -294,9 +294,10 @@ p.contrib {
   clear: both;
   display: table;
 }
+
 /* Increase the font-size of a span element */
 .comment-span {
-  font-size: 12px;
+  font-size: 15px;
   font-family: "Lucida Console", "Courier New", monospace;
   margin-right: 15px;
 }
