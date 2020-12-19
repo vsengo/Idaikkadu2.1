@@ -53,5 +53,29 @@
                 </div>
             </div>
         </div>
-        {% include 'web/footer.html' %}
+        <div class="row text-left justify-content-left mb-2">
+            <p>{{ news.content }}</p>
+        </div>
+    </div>
+    <div class="card-footer">
+        <div class="row  mb-2">
+            <div class="col-md-3 col-lg-6">
+                <a href="{% url 'news:comment-news' news.id %}" class="btn btn-primary btn-sm">{{comments.count}} Comments</a>
+            </div>
+            <div class="col-md-3 col-lg-6 text-right justify-content-right">
+                {% if user.is_authenticated %}
+                   <a href="{% url 'news:edit-news' news.id %}" class="btn btn-primary btn-sm">Edit</a>
+                    {% if user.is_staff %}
+                    {% if news.approved == 'N' %}
+                        <a href="{% url 'news:approve-news' news.id %}" class="btn btn-primary btn-sm">Approve</a>
+                    {% endif %}
+                    {% endif %}
+                    <a href="{% url 'news:delete-news' news.id %}" class="btn btn-primary btn-sm">Delete</a>
+                {% endif %}
+                </div>
+        </div>
+    </div>
+   </div>
+</div>
+{% include 'web/footer.html' %}
 {% endblock content %}

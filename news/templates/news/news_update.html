@@ -7,8 +7,23 @@
         {% for news in news_list %}
             <div class="card mt-2 mb-2">
                         <div class="card-header">
+                             <div class="row">
+                        <div class="col-md-9">
                             <h5>{{news.region}}  {{news.menu}} ({{ news.release_date }})</h5>
                             <div class="card-header2"> Contributed by : {{news.author}}</div>
+                        </div>
+                            {% if user.is_authenticated %}
+                            <div class="col-md-3" align="right">
+                            <a href="{% url 'news:edit-news' news.id %}" class="btn btn-primary btn-sm">Edit</a>
+                                {% if user.is_staff %}
+                                {% if news.approved == 'N' %}
+                                <a href="{% url 'news:approve-news' news.id %}" class="btn btn-primary btn-sm">Approve</a>
+                                {% endif %}
+                                <a href="{% url 'news:delete-news' news.id %}" class="btn btn-primary btn-sm">Delete</a>
+                                {% endif %}
+                            </div>
+                            {% endif %}
+                        </div>
                         </div>
 
                     <div class="card-body">

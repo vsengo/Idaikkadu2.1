@@ -1,10 +1,10 @@
 #!/bin/bash
-if [ $# -lt 1 ] ; then
+pkg=Idaikkadu.tar.gz
+if [ $# -ge 1 ] ; then
 	echo "install <pkg>"
-	exit 0
+	pkg=$1
 fi
 
-pkg=$1
 if [ $# -gt 1 ]; then
 	dest=$2
 fi

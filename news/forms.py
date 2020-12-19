@@ -1,6 +1,5 @@
 from django import forms
-from tempus_dominus.widgets import DatePicker
-from news.models import News
+from news.models import News, Comment
 
 class NewsForm(forms.ModelForm):
     class Meta:
@@ -18,4 +17,9 @@ class NewsForm(forms.ModelForm):
         else:
             self.instance.section = 'F'
         return cleaned_data
+
+class CommentForm(forms.ModelForm):
+        class Meta:
+            model = Comment
+            fields = ('name', 'body')
 

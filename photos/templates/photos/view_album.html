@@ -1,8 +1,8 @@
 {% extends 'web/base.html' %}
 {% load static %}
 {% block content %}
-<div class="container-fluid">
-  <div class="card-header">
+<div class="container-fluid" id="album">
+  <div class="card-header text-center justify-content-center">
     <h5>Album : {{ album.title }} </h5>
     <div class="card-header2"> Contributed by : {{ album.author }} Updated on: {{ album.release_date }}</div>
     <div>{{album.description}}</div>
@@ -13,21 +13,30 @@
         <div class="album-column">
             <img  class="myImg"  src={{ p.file.url }} highres={{ p.file.url }} style="margin: 10px 5p x 2 2;border: 2px solid #FFF;" height="240"   alt={{p.figNo}}>
         </div>
-        {% if p.figNo == 4 %}
-            </div><div class="row  justify-content-center">
-        {% endif %}
     {% endfor %}
-    </div>
-    <!-- The Modal -->
-    <div id="myModal" class="modal">
-    <span class="close">&times;</span>
-    <img class="modal-content" id="img01">
-    <div id="caption"></div>
-    </div>
-   </div>
+    </div></div>
    <div class="card-footer">
-        Comments and likes
+       <div class="row  justify-content-center">
+            <a href="{% url 'photos:comment-album' album.id %}" class="btn btn-primary btn-sm">{{comments.count}} Comments</a>
+        </div>
    </div>
+</div>
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+    <div class="card-header text-center justify-content-center">
+        <h5>Album : {{ album.title }} </h5>
+        <div class="card-header2"> Contributed by : {{ album.author }} Updated on: {{ album.release_date }}</div>
+        <div>{{album.description}}</div>
+    </div>
+    <div class="card-body">
+        <img class="modal-content" id="img01">
+    </div>
+    <div class="card-footer">
+       <div class="row  justify-content-center">
+            <a href="{% url 'photos:comment-album' album.id %}" class="btn btn-primary btn-sm">{{comments.count}} Comments</a>
+        </div>
+    </div>
 </div>
 
 <script>
@@ -35,25 +44,24 @@ var modal = document.getElementById('myModal');
 
 var images = document.getElementsByClassName('myImg');
 var modalImg = document.getElementById("img01");
-var captionText = document.getElementById("caption");
+var album = document.getElementById("album");
 
 var showModal = function(){
-    modal.style.display = "block";
     modalImg.src = this.src;
-    captionText.innerHTML = this.alt;
+    if (modal.style.display === "none"){
+        modal.style.display = "block";
+        album.style.display = "none";
+ }else{
+        modal.style.display = "none";
+        album.style.display = "block";
+    }
 }
 
 for(var i=0, len = images.length; i < len; i++){
     images[i].addEventListener('click', showModal);
 }
+modalImg.addEventListener('click', showModal);
 
-// Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
-
-// When the user clicks on <span> (x), close the modal
-span.onclick = function() {
-    modal.style.display = "none";
-}
 </script>
 {% include 'web/footer.html' %}
 {% endblock %}

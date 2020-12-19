@@ -2,8 +2,8 @@ from django.shortcuts import redirect, render
 from django.views.generic import ListView
 from PIL import Image, ExifTags
 import os
-from photos.models import Photo, Album
-from photos.forms import AlbumUpload, PhotoUpload
+from photos.models import Photo, Album, Comment
+from photos.forms import AlbumUpload, PhotoUpload, CommentForm
 from  datetime import datetime, timedelta
 
 def flip_horizontal(im): return im.transpose(Image.FLIP_LEFT_RIGHT)
@@ -140,16 +140,8 @@ def ViewAlbum(request, album_id):
         album = Album.objects.all( ).order_by(-release_date).first()
         photos = Photo.objects.all( ).filter(album_id=album.id)
 
-    figNo = 1
-    total = 0
-    for p in photos:
-        if figNo > 4:
-            figNo = 1
-        p.figNo = figNo
-        figNo += 1
-        total += 1
-        print("Album ID "+album_id + " Total img:"+str(total)+ " FigNo :"+str(p.figNo) + " title "+album.title)
-    return render(request,'photos/view_album.html', {'photo':photos, 'album':album})
+    comments = Comment.objects.all().filter(album_id=album_id).filter(approved='Y')
+    return render(request,'photos/view_album.html', {'photo':photos, 'album':album, 'comments':comments})
 
 def ShowAllAlbum(request):
     today = datetime.now()
@@ -176,3 +168,25 @@ def DeleteAlbum(request, album_id):
     album.approved = 'N'
     album.save( )
     return render(request, 'photos/album_status.html', {'album': album})
+
+def PostComment(request, pk):
+    template_name = 'photos/album_comment.html'
+    comments = Comment.objects.all().filter(album_id=pk).filter(approved='Y')
+    new_comment = None
+    # Comment posted
+    if request.method == 'POST':
+        comment_form = CommentForm(data=request.POST)
+        if comment_form.is_valid():
+
+            # Create Comment object but don't save to database yet
+            new_comment = comment_form.save(commit=False)
+            # Assign the current post to the comment
+            new_comment.album_id = pk
+            # Save the comment to the database
+            new_comment.save()
+    else:
+        comment_form = CommentForm()
+
+    return render(request, template_name, {'comments': comments,
+                                           'new_comment': new_comment,
+                                           'comment_form': comment_form})

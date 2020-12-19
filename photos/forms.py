@@ -1,6 +1,5 @@
 from django import forms
-
-from .models import Photo, Album
+from .models import Photo, Album, Comment
 from django.forms import ClearableFileInput
 
 
@@ -28,3 +27,8 @@ class PhotoUpload(forms.ModelForm):
         widgets = {
             'file': ClearableFileInput(attrs={'multiple': True}),
         }
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ('name', 'body')

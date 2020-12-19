@@ -1,0 +1,52 @@
+{% extends 'web/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <div class="col-md-8 card mb-4  mt-3 ">
+        <div class="card-header">
+            Comments ({{ comments.count }})
+        </div>
+      <div class="card-body">
+        {% for comment in comments %}
+         <div class="comment-container">
+             <span class="comment-span">{{comment.name}} - {{comment.body}}</span><hr>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    <div class="col-md-8 card mb-4  mt-3 ">
+      <div class="card-body">
+        {% if new_comment %}
+        <div class="alert alert-success" role="alert">
+          Your comment is awaiting moderation
+        </div>
+        {% else %}
+        {% if comment_form.errors %}
+            <!-- Error messaging -->
+            <div id="errors">
+                <div class="inner">
+                    <p>There were some errors in the information you entered. Please correct the following:</p>
+                    <ul>
+                        {% for field in comment_form %}
+                            {% if field.errors %}<li>{{ field.label }}: {{ field.errors|striptags }}</li>{% endif %}
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            <!-- /Error messaging -->
+        {% endif %}
+        <h4>Leave a comment</h4>
+        <form method="post" style="margin-top: 1.3em;">
+          {% if user.is_authenticated %}
+              {{ comment_form.body | as_crispy_field}}
+          {% else %}
+              {{ comment_form|crispy}}
+          {% endif %}
+          {% csrf_token %}
+          <button type="submit" class="btn btn-primary  btn-lg">Submit</button>
+        </form>
+        {% endif %}
+      </div>
+    </div>
+{% include 'web/footer.html' %}
+{% endblock content %}
