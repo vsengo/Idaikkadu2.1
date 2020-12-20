@@ -1,21 +1,56 @@
 {% extends 'web/base.html' %}
-
 {% block content %}
 
-<div class="container-fluid">
-    <div class="card mt-2 mb-2">
-    <div class="card-header text-center justify-content-center mb-2" >
-        <h4> {{ news.title }}</h4>
-    </div>
-    <div class="card-body">
-        <div class="row text-center justify-content-center mb-2">
-            <div class="col-md-3 col-lg-6">
-                <img class="card-img-top detail-pic"
-                     src={{ news.image.url }}
-                     alt="Card image cap">
+    <div class="container-fluid">
+        <div class="card mt-2 mb-2">
+            <div class="card-header text-center justify-content-center mb-2">
+                <h4> {{ news.title }}</h4>
             </div>
-            <div class="col-md-3 col-lg-6">
-                Contributed by : {{ news.author }} on {{ news.release_date }}
+            <div class="card-body">
+                <div class="row text-center justify-content-center mb-2">
+                    <div class="col-md-3 col-lg-6">
+                        <img class="card-img-top detail-pic"
+                             src={{ news.image.url }}
+                                     alt="Card image cap">
+                    </div>
+                    <div class="col-md-3 col-lg-6">
+                        Contributed by : {{ news.author }} on {{ news.release_date }}
+                    </div>
+                </div>
+                <div class="row text-left justify-content-left mb-2">
+                    <p>{{ news.content }}</p>
+                </div>
+                <div>
+                    {% if user.is_authenticated %}
+                        <form action="{% url 'news:like-news' news.id %}" method="POST">
+                            {% csrf_token %}
+
+                            {% if post_is_liked %}
+                                <div>
+                                    <button type="submit" name="blogpost_id" value="{{ object.id }}"
+                                            class="btn btn-info"><strong
+                                            class="text-secondary">{{ number_of_likes }}</strong> | Unlike
+                                    </button>
+                                </div>
+                            {% else %}
+                                <button type="submit" name="blogpost_id" value="{{ object.id }}" class="btn btn-info">
+                                    <strong class="text-secondary">{{ number_of_likes }}</strong> | :qLike
+                                </button>
+                            {% endif %}
+                        </form>
+                    {% else %}
+                    {% endif %}
+
+                </div>
+                <div class="card-footer">
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'news:edit-news' news.id %}" class="btn btn-primary btn-sm">Edit</a>
+                        {% if news.approved == 'N' %}
+                            <a href="{% url 'news:approve-news' news.id %}" class="btn btn-primary btn-sm">Approve</a>
+                        {% endif %}
+                        <a href="{% url 'news:delete-news' news.id %}" class="btn btn-primary btn-sm">Delete</a>
+                    {% endif %}
+                </div>
             </div>
         </div>
         <div class="row text-left justify-content-left mb-2">

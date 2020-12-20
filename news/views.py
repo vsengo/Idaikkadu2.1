@@ -1,3 +1,11 @@
+<<<<<<< HEAD
+import json
+
+from django.http import HttpResponseRedirect
+from django.shortcuts import render, get_object_or_404
+from django.urls import reverse_lazy, reverse
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
+from datetime import datetime
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.shortcuts import render, get_object_or_404
@@ -18,6 +26,7 @@ class NewsList(ListView):
     def get_queryset(self):
         return News.objects.filter()[:20]
 
+
 class AddNewsView(CreateView):
     template_name = 'news/add_news.html'
     form_class = NewsForm
@@ -27,7 +36,7 @@ class AddNewsView(CreateView):
         response = super().form_valid(form)
         news = form.instance
 
-        today = datetime.now( )
+        today = datetime.now()
         twidth, theight = 300, 300
         fname, ext = os.path.splitext(news.image.name)
 
@@ -41,14 +50,50 @@ class AddNewsView(CreateView):
                 img.thumbnail((twidth, theight), Image.HAMMING)
                 img.save("media/" + opath)
 
-            os.rename("media/" + opath, "media/"+npath)
-            news.image.name=npath
+            os.rename("media/" + opath, "media/" + npath)
+            news.image.name = npath
             news.save(update_fields=["image"])
             print("Updated opath " + opath + " to " + npath)
         except IOError as err:
             print("Exception file processing image {0}".format(err))
             pass
         return response
+
+# Not working
+def AddNews(request):
+    if request.method == "POST":
+        newsform = NewsForm(request.POST)
+        print(request.FILES)
+        today = datetime.now()
+        twidth, theight = 300, 300
+
+        if newsform.is_valid():
+            a = newsform.save()
+            fname, ext = os.path.splitext(a.image.name)
+
+            opath = "news/" + today.strftime("%Y") + "/" + fname + ext
+            npath = "media/news/" + today.strftime("%Y") + "/" + today.strftime("%m%d%H%M") + ext
+            print("opath " + opath + " npath " + npath)
+            try:
+                img = Image.open("media/" + opath)
+                width, height = img.size
+                if (width > twidth):
+                    img = apply_orientation(img)
+                    img.thumbnail((twidth, theight), Image.HAMMING)
+                    img.save("media/" + opath)
+                    os.rename("media/" + opath, npath)
+                    a.save(update_fields=["image"])
+            except IOError as err:
+                print("Exception file processing image {0}".format(err))
+                pass
+            return render(request, 'news/Success.html', {'news': a})
+        else:
+            print(newsform.errors)
+            return render(request, 'news/Failed.html')
+    else:
+        newsform = NewsForm()
+        return render(request, 'news/add_news.html', {'form': newsform})
+
 
 class NewsUpdate(UpdateView):
     model = News
@@ -61,28 +106,52 @@ class NewsUpdate(UpdateView):
 
 
 def DeleteNews(request, pk):
-        news=News.objects.filter(id=pk).first()
-        news.approved='N'
-        news.save()
-        return render(request, 'news/news_status.html', {'news': news})
+    news = News.objects.filter(id=pk).first()
+    news.approved = 'N'
+    news.save()
+    return render(request, 'news/news_status.html', {'news': news})
+
 
 def ApproveNews(request, pk):
-        news=News.objects.filter(id=pk).first()
-        news.approved='Y'
-        news.save()
-        return  render(request,'news/news_status.html',{'news':news})
+    news = News.objects.filter(id=pk).first()
+    news.approved = 'Y'
+    news.save()
+    return render(request, 'news/news_status.html', {'news': news})
+
 
 def SuccessNews(request):
     return render(request, 'news/Success.html')
+
 
 class NewsReject(DeleteView):
     model = News
     success_url = reverse_lazy('news:news_list')
 
-def getDetailNews(request, pk=2):
-        dnews = News.objects.all().filter(id=pk).first()
-        comments = Comment.objects.all( ).filter(news_id=pk).filter(approved='Y')
-        return render(request,'news/news_detail.html',{'news':dnews, 'comments':comments})
+
+class DetailNewsView(DetailView):
+    model = News
+    template_name = 'news/news_detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(DetailNewsView, self).get_context_data(**kwargs)
+        obj = get_object_or_404(News, id=self.kwargs['pk'])
+        user = self.request.user
+
+        # if user.is_authenticated():
+        if user in obj.countLike.all():
+            liked = True
+        else:
+            liked = False
+
+        context['number_of_likes'] = obj.number_of_likes()
+        context['post_is_liked'] = liked
+        return context
+
+
+def getDetailNews(request, news_id=2):
+    news = News.objects.all().filter(id=news_id)
+    return render(request, 'news/news_detail.html', {'news_latest': news})
+
 
 class IdaikkaduNewsView(ListView):
     model = News
@@ -103,6 +172,19 @@ class InternationalNewsView(ListView):
 
     def get_queryset(self):
         return News.objects.filter(section='F')
+
+
+def BlogPostLike(request, pk):
+    post = get_object_or_404(News, id=request.POST.get('blogpost_id'))
+    user = request.user
+
+    if user in post.countLike.all():
+        post.countLike.remove(user)
+    else:
+        post.countLike.add(user)
+
+    return HttpResponseRedirect(reverse('news:detail-news', args=[str(pk)]))
+
 
 def PostComment(request, pk):
     template_name = 'news/news_comment.html'
