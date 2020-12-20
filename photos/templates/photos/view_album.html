@@ -3,9 +3,25 @@
 {% block content %}
 <div class="container-fluid" id="album">
   <div class="card-header text-center justify-content-center">
-    <h5>Album : {{ album.title }} </h5>
-    <div class="card-header2"> Contributed by : {{ album.author }} Updated on: {{ album.release_date }}</div>
-    <div>{{album.description}}</div>
+      <div class="row">
+        <div class="col-md-2 col-lg-2 justify-content-right">
+        <form action="{% url 'photos:like-album' album.id %}" method="POST">
+        {% csrf_token %}
+            <button type="submit" name="blogpost_id" value="Liked"
+                    class="btn btn-info"><strong
+                    class="text-secondary">likes ({{ album.countLike }})</strong>
+            </button>
+        </form>
+        </div>
+        <div class="col-md-8 col-lg-8 justify-content-center">
+            <h5>Album : {{ album.title }} </h5>
+            <div class="card-header2"> Contributed by : {{ album.author }} Updated on: {{ album.release_date }}</div>
+            <div>{{album.description}}</div>
+        </div>
+        <div class="col-md-2  col-lg-2 justify-content-left">
+            <a href="{% url 'photos:comment-album' album.id %}" class="btn btn-primary btn-sm">{{comments.count}} Comments</a>
+        </div>
+       </div>
   </div>
   <div class="card-body">
     <div class="row justify-content-center">
@@ -16,9 +32,7 @@
     {% endfor %}
     </div></div>
    <div class="card-footer">
-       <div class="row  justify-content-center">
-            <a href="{% url 'photos:comment-album' album.id %}" class="btn btn-primary btn-sm">{{comments.count}} Comments</a>
-        </div>
+
    </div>
 </div>
 

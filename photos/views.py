@@ -1,4 +1,6 @@
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render,get_object_or_404
+from django.http import HttpResponseRedirect
+from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView
 from PIL import Image, ExifTags
 import os
@@ -190,3 +192,9 @@ def PostComment(request, pk):
     return render(request, template_name, {'comments': comments,
                                            'new_comment': new_comment,
                                            'comment_form': comment_form})
+
+def LikeAlbum(request, pk):
+    album = get_object_or_404(Album, id=pk)
+    album.countLike +=1
+    album.save()
+    return HttpResponseRedirect(reverse('photos:view-album',args=[str(pk)]))

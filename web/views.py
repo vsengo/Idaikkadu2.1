@@ -4,7 +4,7 @@ from django.views.generic import ListView
 
 
 from news.models import News
-from photos.models import Photo, Album
+from photos.models import Photo, Album, Comment
 
 
 class IndexView(ListView):
@@ -38,6 +38,7 @@ class IndexView(ListView):
         context['albums'] = Album.objects.all().order_by('-release_date').order_by('-id')
         context['latest_album'] = context['albums'].first()
         context['photos'] = Photo.objects.all().filter(album_id=context['latest_album'].id)
+        context['album_comments'] = Comment.objects.all( ).filter(album_id=context['latest_album'].id)
 
         album_old = context['albums'].exclude(id=context['latest_album'].id)[:3]
         context['album_old']  = album_old

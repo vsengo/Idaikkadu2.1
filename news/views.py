@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-import json
-
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy, reverse
@@ -175,14 +172,10 @@ class InternationalNewsView(ListView):
 
 
 def BlogPostLike(request, pk):
-    post = get_object_or_404(News, id=request.POST.get('blogpost_id'))
-    user = request.user
-
-    if user in post.countLike.all():
-        post.countLike.remove(user)
-    else:
-        post.countLike.add(user)
-
+    print("id = "+str(pk))
+    news = get_object_or_404(News, id=pk)
+    news.countDisLike +=1
+    news.save()
     return HttpResponseRedirect(reverse('news:detail-news', args=[str(pk)]))
 
 

@@ -39,7 +39,7 @@ $(document).ready(function(){
 	$('#newsTicker1').breakingNews({
 	    effect: 'scroll',
 		themeColor: '#2eb872',
-		background: '#cdcdce',
+		background: '#efefef',
 		height: 40,
 		fontSize: '18px'
 	});
@@ -56,7 +56,7 @@ $(document).ready(function(){
         <div class="bn-breaking-news" id="newsTicker1">
             <div class="bn-news">
                 <ul>
-                    <li><span class="bn-seperator bn-news-dot"></span>They may take our lives, but they'll never take our freedom! They call it a Royale with cheese."</li>
+                    <li><span class="bn-seperator bn-news-dot"></span>They may take our lives, but they'll never take our freedom!."</li>
                     <li><span class="bn-seperator bn-news-dot"></span>"Chewie, we're home."</li>
                     <li><span class="bn-seperator bn-news-dot"></span>"They call it a Royale with cheese."</li>
                     <li>"<span class="bn-seperator bn-news-dot"></span>You complete me."</li>
@@ -134,6 +134,13 @@ $(document).ready(function(){
         {% endblock %}
     </div>
 </div>
+<script>
+    $("#menu-toggle").click(function(e) {
+      e.preventDefault();
+      $("#wrapper").toggleClass("toggled");
+    });
+</script>
+
 </body>
 
 </html>

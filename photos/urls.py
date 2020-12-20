@@ -12,4 +12,5 @@ urlpatterns = [
     url(r'^approve-album/(?P<album_id>\d+)', views.ApproveAlbum, name='approve-album'),
     url(r'^delete-album/(?P<album_id>\d+)', views.DeleteAlbum, name='delete-album'),
     url(r'^comment-album/(?P<pk>\d+)', views.PostComment, name='comment-album'),
+    url(r'^like-album/(?P<pk>\d+)', views.LikeAlbum, name='like-album'),
 ]
