@@ -14,8 +14,8 @@
         </form>
         </div>
         <div class="col-md-8 col-lg-8 justify-content-center">
-            <h5>Album : {{ album.title }} </h5>
-            <div class="card-header2"> Contributed by : {{ album.author }} Updated on: {{ album.release_date }}</div>
+            <h4>{{ album.title }} </h4>
+            <div class="card-header2"> By : {{ album.author }} ({{ album.release_date }})</div>
             <div>{{album.description}}</div>
         </div>
         <div class="col-md-2  col-lg-2 justify-content-left">
@@ -39,12 +39,11 @@
 <!-- The Modal -->
 <div id="myModal" class="modal">
     <div class="card-header text-center justify-content-center">
-        <h5>Album : {{ album.title }} </h5>
-        <div class="card-header2"> Contributed by : {{ album.author }} Updated on: {{ album.release_date }}</div>
-        <div>{{album.description}}</div>
     </div>
     <div class="card-body">
-        <img class="modal-content" id="img01">
+        <picture>
+            <img class="modal-content" id="img01">
+        </picture>
     </div>
     <div class="card-footer">
        <div class="row  justify-content-center">

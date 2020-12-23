@@ -14,27 +14,50 @@
                                  alt="Card image cap">
                 </div>
                 <div class="col-md-3 col-lg-6">
-                    Contributed by : {{ news.author }} on {{ news.release_date }}
+                    {% if news.menu == 'Obituary' %}
+                        <p class="obituary text-center justify-content-center" >Informed by
+                    {% else %}
+                        <p class="contribution text-center justify-content-center"> By
+                    {% endif %}
+                        {{ news.author }} on {{ news.release_date }}
                 </div>
             </div>
             <div class="row text-left justify-content-left mb-2">
-                <p>{{ news.content }}</p>
+            {% if news.menu == 'Obituary' %}
+                <p class="obituary">
+            {% else %}
+                <p class="obituary">
+            {% endif %}
+                {{ news.content }}</p>
             </div>
         </div>
         <div class="card-footer">
             <div class="row  mb-3">
-                <div class="col-md-4 col-lg-4">
+            {% if news.menu == 'Obituary' %}
+                    <div class="col-md-4 col-lg-4">
                     <form action="{% url 'news:like-news' news.id %}" method="POST">
-                        {% csrf_token %}
-                            <button type="submit" name="blogpost_id" value="Liked"
-                                    class="btn btn-info"><strong
-                                    class="text-secondary">likes ({{ news.countDisLike }})</strong>
-                            </button>
+                     {% csrf_token %}
+                        <button type="submit" name="blogpost_id" value="Liked" class="btn btn-danger"><strong>
+                                Condolences ({{ news.countDisLike }})</strong>
+                        </button>
                     </form>
-                </div>
-
-                <div class="col-md-4 col-lg-4 text-center justify-content-center" >
+                    </div>
+                    <div class="col-md-4 col-lg-4 text-center justify-content-center" >
+                        <a href="{% url 'news:comment-news' news.id %}" class="btn btn-primary btn-sm">Notes ({{comments.count}})</a> </div>
+            {% else %}
+                    <div class="col-md-4 col-lg-4">
+                    <form action="{% url 'news:like-news' news.id %}" method="POST">
+                     {% csrf_token %}
+                    <button type="submit" name="blogpost_id" value="Liked"
+                            class="btn btn-info"><strong
+                            class="text-secondary">
+                            likes ({{ news.countDisLike }})</strong>
+                    </button>
+                    </form>
+                    </div>
+                    <div class="col-md-4 col-lg-4 text-center justify-content-center" >
                     <a href="{% url 'news:comment-news' news.id %}" class="btn btn-primary btn-sm">Comments ({{comments.count}})</a> </div>
+            {% endif %}
 
                 <div class="col-md-4 col-lg-4 text-right justify-content-right">
                     {% if user.is_authenticated %}

@@ -272,10 +272,26 @@ h1, h2, h3, h4, h5, h6, p{
 .photo-thumb {
     height:100px;
     border: 1px solid #000;
+
 }
 
-p.contrib {
-    font: 10px Arial italic;
+p.contribution {
+    font: 14px Arial italic;
+    text-align: center;
+}
+
+p.content {
+    font: 16px Arial italic;
+    text-align: left;
+    white-space: pre-line;
+}
+
+p.obituary {
+    font: 16px Arial italic;
+    text-align: left;
+    white-space: pre-line;
+    color: white;
+    background-color: black;
 }
 
  /* Style the container with a rounded border, grey background and some padding and margin */

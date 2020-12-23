@@ -8,8 +8,8 @@
             <div class="card mt-2 mb-2">
                          {% if news_latest %}
                         <div class="card-header">
-                            <h5>{{news_latest.category}}  {{news_latest.menu}} ({{ news_latest.release_date }})</h5>
-                            <div class="card-header2"> Contributed by : {{news_latest.author}}</div>
+                            <h5 class="font-weight-light">{{ news_latest.title }}</h5>
+                            <p class="contribution"> By {{ news_latest.author }} On {{ news_latest.release_date}}</p>
                         </div>
 
                     <div class="card-body">
@@ -21,9 +21,7 @@
                         </div>
 
                         <div class="col-md-3 col-lg-6 my-auto  align-middle">
-                            <h5 class="font-weight-light">{{ news_latest.title }}</h5>
-                            <p class="contribution"> Contributed by {{ news_latest.author }} on {{ news_latest.release_date}}</p>
-                            <p align="left">{{news_latest.content|truncatewords:50}} </p>
+                            <p class="content">{{news_latest.content|truncatewords:80}} </p>
                             <a href="{% url 'news:detail-news' news_latest.id  %}" class="btn btn-primary btn-sm">More</a>
                         </div>
                         {% endif %}
@@ -55,12 +53,12 @@
         </div>
         <div class="col-md-6">
              <div class="card mt-2 mb-2">
-            <div class="card-header">
+                <div class="card-header">
                  {% if latest_album %}
-                <h5>Album - {{ latest_album.title }} ({{ latest_album.release_date }})</h5>
-                    <div class=""card_heade2">Contributed by : {{latest_album.author}}</div>
+                 <h5>{{ latest_album.title }}</h5>
+                 <p class="contribution">By : {{latest_album.author}} on {{ latest_album.release_date }}</p>
                 {% endif %}
-            </div>
+                </div>
                  <div class="card-body h-100">
             <!--<img class="img-fluid rounded mb-4 mb-lg-0" src="http://placehold.it/900x400" alt="">-->
             <div class="carousel slide bg-dark mx-2 mt-2 mb-2" data-ride="carousel" id="carouselExampleIndicators">
@@ -91,10 +89,11 @@
                                     class="text-secondary">likes ({{ latest_album.countLike }})</strong>
                             </button>
                         </form></div>
-                        <div class="col-md-4 col-lg-4 justify-content-center">
-                          <a href="{% url 'photos:view-album' latest_album.id %}" class="btn btn-primary btn-sm">More</a></div>
-                    <div class="col-md-4  justify-content-left">
+                       <div class="col-md-4  justify-content-left">
                             <a href="{% url 'photos:comment-album' latest_album.id %}" class="btn btn-primary btn-sm">{{album_comments.count}} Comments</a>
+                        </div>
+                        <div class="col-md-4 col-lg-4 justify-content-center">
+                          <a href="{% url 'photos:view-album' latest_album.id %}" class="btn btn-primary btn-sm">More</a>
                         </div>
                     </div>
                    </div>
@@ -118,21 +117,22 @@
                     </div>
                     <div class="col-md-6">
                         <h4 class="card-subtitle" text-align="left" >{{ international_new.title }}</h4><br>
-                        <p class="contrib"> {{ international_new.author }} </p>
-                        <p>{{ international_new.release_date}}</p>
+                        <p class="contribution"> {{ international_new.author }} <br>
+                         {{ international_new.release_date}}</p>
                     <hr>
                     </div>
                 </div>
 
                 <div class="card-body">
-                    <p class="text-black m-0"  align=left">{{ international_new.content|truncatewords:20 }}
+                    <p class="content">{{ international_new.content|truncatewords:20 }}
                     <a href="{% url 'news:detail-news' international_new.id %}"
                        class="btn btn-primary btn-sm">More</a></p> <hr>
+                     <div class="row text-left justify-content-left">
                     {% for old in international_old %}
-                        <a href="{% url 'news:detail-news' old.id %}" class="btn btn-primary btn-sm">{{ old.release_date|date:'M-d'}} </a> : {{ old.title|truncatewords:6}}
+                        <a href="{% url 'news:detail-news' old.id %}">{{ old.release_date|date:'M-d'}} : {{ old.title|truncatewords:4}}
                         <hr>
                     {% endfor %}
-
+                </div>
                 </div>
             </div>
         </div>
@@ -152,21 +152,23 @@
                     </div>
                     <div class="col-md-6">
                         <h4 class="card-subtitle" text-align="left" >{{ idaikkadu_new.title }}</h4><br>
-                        <p class="contrib"> {{ idaikkadu_new.author }} </p>
-                        <p>{{ idaikkadu_new.release_date}}</p>
+                        <p class="contribution"> {{ idaikkadu_new.author }} <br>
+                        {{ idaikkadu_new.release_date}}</p>
                     <hr>
                     </div>
                 </div>
 
                 <div class="card-body">
-                    <p class="text-black m-0"  align=left">{{ idaikkadu_new.content|truncatewords:20 }}
-                    <a href="{% url 'news:detail-news' international_new.id %}"
+                    <p class="content">{{ idaikkadu_new.content|truncatewords:20 }}
+                    <a href="{% url 'news:detail-news' idaikkadu_new.id %}"
                        class="btn btn-primary btn-sm">More</a></p> <hr>
-                    {% for old in idaikkadu_old %}
-                        <a href="{% url 'news:detail-news' old.id %}" class="btn btn-primary btn-sm">{{ old.release_date|date:'M-d'}} </a> : {{ old.title|truncatewords:6}}
-                        <hr>
-                    {% endfor %}
 
+                    {% for old in idaikkadu_old %}
+                        <div class="row text-left justify-content-left">
+                        <a href="{% url 'news:detail-news' old.id %}">{{ old.release_date|date:'M-d'}} : {{ old.title|truncatewords:4}}</a>
+                        <hr>
+                        </div>
+                    {% endfor %}
                 </div>
             </div>
         </div>
@@ -186,14 +188,14 @@
                         alt="Card image cap">
                     </div>
                     <div class="col-md-6">
-                        <p> Contributed by {{ srilanka_new.author }} on {{ srilanka_new.release_date}}</p>
+                        <p class="contribution"> By {{ srilanka_new.author }} <br> {{ srilanka_new.release_date}}</p>
                     <hr>
                     </div>
                 </div>
 
                 <div class="card-body">
                     <h5 class="card-subtitle" text-align:"justify" >{{ srilanka_new.title }}</h5>
-                    <p class="text-black m-0"  >{{ srilanka_new.content|truncatewords:50 }}
+                    <p class="content"  >{{ srilanka_new.content|truncatewords:20 }}
                     <a href="{% url 'news:detail-news' idaikkadu_new.id %}"
                        class="btn btn-primary btn-sm">More</a></p> <hr>
                     {% for old in srilanka_old %}
