@@ -1,12 +1,9 @@
 from django.http import HttpResponseRedirect
-from django.shortcuts import render, get_object_or_404
-from django.urls import reverse_lazy, reverse
-from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
-from datetime import datetime
+from django.urls import  reverse
+from django.views.generic import DetailView
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.shortcuts import render, get_object_or_404
-from django.contrib import messages
 from django.contrib.auth.models import User
 
 from  datetime import datetime
@@ -15,14 +12,13 @@ from PIL import Image, ExifTags
 from news.forms import NewsForm, CommentForm
 from news.models import News, Comment
 from photos.views import apply_orientation
-
+from web.utils    import mail_approval_news
 
 class NewsList(ListView):
     model = News
     template_name = 'news/news_update.html'
     def get_queryset(self):
-        return News.objects.filter()[:20]
-
+        return News.objects.filter().order_by('-release_date').order_by('-id')[:20]
 
 class AddNewsView(CreateView):
     template_name = 'news/add_news.html'
@@ -34,7 +30,7 @@ class AddNewsView(CreateView):
         news = form.instance
 
         today = datetime.now()
-        twidth, theight = 300, 300
+        twidth, theight = 600, 800
         fname, ext = os.path.splitext(news.image.name)
 
         opath = fname + ext
@@ -50,47 +46,12 @@ class AddNewsView(CreateView):
             os.rename("media/" + opath, "media/" + npath)
             news.image.name = npath
             news.save(update_fields=["image"])
-            print("Updated opath " + opath + " to " + npath)
+
+            mail_approval_news(news.id,'News')
         except IOError as err:
             print("Exception file processing image {0}".format(err))
             pass
         return response
-
-# Not working
-def AddNews(request):
-    if request.method == "POST":
-        newsform = NewsForm(request.POST)
-        print(request.FILES)
-        today = datetime.now()
-        twidth, theight = 300, 300
-
-        if newsform.is_valid():
-            a = newsform.save()
-            fname, ext = os.path.splitext(a.image.name)
-
-            opath = "news/" + today.strftime("%Y") + "/" + fname + ext
-            npath = "media/news/" + today.strftime("%Y") + "/" + today.strftime("%m%d%H%M") + ext
-            print("opath " + opath + " npath " + npath)
-            try:
-                img = Image.open("media/" + opath)
-                width, height = img.size
-                if (width > twidth):
-                    img = apply_orientation(img)
-                    img.thumbnail((twidth, theight), Image.HAMMING)
-                    img.save("media/" + opath)
-                    os.rename("media/" + opath, npath)
-                    a.save(update_fields=["image"])
-            except IOError as err:
-                print("Exception file processing image {0}".format(err))
-                pass
-            return render(request, 'news/Success.html', {'news': a})
-        else:
-            print(newsform.errors)
-            return render(request, 'news/Failed.html')
-    else:
-        newsform = NewsForm()
-        return render(request, 'news/add_news.html', {'form': newsform})
-
 
 class NewsUpdate(UpdateView):
     model = News
@@ -104,8 +65,7 @@ class NewsUpdate(UpdateView):
 
 def DeleteNews(request, pk):
     news = News.objects.filter(id=pk).first()
-    news.approved = 'N'
-    news.save()
+    news.delete()
     return render(request, 'news/news_status.html', {'news': news})
 
 

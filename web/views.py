@@ -17,7 +17,7 @@ class IndexView(ListView):
     def get_context_data(self, **kwargs):
         context = super(IndexView, self).get_context_data(**kwargs)
 
-        news = News.objects.all().order_by('-release_date').order_by('-id')
+        news = News.objects.all().order_by('-release_date').order_by('-id').filter(approved='Y')
         context['news'] = news
         context['news_latest'] = context['news'].first()
         news_latest_id = context['news'].first( ).id
@@ -35,7 +35,7 @@ class IndexView(ListView):
         context['idaikkadu_new'] = idaikkadu.first()
         context['idaikkadu_old'] = idaikkadu[:5]
 
-        context['albums'] = Album.objects.all().order_by('-release_date').order_by('-id')
+        context['albums'] = Album.objects.all().order_by('-release_date').order_by('-id').filter(approved='Y')
         context['latest_album'] = context['albums'].first()
         context['photos'] = Photo.objects.all().filter(album_id=context['latest_album'].id)
         context['album_comments'] = Comment.objects.all( ).filter(album_id=context['latest_album'].id)

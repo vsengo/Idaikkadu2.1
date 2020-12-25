@@ -1,0 +1,27 @@
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Idaikkadu.com Approval Request</title>
+</head>
+<body>
+    <h2 align="center">
+        Title :{{ title }} <br>
+        Contributed by: {{author}} <br>
+        Release date {{ release_date}}
+    </h2>
+    <div align="left">
+        {{content}}
+    </div>
+    <hr>
+    <div>
+        <a href={{detail_url}}>Click on this URL to view and approve the Content </a>
+        <hr>
+        <p> If you dont see approve button. Please login and click Update News or Album and approve/edit/delete.</p>
+        Thank you. <br>
+        WebAdmin
+    </div>
+</body>
+</html>
+{% endblock %}

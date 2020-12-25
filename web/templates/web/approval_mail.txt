@@ -1,0 +1,5 @@
+{% load i18n %}{% autoescape off %}
+{% blocktrans %}Approval Request for {{ Title }} by {{ author}}
+Release date {{ release_date}}
+{% endblocktrans %}
+{% endautoescape %}

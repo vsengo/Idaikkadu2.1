@@ -3,38 +3,35 @@
 
 <div class="container-fluid">
     <div class="card mt-2 mb-2">
-        <div class="card-header text-center justify-content-center mb-2">
+        <div class="card-header text-center justify-content-center mb-1">
+            {% if news.menu == 'Obituary' %}
+                <div class="card bg-secondary">
+                    {% else %}
+                <div>
+             {% endif %}
             <h4> {{ news.title }}</h4>
+                </div>
         </div>
         <div class="card-body">
             <div class="row text-center justify-content-center mb-2">
-                <div class="col-md-3 col-lg-6">
+                <div class="col-md-6 col-lg-6">
                     <img class="card-img-top detail-pic"
                          src={{ news.image.url }}
                                  alt="Card image cap">
                 </div>
-                <div class="col-md-3 col-lg-6">
-                    {% if news.menu == 'Obituary' %}
-                        <p class="obituary text-center justify-content-center" >Informed by
-                    {% else %}
-                        <p class="contribution text-center justify-content-center"> By
-                    {% endif %}
-                        {{ news.author }} on {{ news.release_date }}
+                <div class="col-md-6 col-lg-6">
+                  <p class="contribution text-center justify-content-center"> By
+                      {{ news.author }} on {{ news.release_date }}</p>
                 </div>
             </div>
-            <div class="row text-left justify-content-left mb-2">
-            {% if news.menu == 'Obituary' %}
-                <p class="obituary">
-            {% else %}
-                <p class="obituary">
-            {% endif %}
-                {{ news.content }}</p>
+            <div class="row text-left justify-content-left mb-0">
+                <p>{{ news.content }}</p>
             </div>
         </div>
         <div class="card-footer">
             <div class="row  mb-3">
             {% if news.menu == 'Obituary' %}
-                    <div class="col-md-4 col-lg-4">
+                    <div class="col-md-6 col-lg-6 text-center justify-content-left">
                     <form action="{% url 'news:like-news' news.id %}" method="POST">
                      {% csrf_token %}
                         <button type="submit" name="blogpost_id" v
@@ -43,10 +40,10 @@
                         </button>
                     </form>
                     </div>
-                    <div class="col-md-4 col-lg-4 text-center justify-content-center" >
+                    <div class="col-md-6 col-lg-6 text-center justify-content-right" >
                         <a href="{% url 'news:comment-news' news.id %}" class="btn btn-primary btn-sm">Notes ({{comments.count}})</a> </div>
             {% else %}
-                    <div class="col-md-4 col-lg-4">
+                    <div class="col-md-6 col-lg-4 text-center justify-content-left">
                     <form action="{% url 'news:like-news' news.id %}" method="POST">
                      {% csrf_token %}
                     <button type="submit" name="blogpost_id" value="Liked"
@@ -56,21 +53,9 @@
                     </button>
                     </form>
                     </div>
-                    <div class="col-md-4 col-lg-4 text-center justify-content-center" >
+                    <div class="col-md-6 col-lg-4 text-center justify-content-right" >
                     <a href="{% url 'news:comment-news' news.id %}" class="btn btn-primary btn-sm">Comments ({{comments.count}})</a> </div>
             {% endif %}
-
-                <div class="col-md-4 col-lg-4 text-right justify-content-right">
-                    {% if user.is_authenticated %}
-                       <a href="{% url 'news:edit-news' news.id %}" class="btn btn-primary btn-sm">Edit</a>
-                        {% if user.is_staff %}
-                        {% if news.approved == 'N' %}
-                            <a href="{% url 'news:approve-news' news.id %}" class="btn btn-primary btn-sm">Approve</a>
-                        {% endif %}
-                        {% endif %}
-                        <a href="{% url 'news:delete-news' news.id %}" class="btn btn-primary btn-sm">Delete</a>
-                    {% endif %}
-                </div>
             </div>
         </div>
     </div>
