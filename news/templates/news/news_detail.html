@@ -37,7 +37,8 @@
                     <div class="col-md-4 col-lg-4">
                     <form action="{% url 'news:like-news' news.id %}" method="POST">
                      {% csrf_token %}
-                        <button type="submit" name="blogpost_id" value="Liked" class="btn btn-danger"><strong>
+                        <button type="submit" name="blogpost_id" v
+                                 alue="Liked" class="btn btn-danger"><strong>
                                 Condolences ({{ news.countDisLike }})</strong>
                         </button>
                     </form>

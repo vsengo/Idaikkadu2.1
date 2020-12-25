@@ -9,7 +9,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-md-9 col-lg-8 mx-auto">
-                            <h2 class="login-heading mb-4">Login to add Content or Comments to Idaikkadu.com.</h2>
+                            <h4 class="login-heading mb-4">Login to add Content or Comments to Idaikkadu.com.</h4>
                             <form method="POST">
                                 {% csrf_token %}
                                 {{ form | crispy }}
@@ -17,7 +17,9 @@
                                         type="submit">Login
                                 </button>
                                 <div class="text-center">
-                                    <a class="small" href="{% url 'accounts:signup' %}">Create a Login</a></div>
+                                    <a class="small" href="{% url 'accounts:signup' %}">Create Login</a></div>
+                                <div class="text-center">
+                                    <a class="small" href="{% url 'accounts:password_reset' %}"> Forgot/Reset Password?</a></div>
                             </form>
                         </div>
                     </div>

@@ -153,10 +153,11 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = True
-EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST = 'mail.idaikkadu.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'vsengo@gmail.com'
-EMAIL_HOST_PASSWORD = 'AmmanKovil'
+EMAIL_HOST_USER = 'accounts@idaikkadu.com'
+EMAIL_HOST_PASSWORD = 'Idaikkadu2021'
+DEFAULT_FROM_EMAIL = 'accounts@idaikkadu.com'
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

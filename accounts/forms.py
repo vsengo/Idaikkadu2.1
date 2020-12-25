@@ -13,7 +13,7 @@ class RegisterForm(UserCreationForm):
         fields = ("first_name", "last_name", "email", "username")
 
     def save(self, commit=True):
-        print("Saving singup")
+        print("Saving signup")
         user = super(UserCreationForm, self).save(commit=False)
         user.set_password(self.cleaned_data["password1"])
         if commit:
