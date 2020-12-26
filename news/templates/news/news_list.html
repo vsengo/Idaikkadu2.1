@@ -22,7 +22,7 @@
                         <div class="col-md-3 col-lg-6 my-auto  align-middle">
                             <h5 class="font-weight-light">{{ news.title }}</h5>
                             <p class="contribution"> Contributed by {{ news.author }} on {{ news.release_date}}</p>
-                            <p align="left">{{news.content|truncatewords:250}} </p>
+                            <p align="left">{{news.content|linebreaks|truncatewords:250}} </p>
                             <a href="{% url 'news:detail-news' news.id  %}" class="btn btn-primary btn-sm">More</a>
                         </div>
                     </div>
