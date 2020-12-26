@@ -16,7 +16,7 @@ class News(models.Model):
     section = models.CharField(max_length=1, default='D', choices=choice.SECTION_CHOICES)
     link = models.URLField(blank=True, help_text="Optional: any link to share", null=True)
     approved = models.CharField(max_length=1, default='N', choices=choice.APPROVAL_CHOICES)
-    countLike = models.ManyToManyField(User, related_name='blogpost_like')
+    countLike = models.PositiveSmallIntegerField(default=0)
     countDisLike = models.PositiveSmallIntegerField(default=0)
     create_date = models.DateField(auto_now=True)
     release_date = models.DateField(default=datetime.date.today)

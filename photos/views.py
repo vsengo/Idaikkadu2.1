@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.shortcuts import redirect, render,get_object_or_404
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy, reverse
@@ -8,6 +9,7 @@ from photos.models import Photo, Album, Comment
 from photos.forms import AlbumUpload, PhotoUpload, CommentForm
 from  datetime import datetime, timedelta
 
+from web.utils import mail_approval
 def flip_horizontal(im): return im.transpose(Image.FLIP_LEFT_RIGHT)
 def flip_vertical(im): return im.transpose(Image.FLIP_TOP_BOTTOM)
 def rotate_180(im): return im.transpose(Image.ROTATE_180)
@@ -80,9 +82,6 @@ def AddAlbum(request):
 
             if photoform.is_valid():
                 fig = 1
-                newHeight =300
-                newWidth = 200
-                newRatio = newWidth/newHeight
 
                 for f in photos:
                     p = Photo(file=f, album=a, figNo=fig)
@@ -125,6 +124,7 @@ def AddAlbum(request):
                     except IOError as err:
                         print("Exception file processing album {0}".format(err))
                         pass
+                    mail_approval(a.id, 'Album')
                 return render(request,'photos/success.html', {'album':a})
         else:
             return render(request, 'photos/failed.html')
@@ -167,8 +167,7 @@ def ApproveAlbum(request, album_id):
 
 def DeleteAlbum(request, album_id):
     album = Album.objects.filter(id=album_id).first( )
-    album.approved = 'N'
-    album.save( )
+    album.delete( )
     return render(request, 'photos/album_status.html', {'album': album})
 
 def PostComment(request, pk):
@@ -176,15 +175,20 @@ def PostComment(request, pk):
     comments = Comment.objects.all().filter(album_id=pk).filter(approved='Y')
     new_comment = None
     # Comment posted
+
     if request.method == 'POST':
+        member = User.objects.all( ).filter(username=request.user.username).first( )
         comment_form = CommentForm(data=request.POST)
         if comment_form.is_valid():
-
             # Create Comment object but don't save to database yet
             new_comment = comment_form.save(commit=False)
             # Assign the current post to the comment
             new_comment.album_id = pk
-            # Save the comment to the database
+            if member:
+                print(member.first_name)
+                new_comment.name = member.first_name
+                new_comment.approved='Y'
+           # Save the comment to the database
             new_comment.save()
     else:
         comment_form = CommentForm()

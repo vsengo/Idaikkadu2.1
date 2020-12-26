@@ -12,7 +12,7 @@ from PIL import Image, ExifTags
 from news.forms import NewsForm, CommentForm
 from news.models import News, Comment
 from photos.views import apply_orientation
-from web.utils    import mail_approval_news
+from web.utils    import mail_approval
 
 class NewsList(ListView):
     model = News
@@ -47,7 +47,7 @@ class AddNewsView(CreateView):
             news.image.name = npath
             news.save(update_fields=["image"])
 
-            mail_approval_news(news.id,'News')
+            mail_approval(news.id,'News')
         except IOError as err:
             print("Exception file processing image {0}".format(err))
             pass
@@ -89,19 +89,15 @@ class DetailNewsView(DetailView):
     model = News
     template_name = 'news/news_detail.html'
 
+    def get_template_names(self):
+        if self.object.menu == 'Obituary':
+            return  ['news/news_obituary.html','news/news_detail.html']
+        else:
+            return ['news/news_detail.html']
+
     def get_context_data(self, **kwargs):
         context = super(DetailNewsView, self).get_context_data(**kwargs)
-        obj = get_object_or_404(News, id=self.kwargs['pk'])
-        user = self.request.user
-
-        # if user.is_authenticated():
-        if user in obj.countLike.all():
-            liked = True
-        else:
-            liked = False
-
-        context['number_of_likes'] = obj.number_of_likes()
-        context['post_is_liked'] = liked
+        object = get_object_or_404(News, id=self.kwargs['pk'])
         return context
 
 
@@ -134,7 +130,7 @@ class InternationalNewsView(ListView):
 def BlogPostLike(request, pk):
     print("id = "+str(pk))
     news = get_object_or_404(News, id=pk)
-    news.countDisLike +=1
+    news.countLike +=1
     news.save()
     return HttpResponseRedirect(reverse('news:detail-news', args=[str(pk)]))
 
@@ -147,7 +143,7 @@ def PostComment(request, pk):
     # Comment posted
     if request.method == 'POST':
         comment_form = CommentForm(data=request.POST)
-        member = User.objects.all().filter(username=request.user.username)
+        member = User.objects.all().filter(username=request.user.username).first()
 
         if comment_form.is_valid():
 

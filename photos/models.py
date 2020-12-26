@@ -26,7 +26,7 @@ class Photo(models.Model):
 
 class Comment(models.Model):
     body = models.TextField(max_length=256)
-    name = models.CharField(max_length=32)
+    name = models.CharField(max_length=32,blank=True, null=True)
     created_on = models.DateTimeField(auto_now_add=True)
     approved = models.CharField(max_length=1, default='Y', choices=choice.APPROVAL_CHOICES)
     album = models.ForeignKey(Album, on_delete=models.CASCADE, related_name='comments')
