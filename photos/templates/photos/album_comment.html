@@ -6,7 +6,7 @@
     <div class="row text-center justify-content-center">
     <div class=""card">
         <div class="card-header justify-center">
-            Comments ({{ comments.count }})
+            <a href="{% url 'photos:comment-album' post_id %}">Comments ({{ comments.count }})</a>
         </div>
       <div class="card-body">
         {% for comment in comments %}

@@ -172,6 +172,7 @@ def DeleteAlbum(request, album_id):
 
 def PostComment(request, pk):
     template_name = 'photos/album_comment.html'
+    post = get_object_or_404(Album, id=pk)
     comments = Comment.objects.all().filter(album_id=pk).filter(approved='Y')
     new_comment = None
     # Comment posted
@@ -193,7 +194,8 @@ def PostComment(request, pk):
     else:
         comment_form = CommentForm()
 
-    return render(request, template_name, {'comments': comments,
+    return render(request, template_name, {'post_id': post.id,
+                                           'comments': comments,
                                            'new_comment': new_comment,
                                            'comment_form': comment_form})
 

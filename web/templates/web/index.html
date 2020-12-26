@@ -198,11 +198,12 @@
                     <p class="content"  >{{ srilanka_new.content|truncatewords:20 }}
                     <a href="{% url 'news:detail-news' idaikkadu_new.id %}"
                        class="btn btn-primary btn-sm">More</a></p> <hr>
+                     <div class="row text-left justify-content-left">
                     {% for old in srilanka_old %}
-                        <a href="{% url 'news:detail-news' old.id %}" class="btn btn-primary btn-sm">{{ old.release_date|date:'M-d'}}</a> : {{ old.title|truncatewords:6}}
+                         <a href="{% url 'news:detail-news' old.id %}">{{ old.release_date|date:'M-d'}} : {{ old.title|truncatewords:4}}</a>
                         <hr>
                     {% endfor %}
-
+                        </div>
                 </div>
                 <div class="card-footer">
                 </div>
