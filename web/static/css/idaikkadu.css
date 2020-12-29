@@ -289,6 +289,18 @@ h1, h2, h3, h4, h5, h6, p{
     border: 1px solid #000;
 
 }
+.photo-news {
+    height: auto;
+    max-width: 100%;
+    border: 1px solid #000;
+}
+
+.photo-obituary {
+    height: 40px;
+    width: auto
+    max-height: 60px;
+    border: 1px solid #000;
+}
 
 p.contribution {
     font: 14px Arial italic;
@@ -308,7 +320,13 @@ p.obituary {
     color: white;
     background-color: black;
 }
-
+p.footer {
+    font: 10px Arial italic;
+    text-align: center;
+    white-space: pre-line;
+    color: white;
+    background-color: black;
+}
  /* Style the container with a rounded border, grey background and some padding and margin */
 .comment-container {
   border: 2px solid;

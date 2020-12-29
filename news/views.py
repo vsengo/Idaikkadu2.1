@@ -91,13 +91,14 @@ class DetailNewsView(DetailView):
 
     def get_template_names(self):
         if self.object.menu == 'Obituary':
-            return  ['news/news_obituary.html','news/news_detail.html']
+            return  ['news/news_obituary.html']
         else:
             return ['news/news_detail.html']
 
     def get_context_data(self, **kwargs):
-        context = super(DetailNewsView, self).get_context_data(**kwargs)
-        object = get_object_or_404(News, id=self.kwargs['pk'])
+        context = super(DetailView, self).get_context_data(**kwargs)
+        context['news'] = News.objects.all().filter(id=self.kwargs['pk']).first()
+        context['comments'] = Comment.objects.all().filter(news_id=self.kwargs['pk'])
         return context
 
 
@@ -110,21 +111,21 @@ class IdaikkaduNewsView(ListView):
     model = News
 
     def get_queryset(self):
-        return News.objects.filter(section='I')
+        return News.objects.filter(section='I').filter(approved='Y').order_by('-release_date').order_by('-id')
 
 
 class SrilankaNewsView(ListView):
     model = News
 
     def get_queryset(self):
-        return News.objects.filter(section='S')
+        return News.objects.filter(section='S').filter(approved='Y').order_by('-release_date').order_by('-id')
 
 
 class InternationalNewsView(ListView):
     model = News
 
     def get_queryset(self):
-        return News.objects.filter(section='F')
+        return News.objects.filter(section='F').filter(approved='Y').order_by('-release_date').order_by('-id')
 
 
 def BlogPostLike(request, pk):

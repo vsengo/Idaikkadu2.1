@@ -10,11 +10,18 @@
         </div>
         <div class="card-body">
             <div class="row text-center justify-content-center mb-2">
-                    <img  src={{ news.image.url }}   alt="Card image cap" height="400">
+                <div class="col-md-4 text-center">
+                <img  class="photo-news" src={{ news.image.url }}   alt="Card image cap" height="400">
+                </div>
             </div>
             <div class="row text-left justify-content-left mb-0">
                 <p>{{ news.content|linebreaks }}</p>
             </div>
+            {% if news.link  %}
+            <div class="row text-left justify-content-left mb-0">
+                <p><a href={{news.link}}>Please click here for additional details </a></p>
+            </div>
+            {% endif %}
         </div>
         <div class="card-footer">
             <div class="row  mb-3">

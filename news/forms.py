@@ -4,7 +4,7 @@ from news.models import News, Comment
 class NewsForm(forms.ModelForm):
     class Meta:
         model = News
-        fields = ['title', 'content', 'region', 'menu', 'author','release_date', 'image']
+        fields = ['title', 'content', 'region', 'menu', 'author','release_date', 'image', 'link']
 
     def clean(self):
 

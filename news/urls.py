@@ -8,7 +8,7 @@ from . import views
 app_name = 'news'
 
 urlpatterns = [
-    url(r'^add-news', permission_required('user.view_add_delete')(views.AddNewsView.as_view()), name='add-news'),
+    url(r'^add-news', views.AddNewsView.as_view(), name='add-news'),
     url(r'^update-news', views.NewsList.as_view(), name='update-news'),
     url(r'^detail-news/(?P<pk>\d+)', views.DetailNewsView.as_view(), name='detail-news'),
     url(r'^idaikkadu-news', views.IdaikkaduNewsView.as_view(), name='idaikkadu-news'),

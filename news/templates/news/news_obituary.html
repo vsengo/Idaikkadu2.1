@@ -5,23 +5,30 @@
 <div class="container-fluid">
     <div class="card mt-2 mb-2">
         <div class="card-header text-white-50  bg-dark text-center justify-content-center mb-1">
-              <h4 > {{ news.title }}</h4>
-            <p class="text-center justify-content-center"> Informed by
-                      {{ news.author }} on {{ news.release_date }}</p>
+            <div class="row">
+                <div class="bg-dark col-md-6 col-lg-2">
+                    <img style="width180px;height:100px;" class="rounded-circle" src="{% static 'images/Oil_Lamp.jpg' %}"  alt="Card image cap">
+                </div>
+                <div class="text-white-50  bg-dark col-md-10 col-lg-10">
+                  <h4 > {{ news.title }}</h4>
+                    <p class="text-center justify-content-center"> Informed by
+                     {{ news.author }} on {{ news.release_date }}</p>
+                </div>
+            </div>
         </div>
         <div class="card-body text-white-50  bg-dark">
             <div class="row text-center justify-content-center mb-2">
-                <div class="col-md-6 col-lg-6">
-                    <img  src={{ news.image.url }}
-                                 alt="Card image cap" height="600">
-                </div>
-                <div class="text-white-50  bg-dark col-md-6 col-lg-6">
-                    <img src="{% static 'images/obituary_candle.gif' %}"  alt="Card image cap" height="600">
-                </div>
+                 <img  style="width:auto;height:100%" src={{ news.image.url }}   alt="Card image cap">
             </div>
             <div class="row text-white-50  bg-dark text-left justify-content-left mb-0">
                 <p text-white-50  bg-dark>{{ news.content|linebreaks }}</p>
             </div>
+            {% if news.link  %}
+            <div class="row text-left justify-content-left mb-0">
+
+                <p><a href={{news.link}}>Please click here for additional details </a></p>
+            </div>
+            {% endif %}
         </div>
         <div class="card-footer text-white-50  bg-dark ">
             <div class="row  mb-3">
@@ -30,12 +37,12 @@
                      {% csrf_token %}
                         <button type="submit" name="blogpost_id" v
                                  alue="Liked" class="btn btn-danger"><strong>
-                                Condolences ({{ news.countDisLike }})</strong>
+                                Condolences ({{ news.countLike }})</strong>
                         </button>
                     </form>
                     </div>
-                    <div class="col-md-6 col-lg-6 text-center justify-content-right" >
-                        <a href="{% url 'news:comment-news' news.id %}" class="btn btn-primary btn-sm">Notes ({{comments.count}})</a> </div>
+                     <div class="col-md-6 col-lg-4 text-center justify-content-right" >
+                    <a href="{% url 'news:comment-news' news.id %}" class="btn btn-primary btn-sm">Notes ({{comments.count}})</a> </div>
             </div>
         </div>
     </div>
