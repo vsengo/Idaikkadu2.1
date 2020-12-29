@@ -11,7 +11,7 @@
                  <div class="card-header text-white-50  bg-dark text-center justify-content-center mb-1">
                  <div class="row">
                     <div class="bg-dark col-md-4 col-lg-4">
-                        <img style="width:140px;height:80px;" class="rounded-circle" src="{% static 'images/Oil_Lamp.jpg' %}"  alt="Card image cap">
+                        <img style="width:140px;height:80px;" class="rounded-circle" src="{% static 'images/Oil_Lamp.jpg' %}"  alt="Photo Missing">
                     </div>
                     <div class="text-white-50  bg-dark col-md-8 col-lg-8">
                       <h6 > {{ news_latest.title }}</h6>
@@ -23,7 +23,7 @@
                     <div class="card-body text-white-50  bg-dark">
                         <div class="row text-center justify-content-center mb-2">
                             <div class="col-md-6 col-lg-6">
-                                <img  class="card-img-top home-pic" src={{ news_latest.image.url }}   alt="Card image cap">
+                                <img  class="card-img-top home-pic" src={{ news_latest.image.url }}   alt="Photo Missing">
                             </div>
                             <div class="col-md-6 col-lg-6 text-white-50  bg-dark text-left justify-content-left mb-0">
                                 <p text-white-50  bg-dark>{{ news_latest.content|linebreaks|truncatewords:80 }}</p>

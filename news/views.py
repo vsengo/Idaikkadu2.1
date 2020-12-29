@@ -1,3 +1,4 @@
+from django.contrib.sites.shortcuts import get_current_site
 from django.http import HttpResponseRedirect
 from django.urls import  reverse
 from django.views.generic import DetailView
@@ -47,7 +48,7 @@ class AddNewsView(CreateView):
             news.image.name = npath
             news.save(update_fields=["image"])
 
-            mail_approval(news.id,'News')
+            mail_approval(news.id,'News', self.request)
         except IOError as err:
             print("Exception file processing image {0}".format(err))
             pass
@@ -57,6 +58,7 @@ class NewsUpdate(UpdateView):
     model = News
     form_class = NewsForm
     template_name = 'news/add_news.html'
+
     success_url = reverse_lazy('news:success-news')
 
     def get_queryset(self):

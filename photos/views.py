@@ -124,7 +124,7 @@ def AddAlbum(request):
                     except IOError as err:
                         print("Exception file processing album {0}".format(err))
                         pass
-                    mail_approval(a.id, 'Album')
+                    mail_approval(a.id, 'Album', request)
                 return render(request,'photos/success.html', {'album':a})
         else:
             return render(request, 'photos/failed.html')

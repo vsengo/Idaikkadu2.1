@@ -11,15 +11,16 @@
                     </div>
                     <div class="card-body" align="left">
                         {% for album in international  %}
-                        <div class="row">
-                            <div class="col-md-6">
-                               <img src="{{ album.thumb.url}}" height="140px">
+                             <div class="row">
+                                <div class="col-md-6 col-lg-6">
+                                    <a href="{% url 'photos:view-album' album.id %}"> <img src="{{ album.thumb.url}}" style="height:140px;width:200px"></a>
+                                </div>
+                                <div class="col-md-6 col-lg-6">
+                                    <a href="{% url 'photos:view-album' album.id %}"><strong>{{ album.title}}</strong></a><hr>
+                                    By {{album.author}} On {{ album.release_date|date:'M-d'}}
+                                </div>
                             </div>
-                            <div class="col-md-4">
-                                {{ album.title|truncatewords:20}}<hr>
-                                <a href="{% url 'photos:view-album' album.id %}" class="btn btn-primary btn-sm">{{ album.release_date|date:'M-d'}} {{album.region}} </a>
-                            </div>
-                        </div>
+                            <hr>
                     {% endfor %}
                     </div>
                     <div class="card-footer">
@@ -34,15 +35,15 @@
                     <div class="card-body" align="left">
                         {% for album in idaikkadu  %}
                             <div class="row">
-                                <div class="col-md-6">
-                                   <img src="{{ album.thumb.url}}" height="140px">
+                                <div class="col-md-6 col-lg-6">
+                                    <a href="{% url 'photos:view-album' album.id %}"> <img src="{{ album.thumb.url}}" style="height:140px;width:200px"></a>
                                 </div>
-                                <div class="col-md-4">
-                                    {{ album.title|truncatewords:20}}<hr>
-                                    <a href="{% url 'photos:view-album' album.id %}" class="btn btn-primary btn-sm">{{ album.release_date|date:'M-d'}} {{album.region}} </a>
+                                <div class="col-md-6 col-lg-6">
+                                    <a href="{% url 'photos:view-album' album.id %}"><strong>{{ album.title}}</strong></a><hr>
+                                    By {{album.author}} On {{ album.release_date|date:'M-d'}}
                                 </div>
                             </div>
-
+                            <hr>
                         {% endfor %}
                     </div>
                     <div class="card-footer">
@@ -56,16 +57,16 @@
                     </div>
                     <div class="card-body" align="left">
                         {% for album in srilanka  %}
-                            <div class="row">
-                                <div class="col-md-6">
-                                   <img src="{{ album.thumb.url}}" height="140px">
+                           <div class="row">
+                                <div class="col-md-6 col-lg-6">
+                                    <a href="{% url 'photos:view-album' album.id %}"> <img src="{{ album.thumb.url}}" style="height:140px;width:200px"></a>
                                 </div>
-                                <div class="col-md-4">
-                                    {{ album.title|truncatewords:20}}<hr>
-                                    <a href="{% url 'photos:view-album' album.id %}" class="btn btn-primary btn-sm">{{ album.release_date|date:'M-d'}} {{album.region}} </a>
+                                <div class="col-md-6 col-lg-6">
+                                    <a href="{% url 'photos:view-album' album.id %}"><strong>{{ album.title}}</strong></a><hr>
+                                    By {{album.author}} On {{ album.release_date|date:'M-d'}}
                                 </div>
                             </div>
-
+                            <hr>
                         {% endfor %}
                     </div>
                     <div class="card-footer">

@@ -90,15 +90,6 @@ WSGI_APPLICATION = 'idaikkadu.wsgi.application'
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
 DATABASES = {
-    # 'default': {
-     #    'ENGINE': 'mysql.connector.django',
-      #   'NAME': 'idaikkadu_webdb',
-       #  'USER': 'webadmin',
-        # 'PASSWORD': 'Idaikkadu2020',
-         #'HOST': 'localhost',
-         #'PORT': '8888'
-     #}
-
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
@@ -141,7 +132,7 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
-STATic_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'idaikkadu/static'),
     os.path.join(BASE_DIR, 'photos/static'),
