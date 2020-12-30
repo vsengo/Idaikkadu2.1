@@ -168,3 +168,22 @@ def PostComment(request, pk):
                                            'comments': comments,
                                            'new_comment': new_comment,
                                            'comment_form': comment_form})
+
+class ApproveCommentList(ListView):
+    model = Comment
+    template_name = 'news/news_comment_approve.html'
+
+    def get_queryset(self):
+       return Comment.objects.filter(approved='N').order_by('-created_on')
+
+def DeleteComment(request, pk):
+    comment = Comment.objects.filter(id=pk).first()
+    comment.delete()
+    return HttpResponseRedirect(reverse('news:comment-approvelist'))
+
+
+def ApproveComment(request, pk):
+    comment = Comment.objects.filter(id=pk).first()
+    comment.approved = 'Y'
+    comment.save()
+    return HttpResponseRedirect(reverse('news:comment-approvelist'))

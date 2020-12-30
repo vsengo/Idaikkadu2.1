@@ -20,4 +20,7 @@ urlpatterns = [
     url(r'^success-news', views.SuccessNews, name='success-news'),
     url(r'^like-news/(?P<pk>\d+)', views.BlogPostLike, name='like-news'),
     url(r'^comment-news/(?P<pk>\d+)', views.PostComment, name='comment-news'),
+    url(r'^comment-approvelist', views.ApproveCommentList.as_view(), name='comment-approvelist'),
+    url(r'^appove-comment/(?P<pk>\d+)', views.ApproveComment, name='approve-comment'),
+    url(r'^delete-comment/(?P<pk>\d+)', views.ApproveComment, name='delete-comment'),
 ]

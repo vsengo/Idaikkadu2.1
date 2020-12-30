@@ -1,0 +1,38 @@
+{% extends 'web/base.html' %}
+{% block content %}
+
+<div class="container-fluid">
+    <div class="row text-center justify-content-center">
+            <div class="card mt-2 mb-2">
+            <div class="card-header">
+                <div class="row">
+                        <p>Review Comments and Approve if they are readable by public</p>
+                </div>
+            </div>
+
+            <div class="card-body">
+                {% for comment in comment_list %}
+                <div class="row">
+                    <div class="col-md-9 col-lg-10" align="left">
+                        <div class="alert alert-success text-left justify-content-left">
+                        {{comment.album.title}}
+                        </div>
+
+                        <div class="alert alert-info text-left justify-content-left">
+                        <strong>{{comment.name}} ({{comment.created_on}})</strong> {{comment.body}}
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-lg-2" align="right">
+                        <a href="{% url 'photos:approve-comment' comment.id %}" class="btn btn-primary btn-sm">Approve</a><br>
+                        <a href="{% url 'photos:delete-comment' comment.id %}" class="btn btn-primary btn-sm">Delete</a>
+                    </div>
+                </div>
+                <hr>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+ </div>
+
+{% include 'web/footer.html' %}
+{% endblock content %}

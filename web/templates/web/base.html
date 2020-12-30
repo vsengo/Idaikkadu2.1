@@ -87,6 +87,12 @@
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="{% url 'photos:update-album' %}">Update Album</a>
                         <div class="dropdown-divider"></div>
+                        {% if user.is_staff %}
+                        <a class="dropdown-item" href="{% url 'news:comment-approvelist' %}">Approve News Comments</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{% url 'photos:comment-album-approvelist' %}">Approve Album Comments</a>
+                        <div class="dropdown-divider"></div>
+                        {% endif %}
                         <a class="dropdown-item" href="{% url 'accounts:logoff' %}">Log Off</a>
                         <div class="dropdown-divider"></div>
                     </div>

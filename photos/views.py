@@ -149,9 +149,9 @@ def ShowAllAlbum(request):
     today = datetime.now()
     lastTwoYears = today - timedelta(days=2*365)
 
-    international = Album.objects.all( ).filter(section="F")[:20]
-    srilanka = Album.objects.all( ).filter(section="S")[:20]
-    idaikkadu = Album.objects.all( ).filter(section="I")[:20]
+    international = Album.objects.all( ).filter(section="F")[:10]
+    srilanka = Album.objects.all( ).filter(section="S")[:10]
+    idaikkadu = Album.objects.all( ).filter(section="I")[:10]
 
     return render(request,'photos/show_album.html',{'international':international, 'idaikkadu':idaikkadu,'srilanka':srilanka})
 
@@ -186,7 +186,6 @@ def PostComment(request, pk):
             # Assign the current post to the comment
             new_comment.album_id = pk
             if member:
-                print(member.first_name)
                 new_comment.name = member.first_name
                 new_comment.approved='Y'
            # Save the comment to the database
@@ -204,3 +203,21 @@ def LikeAlbum(request, pk):
     album.countLike +=1
     album.save()
     return HttpResponseRedirect(reverse('photos:view-album',args=[str(pk)]))
+
+class ApproveCommentList(ListView):
+    model = Comment
+    template_name = 'photos/album_comment_approve.html'
+
+    def get_queryset(self):
+       return Comment.objects.filter(approved='N').order_by('-created_on')
+
+def DeleteComment(request, pk):
+    comment = Comment.objects.filter(id=pk).first()
+    comment.delete()
+    return HttpResponseRedirect(reverse('photos:comment-album-approvelist'))
+
+def ApproveComment(request, pk):
+    comment = Comment.objects.filter(id=pk).first()
+    comment.approved = 'Y'
+    comment.save()
+    return HttpResponseRedirect(reverse('photos:comment-album-approvelist'))
