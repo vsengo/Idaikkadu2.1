@@ -12,16 +12,23 @@
 
                     <div class="card-body">
                         <div class="row">
-                        <div class="col-md-4 col-lg-4">
-                            <img class="card-img-top home-pic"
-                                 src={{ news.image.url }} class="img-responsive"
-                                 alt="Card image cap">
-                        </div>
+                            {% if news.image %}
+                                <div class="col-md-4 col-lg-4">
+                                    <img class="card-img-top home-pic"
+                                         src={{ news.image.url }} class="img-responsive"
+                                         alt="Card image cap">
+                                </div>
 
-                        <div class="col-md-38  col-lg-8 my-auto  text-left justify-content-left">
-                            <p class="content">{{news.content|linebreaks|truncatewords:250}} </p>
-                            <a href="{% url 'news:detail-news' news.id  %}" class="btn btn-primary btn-sm">More</a>
-                        </div>
+                                <div class="col-md-8  col-lg-8 my-auto  text-left justify-content-left">
+                                    <p class="content">{{news.content|linebreaks|truncatewords:250}} </p>
+                                    <a href="{% url 'news:detail-news' news.id  %}" class="btn btn-primary btn-sm">More</a>
+                                </div>
+                            {% else %}
+                                <div class="col-md-12 col-lg-12 justify-content-left text-left">
+                                <p class="content">{{news.content|linebreaks|truncatewords:500}} </p>
+                                <a href="{% url 'news:detail-news' news.id  %}" class="btn btn-primary btn-sm">More</a>
+                                </div>
+                            {% endif %}
                     </div>
                 </div>
             </div>

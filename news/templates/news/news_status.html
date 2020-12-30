@@ -17,11 +17,13 @@
                 </div>
             </div>
             <div class="row text-center justify-content-center mb-2">
+                {% if news.image %}
                 <div class="card">
                     <img class="card-img-top detail-pic"
                          src={{ news.image.url }}
                          alt="Card image cap">
                 </div>
+                {% endif %}
             </div>
             <div class="card">
                 <div class="card-body">

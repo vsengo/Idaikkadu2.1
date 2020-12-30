@@ -30,28 +30,31 @@ class AddNewsView(CreateView):
         response = super().form_valid(form)
         news = form.instance
 
-        today = datetime.now()
-        twidth, theight = 600, 800
-        fname, ext = os.path.splitext(news.image.name)
+        if news.image:
+            today = datetime.now()
+            twidth, theight = 600, 800
+            fname, ext = os.path.splitext(news.image.name)
 
-        opath = fname + ext
-        npath = "news/" + today.strftime("%Y") + "/" + today.strftime("%m%d%H%M") + ext
-        try:
-            img = Image.open("media/" + opath)
-            width, height = img.size
-            if (width > twidth):
-                img = apply_orientation(img)
-                img.thumbnail((twidth, theight), Image.HAMMING)
-                img.save("media/" + opath)
+            opath = fname + ext
+            npath = "news/" + today.strftime("%Y") + "/" + today.strftime("%m%d%H%M") + ext
+            try:
+                img = Image.open("media/" + opath)
+                width, height = img.size
+                if (width > twidth):
+                    img = apply_orientation(img)
+                    img.thumbnail((twidth, theight), Image.HAMMING)
+                    img.save("media/" + opath)
 
-            os.rename("media/" + opath, "media/" + npath)
-            news.image.name = npath
-            news.save(update_fields=["image"])
+                os.rename("media/" + opath, "media/" + npath)
+                news.image.name = npath
+                news.save(update_fields=["image"])
 
-            mail_approval(news.id,'News', self.request)
-        except IOError as err:
-            print("Exception file processing image {0}".format(err))
-            pass
+            except IOError as err:
+                print("Exception file processing image {0}".format(err))
+                pass
+
+        mail_approval(news.id,'News', self.request)
+
         return response
 
 class NewsUpdate(UpdateView):

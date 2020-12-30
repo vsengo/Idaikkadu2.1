@@ -10,13 +10,19 @@
         </div>
         <div class="card-body">
             <div class="row text-center justify-content-center mb-2">
-                <div class="col-md-4 text-center">
-                <img  class="photo-news" src={{ news.image.url }}   alt="Card image cap" height="400">
+            {% if news.image %}
+                    <div class="col-md-12 text-center">
+                    <img  class="photo-news" src={{ news.image.url }}   alt="Card image cap" height="400">
+                    </div>
                 </div>
-            </div>
-            <div class="row text-left justify-content-left mb-0">
-                <p>{{ news.content|linebreaks }}</p>
-            </div>
+                <div class="row text-left justify-content-left mb-0">
+                    <p>{{ news.content|linebreaks }}</p>
+                </div>
+            {% else %}
+                <div class="row text-left justify-content-left mb-0">
+                    <p>{{ news.content|linebreaks }}</p>
+                </div>
+            {% endif %}
             {% if news.link  %}
             <div class="row text-left justify-content-left mb-0">
                 <p><a href={{news.link}}>Please click here for additional details </a></p>
@@ -25,7 +31,7 @@
         </div>
         <div class="card-footer">
             <div class="row  mb-3">
-                    <div class="col-md-6 col-lg-4 text-center justify-content-left">
+                    <div class="col-md-6 col-lg-6 text-center justify-content-left">
                     <form action="{% url 'news:like-news' news.id %}" method="POST">
                      {% csrf_token %}
                     <button type="submit" name="blogpost_id" value="Liked"
@@ -35,7 +41,7 @@
                     </button>
                     </form>
                     </div>
-                    <div class="col-md-6 col-lg-4 text-center justify-content-right" >
+                    <div class="col-md-6 col-lg-6 text-center justify-content-right" >
                     <a href="{% url 'news:comment-news' news.id %}" class="btn btn-primary btn-sm">Comments ({{comments.count}})</a> </div>
             </div>
         </div>

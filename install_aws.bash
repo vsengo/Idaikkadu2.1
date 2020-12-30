@@ -12,7 +12,7 @@ fi
 
 echo "Packaging $pkge"
 rm $pkg
-tar -cvf $pkg  accounts idaikkadu media news photos web db.sqlite3
+tar -cvf $pkg  accounts idaikkadu media news photos web 
 gzip $pkg 
 
 echo "Installing to AWS instance"

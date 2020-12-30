@@ -4,7 +4,7 @@
 
 <div class="container-fluid">
     <div class="row text-center justify-content-center">
-        <div class="col-md-12 col-lg-6">
+        <div class="col-md-6 col-lg-6">
             <div class="row center" >
             <div class="card mt-2 mb-2">
             {% if news_latest.menu == 'Obituary' %}
@@ -22,6 +22,7 @@
                  </div>
                     <div class="card-body text-white-50  bg-dark">
                         <div class="row text-center justify-content-center mb-2">
+                             {% if news_latest.image %}
                             <div class="col-md-6 col-lg-6">
                                 <img  class="card-img-top home-pic" src={{ news_latest.image.url }}   alt="Photo Missing">
                             </div>
@@ -29,30 +30,43 @@
                                 <p text-white-50  bg-dark>{{ news_latest.content|linebreaks|truncatewords:80 }}</p>
                                 <a href="{% url 'news:detail-news' news_latest.id  %}" class="btn btn-primary btn-sm">More</a>
                             </div>
+                            {% else %}
+                             <div class="col-md-12 col-lg-12">
+                                <p text-white-50  bg-dark>{{ news_latest.content|linebreaks|truncatewords:80 }}</p>
+                                <a href="{% url 'news:detail-news' news_latest.id  %}" class="btn btn-primary btn-sm">More</a>
+                             </div>
+                            {% endif %}
                         </div>
                     </div>
             {% else %}
                     <div class="card-header">
                             <h5 class="font-weight-light">{{ news_latest.title }}</h5>
                             <p class="contribution"> By {{ news_latest.author }} On {{ news_latest.release_date}}</p>
-                        </div>
+                    </div>
 
                     <div class="card-body">
                         <div class="row">
-                        <div class="col-md-3 col-lg-6">
-                            <img class="card-img-top home-pic"
-                                 src={{ news_latest.image.url }} class="img-responsive"
-                                 alt="Card image cap">
-                        </div>
-
-                        <div class="col-md-3 col-lg-6 my-auto justify-content-left">
-                            <p class="content">{{news_latest.content|truncatewords:80}} </p>
+                        {% if news_latest.image %}
+                            <div class="col-md-6 col-lg-6">
+                                <img class="card-img-top home-pic"
+                                     src={{ news_latest.image.url }} class="img-responsive"
+                                     alt="Card image cap">
+                            </div>
+                            <div class="col-md-6 col-lg-6 my-auto justify-content-left">
+                                <p class="content">{{news_latest.content|linebreaks|truncatewords:80}} </p>
+                                <a href="{% url 'news:detail-news' news_latest.id  %}" class="btn btn-primary btn-sm">More</a>
+                            </div>
+                        {% else %}
+                            <div class="col-md-12 col-lg-12 justify-content-left text-left">
+                            <p class="content">{{news_latest.content|linebreaks|truncatewords:200}} </p>
                             <a href="{% url 'news:detail-news' news_latest.id  %}" class="btn btn-primary btn-sm">More</a>
+                            </div>
+                        {% endif %}
                         </div>
+                    </div>
             {% endif %}
             </div>
-            </div>
-            <div class="row text-left justify-content-cente">
+            <div class="row text-left justify-content-left">
             <div class="card-body h-100">
                 {% if news_old %}
                     {%for old in news_old %}
@@ -62,7 +76,7 @@
                 {% endif %}
             </div>
             </div>
-            <div class="row text-left justify-content-cente">
+            <div class="row text-left justify-content-left">
             <div class="card-body h-100">
                 {% if album_old %}
                     {%for old in album_old %}
@@ -74,7 +88,8 @@
             </div>
             </div>
         </div>
-        <div class="col-md-6">
+        </div>
+        <div class="col-md-6 col-lg-6">
              <div class="card mt-2 mb-2">
                 <div class="card-header">
                  {% if latest_album %}
@@ -134,17 +149,25 @@
                     <a href="{% url 'news:idaikkadu-news' %}"><h4>Idaikkadu</h4></a>
                 </div>
                 <div class="row">
-                    <div class="col-md-6">
-                        <img class="card-img-top card-pic"
-                        src={{ idaikkadu_new.image.url }}
-                        alt="Card image cap">
-                    </div>
-                    <div class="col-md-6">
-                        <h4 class="card-subtitle" text-align="left" >{{ idaikkadu_new.title }}</h4><br>
-                        <p class="contribution"> {{ idaikkadu_new.author }} <br>
-                        {{ idaikkadu_new.release_date}}</p>
+                    {% if idaikkadu_new.image %}
+                        <div class="col-md-6">
+                            <img class="card-img-top card-pic"
+                            src={{ idaikkadu_new.image.url }}
+                            alt="Card image cap">
+                        </div>
+                        <div class="col-md-6">
+                            <h4 class="card-subtitle" text-align="left" >{{ idaikkadu_new.title }}</h4><br>
+                            <p class="contribution"> {{ idaikkadu_new.author }} <br>
+                            {{ idaikkadu_new.release_date}}</p>
+                        </div>
+                    {% else %}
+                        <div class="col-md-12 col-lg-12">
+                            <h4 class="card-subtitle" text-align="left" >{{ idaikkadu_new.title }}</h4><br>
+                            <p class="contribution"> {{ idaikkadu_new.author }} <br>
+                            {{ idaikkadu_new.release_date}}</p>
+                        </div>
+                    {% endif %}
                     <hr>
-                    </div>
                 </div>
 
                 <div class="card-body">
@@ -169,6 +192,7 @@
                     <a href="{% url 'news:international-news' %}"><h4>International</h4></a>
                 </div>
                 <div class="row">
+                    {% if international_new.image %}
                     <div class="col-md-6">
                         <img class="card-img-top card-pic"
                         src={{ international_new.image.url }}
@@ -180,6 +204,14 @@
                          {{ international_new.release_date}}</p>
                     <hr>
                     </div>
+                    {% else %}
+                        <div class="col-md-12">
+                        <h4 class="card-subtitle" text-align="left" >{{ international_new.title }}</h4><br>
+                        <p class="contribution"> {{ international_new.author }} ({{international_new.region}})<br>
+                         {{ international_new.release_date}}</p>
+                         </div>
+                    <hr>
+                    {% endif %}
                 </div>
 
                 <div class="card-body">
@@ -205,6 +237,7 @@
                     <a href="{% url 'news:srilanka-news' %}"><h4>Sri lanka</h4></a>
                 </div>
                 <div class="row">
+                    {% if srilanka_new  %}
                     <div class="col-md-6">
                         <img class="card-img-top card-pic"
                         src={{ srilanka_new.image.url }}
@@ -214,6 +247,12 @@
                         <p class="contribution"> By {{ srilanka_new.author }} <br> {{ srilanka_new.release_date}}</p>
                     <hr>
                     </div>
+                    {% else %}
+                        <div class="col-md-12">
+                        <p class="contribution"> By {{ srilanka_new.author }} <br> {{ srilanka_new.release_date}}</p>
+                       </div>
+                        <hr>
+                    {% endif %}
                 </div>
 
                 <div class="card-body">
