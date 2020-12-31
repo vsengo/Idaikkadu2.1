@@ -6,6 +6,7 @@ from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.models import User
+from django.conf import settings
 
 from  datetime import datetime
 import os
@@ -19,7 +20,7 @@ class NewsList(ListView):
     model = News
     template_name = 'news/news_update.html'
     def get_queryset(self):
-        return News.objects.filter().filter(approved='Y').order_by('-id').order_by('-release_date')[:20]
+        return News.objects.order_by('-id')[:20]
 
 class AddNewsView(CreateView):
     template_name = 'news/add_news.html'
@@ -34,20 +35,25 @@ class AddNewsView(CreateView):
             today = datetime.now()
             twidth, theight = 600, 800
             fname, ext = os.path.splitext(news.image.name)
+            albumPath = os.path.join(settings.MEDIA_ROOT, "news")
+            opath = os.path.join(settings.MEDIA_ROOT,fname + ext)
+            nfname = today.strftime("%Y") + "/" + today.strftime("%m%dT%H%M%S") + ext
+            npath = os.path.join(albumPath,nfname)
 
-            opath = fname + ext
-            npath = "news/" + today.strftime("%Y") + "/" + today.strftime("%m%dT%H%M%S") + ext
             try:
-                img = Image.open("media/" + opath)
+                img = Image.open(opath)
                 width, height = img.size
                 if (width > twidth):
                     img = apply_orientation(img)
                     img.thumbnail((twidth, theight), Image.HAMMING)
-                    img.save("media/" + opath)
+                    img.save(opath)
 
-                os.rename("media/" + opath, "media/" + npath)
-                news.image.name = npath
+
+                os.rename(opath,npath)
+                news.image.name = "news/"+nfname
                 news.save(update_fields=["image"])
+                print("Saved news Pic opath = "+opath)
+                print("Saved in npath="+npath+" nfname="+nfname)
 
             except IOError as err:
                 print("Exception file processing image {0}".format(err))

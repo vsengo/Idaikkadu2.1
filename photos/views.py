@@ -85,14 +85,11 @@ def AddAlbum(request):
             if photoform.is_valid():
                 fig = 1
                 albumPath = os.path.join(settings.MEDIA_ROOT,"photos")
-                print("Media Root="+albumPath)
-
                 for f in photos:
                     p = Photo(file=f, album=a, figNo=fig)
                     try:
                         fname,ext = os.path.splitext(p.file.name)
                         nfname = today.strftime("%m%dT%H%M%S")+"_"+str(fig)
-                        print ("Photo file " + nfname + " original name " + p.file.name)
                         nfthumb = "photos/" + today.strftime("%Y") + "/" + nfname + "_thumb" + ext
                         p.thumb = nfthumb
                         if (fig == 1):
@@ -105,8 +102,6 @@ def AddAlbum(request):
                         nfname = today.strftime("%Y")+"/"+nfname+ext
                         npath = os.path.join(albumPath,nfname)
 
-                        print("opath ="+opath+" npath="+npath)
-
                         os.rename(opath, npath)
 
                         img = Image.open(npath)
@@ -117,7 +112,6 @@ def AddAlbum(request):
                             img = apply_orientation(img)
                             img.thumbnail((nWidth, nHeight), Image.HAMMING)
                             img.save(npath)
-                            print("New Size" + npath + " size " + str(nWidth) + "x" + str(nHeight))
 
                         p.file.name = "photos/"+nfname
                         p.save(update_fields=["file"])
