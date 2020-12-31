@@ -3,6 +3,8 @@ from django.shortcuts import redirect, render,get_object_or_404
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView
+from django.conf import settings
+
 from PIL import Image, ExifTags
 import os
 from photos.models import Photo, Album, Comment
@@ -54,14 +56,14 @@ def apply_orientation(im):
 class PhotoList(ListView):
     model = Album
     context_object_name = 'latest_alum'
-    queryset = Album.objects.all().order_by('-release_date')
+    queryset = Album.objects.all().order_by('-id').order_by('-release_date')
     template_name = 'photos/photo_list.html'
 
     def get_context_data(self, **kwargs):
         context = super(PhotoList, self).get_context_data(**kwargs)
-        context['album'] = Album.objects.all().order_by('-release_date').first()
+        context['album'] = Album.objects.all().order_by('-id').order_by('-release_date').first()
 
-        latestAlbum = Album.objects.all().order_by('-release_date').first()
+        latestAlbum = Album.objects.all().order_by('-id').order_by('-release_date').first()
         context['photos'] = Photo.objects.all().filter(album=latestAlbum)
         context['title'] = latestAlbum.title
         return context
@@ -82,23 +84,29 @@ def AddAlbum(request):
 
             if photoform.is_valid():
                 fig = 1
+                albumPath = os.path.join(settings.MEDIA_ROOT,"photos")
+                print("Media Root="+albumPath)
 
                 for f in photos:
                     p = Photo(file=f, album=a, figNo=fig)
                     try:
                         fname,ext = os.path.splitext(p.file.name)
-                        nfname = today.strftime("%m%d%H")+"_"+str(fig)
+                        nfname = today.strftime("%m%dT%H%M%S")+"_"+str(fig)
                         print ("Photo file " + nfname + " original name " + p.file.name)
-                        nfthumb = "photos/" + today.strftime("%Y") + "/" + nfname + "_thumb." + ext
-                        p.thumb=nfthumb
+                        nfthumb = "photos/" + today.strftime("%Y") + "/" + nfname + "_thumb" + ext
+                        p.thumb = nfthumb
                         if (fig == 1):
                             a.thumb = nfthumb
                             a.save()
 
                         p.save()
                         #Rename
-                        opath="media/"+p.file.name
-                        npath="media/photos/"+today.strftime("%Y")+"/"+nfname+ext
+                        opath = os.path.join(settings.MEDIA_ROOT,p.file.name)
+                        nfname = today.strftime("%Y")+"/"+nfname+ext
+                        npath = os.path.join(albumPath,nfname)
+
+                        print("opath ="+opath+" npath="+npath)
+
                         os.rename(opath, npath)
 
                         img = Image.open(npath)
@@ -111,12 +119,13 @@ def AddAlbum(request):
                             img.save(npath)
                             print("New Size" + npath + " size " + str(nWidth) + "x" + str(nHeight))
 
-                        p.file.name = "photos/"+today.strftime("%Y") + "/" + nfname + ext
+                        p.file.name = "photos/"+nfname
                         p.save(update_fields=["file"])
 
                         img.thumbnail((tWidth, tHeight), Image.LANCZOS)
-                        img.save("media/"+nfthumb)
-                        print("Thum file" + npath + " size " + str(tWidth) + "x" + str(tHeight))
+                        tpath=os.path.join(settings.MEDIA_ROOT,nfthumb)
+                        img.save(tpath)
+                        print("Saved Thumb file" + tpath + " size " + str(tWidth) + "x" + str(tHeight))
 
                         photolist.append(p)
 
@@ -142,16 +151,16 @@ def ViewAlbum(request, album_id):
         album = Album.objects.all( ).order_by(-release_date).first()
         photos = Photo.objects.all( ).filter(album_id=album.id)
 
-    comments = Comment.objects.all().filter(album_id=album_id).filter(approved='Y')
+    comments = Comment.objects.all().filter(album_id=album_id).filter(approved='Y').order_by('-id').order_by('-created_on')
     return render(request,'photos/view_album.html', {'photo':photos, 'album':album, 'comments':comments})
 
 def ShowAllAlbum(request):
     today = datetime.now()
     lastTwoYears = today - timedelta(days=2*365)
 
-    international = Album.objects.all( ).filter(section="F")[:10]
-    srilanka = Album.objects.all( ).filter(section="S")[:10]
-    idaikkadu = Album.objects.all( ).filter(section="I")[:10]
+    international = Album.objects.all( ).filter(section="F").order_by('-id').order_by('-release_date')[:10]
+    srilanka = Album.objects.all( ).filter(section="S").order_by('-id').order_by('-release_date')[:10]
+    idaikkadu = Album.objects.all( ).filter(section="I").order_by('-id').order_by('-release_date')[:10]
 
     return render(request,'photos/show_album.html',{'international':international, 'idaikkadu':idaikkadu,'srilanka':srilanka})
 

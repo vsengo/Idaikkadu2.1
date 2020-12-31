@@ -15,9 +15,10 @@ class choice:
         MENU_CHOICES = (
             ('News', 'News'),
             ('Obituary', 'Obituary'),
+            ('School', 'School'),
             ('Story', 'Story'),
             ('Association', 'Association'),
-            ('Article', 'Articles'),
+            ('Article', 'Article'),
             ('Thankyou', 'Thankyou'),
             ('Temple', 'Temple'),
             ('Library', 'Library'),

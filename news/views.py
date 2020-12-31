@@ -19,7 +19,7 @@ class NewsList(ListView):
     model = News
     template_name = 'news/news_update.html'
     def get_queryset(self):
-        return News.objects.filter().order_by('-release_date').order_by('-id')[:20]
+        return News.objects.filter().order_by('-id').order_by('-release_date')[:20]
 
 class AddNewsView(CreateView):
     template_name = 'news/add_news.html'
@@ -36,7 +36,7 @@ class AddNewsView(CreateView):
             fname, ext = os.path.splitext(news.image.name)
 
             opath = fname + ext
-            npath = "news/" + today.strftime("%Y") + "/" + today.strftime("%m%d%H%M") + ext
+            npath = "news/" + today.strftime("%Y") + "/" + today.strftime("%m%dT%H%M%S") + ext
             try:
                 img = Image.open("media/" + opath)
                 width, height = img.size
@@ -82,7 +82,7 @@ def ApproveNews(request, pk):
 
 
 def SuccessNews(request):
-    return render(request, 'news/Success.html')
+    return render(request, 'news/success.html')
 
 
 class NewsReject(DeleteView):
@@ -103,7 +103,7 @@ class DetailNewsView(DetailView):
     def get_context_data(self, **kwargs):
         context = super(DetailView, self).get_context_data(**kwargs)
         context['news'] = News.objects.all().filter(id=self.kwargs['pk']).first()
-        context['comments'] = Comment.objects.all().filter(news_id=self.kwargs['pk'])
+        context['comments'] = Comment.objects.all().filter(news_id=self.kwargs['pk']).order_by('-id').order_by('-created_on')
         return context
 
 
@@ -116,21 +116,21 @@ class IdaikkaduNewsView(ListView):
     model = News
 
     def get_queryset(self):
-        return News.objects.filter(section='I').filter(approved='Y').order_by('-release_date').order_by('-id')
+        return News.objects.filter(section='I').filter(approved='Y').order_by('-id').order_by('-release_date')
 
 
 class SrilankaNewsView(ListView):
     model = News
 
     def get_queryset(self):
-        return News.objects.filter(section='S').filter(approved='Y').order_by('-release_date').order_by('-id')
+        return News.objects.filter(section='S').filter(approved='Y').order_by('-id').order_by('-release_date')
 
 
 class InternationalNewsView(ListView):
     model = News
 
     def get_queryset(self):
-        return News.objects.filter(section='F').filter(approved='Y').order_by('-release_date').order_by('-id')
+        return News.objects.filter(section='F').filter(approved='Y').order_by('-id').order_by('-release_date')
 
 
 def BlogPostLike(request, pk):
