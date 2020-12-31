@@ -19,7 +19,7 @@ class NewsList(ListView):
     model = News
     template_name = 'news/news_update.html'
     def get_queryset(self):
-        return News.objects.filter().order_by('-id').order_by('-release_date')[:20]
+        return News.objects.filter().filter(approved='Y').order_by('-id').order_by('-release_date')[:20]
 
 class AddNewsView(CreateView):
     template_name = 'news/add_news.html'
@@ -134,7 +134,6 @@ class InternationalNewsView(ListView):
 
 
 def BlogPostLike(request, pk):
-    print("id = "+str(pk))
     news = get_object_or_404(News, id=pk)
     news.countLike +=1
     news.save()

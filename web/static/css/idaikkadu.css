@@ -78,13 +78,13 @@ h1, h2, h3, h4, h5, h6, p{
 }
 
 .bg-image {
-  background-image: url('../images/login.png');
+  background-image: url('../images/login.jpg');
   background-size: cover;
   background-position: center;
 }
 
 .login-heading {
-  font-weight: 300;
+  font-weight: 200;
 }
 
 .btn-login {

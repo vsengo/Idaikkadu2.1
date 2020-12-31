@@ -61,9 +61,9 @@ class PhotoList(ListView):
 
     def get_context_data(self, **kwargs):
         context = super(PhotoList, self).get_context_data(**kwargs)
-        context['album'] = Album.objects.all().order_by('-id').order_by('-release_date').first()
+        context['album'] = Album.objects.all().filter(approved='Y').order_by('-id').order_by('-release_date').first()
 
-        latestAlbum = Album.objects.all().order_by('-id').order_by('-release_date').first()
+        latestAlbum = Album.objects.all().filter(approved='Y').order_by('-id').order_by('-release_date').first()
         context['photos'] = Photo.objects.all().filter(album=latestAlbum)
         context['title'] = latestAlbum.title
         return context
@@ -158,9 +158,9 @@ def ShowAllAlbum(request):
     today = datetime.now()
     lastTwoYears = today - timedelta(days=2*365)
 
-    international = Album.objects.all( ).filter(section="F").order_by('-id').order_by('-release_date')[:10]
-    srilanka = Album.objects.all( ).filter(section="S").order_by('-id').order_by('-release_date')[:10]
-    idaikkadu = Album.objects.all( ).filter(section="I").order_by('-id').order_by('-release_date')[:10]
+    international = Album.objects.all( ).filter(section="F").filter(approved='Y').order_by('-id').order_by('-release_date')[:10]
+    srilanka = Album.objects.all( ).filter(section="S").filter(approved='Y').order_by('-id').order_by('-release_date')[:10]
+    idaikkadu = Album.objects.all( ).filter(section="I").filter(approved='Y').order_by('-id').order_by('-release_date')[:10]
 
     return render(request,'photos/show_album.html',{'international':international, 'idaikkadu':idaikkadu,'srilanka':srilanka})
 
