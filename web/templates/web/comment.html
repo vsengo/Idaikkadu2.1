@@ -1,5 +1,6 @@
 {% extends 'base.html' %} {% block content %}
 
+
 <div class="container">
   <div class="row">
     <div class="col-md-8 card mb-4  mt-3 left  top">
@@ -37,7 +38,7 @@
         </div>
         {% else %}
         <h3>Leave a comment</h3>
-        <form method="post" style="margin-top: 1.3em;">
+        <form method="post" style="margin-top: 1.3em;" name="commentForm" onsubmit="return rejectRobosAds()">
           {{ comment_form.as_p }}
           {% csrf_token %}
           <button type="submit" class="btn btn-primary  btn-lg">Submit</button>

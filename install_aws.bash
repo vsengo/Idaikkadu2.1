@@ -10,9 +10,9 @@ if [ $# -gt 1 ]; then
 	dest=$2
 fi
 
-echo "Packaging $pkge"
+echo "Packaging $pkg"
 rm $pkg
-tar -cvf $pkg  accounts idaikkadu news photos web 
+tar -cvf $pkg -T release.txt
 gzip $pkg 
 
 echo "Installing to AWS instance"

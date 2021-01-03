@@ -1,6 +1,5 @@
 {% extends 'web/base.html' %}
 {% load crispy_forms_tags %}
-
 {% block content %}
 <div class="container-fluid">
     <div class="row text-center justify-content-center">
@@ -34,7 +33,7 @@
             <!-- /Error messaging -->
         {% endif %}
         <h4>Leave a comment</h4>
-        <form method="post" style="margin-top: 1.3em;">
+        <form name="commentForm" method="post" style="margin-top: 1.3em;"  onsubmit="return rejectRobosAds()">
           {% if user.is_authenticated %}
               {{ comment_form.body | as_crispy_field}}
           {% else %}
@@ -43,6 +42,17 @@
           {% csrf_token %}
           <button type="submit" class="btn btn-primary  btn-lg">Submit</button>
         </form>
+          <script>
+            function rejectRoboAds() {
+              var x = document.forms["commentForm"]["body"].value;
+              window.alert("Your Comment is rejected");
+
+              if (x.search("http") == -1) {
+                return true;
+              }
+              return false;
+            }
+        </script>
         {% endif %}
       </div>
     </div>

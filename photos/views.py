@@ -178,6 +178,8 @@ def PostComment(request, pk):
     post = get_object_or_404(Album, id=pk)
     comments = Comment.objects.all().filter(album_id=pk).filter(approved='Y')
     new_comment = None
+
+    badWords = ["http", "sex", "fuck"]
     # Comment posted
 
     if request.method == 'POST':
@@ -188,11 +190,20 @@ def PostComment(request, pk):
             new_comment = comment_form.save(commit=False)
             # Assign the current post to the comment
             new_comment.album_id = pk
+            save = True
             if member:
                 new_comment.name = member.first_name
                 new_comment.approved='Y'
+            else:
+                for str in badWords:
+                    if str in new_comment.body:
+                        print("WARN : Ignored bad comment from "+new_comment.name+". Comment had bad word:"+str)
+                        save  = False
+                        break
+
            # Save the comment to the database
-            new_comment.save()
+            if save:
+               new_comment.save()
     else:
         comment_form = CommentForm()
 
