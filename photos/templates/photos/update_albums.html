@@ -10,7 +10,8 @@
                 <div class="col-md-6">
                     <h5 align="center">Title : {{album.title}} <br>
                     Category : {{album.region}} ,  Section: {{album.menu}}</h5>
-                    <div class="card-header2" align="center"> Contributed by : {{album.author}} on {{ album.release_date }}</div>
+                    <div class="card-header2" align="center"> Informed by : {{album.author}}</div>
+                    <div class="card-header2" align="center"> Contributed by : {{album.updated_by}} on {{ album.release_date }}</div>
                 </div>
                 {% if user.is_authenticated %}
                 <div class="col-md-6" align="right">

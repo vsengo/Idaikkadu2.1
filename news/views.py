@@ -30,6 +30,11 @@ class AddNewsView(CreateView):
     def form_valid(self, form):
         response = super().form_valid(form)
         news = form.instance
+        member = User.objects.all( ).filter(username=self.request.user.username).first( )
+        if member:
+            contributor = member.first_name+" "+member.last_name
+            news.updated_by = contributor
+            news.save(update_fields=["updated_by"])
 
         if news.image:
             today = datetime.now()

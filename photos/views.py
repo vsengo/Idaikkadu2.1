@@ -75,6 +75,11 @@ def AddAlbum(request):
         if albumform.is_valid():
             a = albumform.save(commit=False)
 
+            member = User.objects.all( ).filter(username=request.user.username).first( )
+            if member:
+                contributor = member.first_name + " " + member.last_name
+                a.updated_by = contributor
+
             photoform = PhotoUpload(request.POST, request.FILES)
             photos = request.FILES.getlist('files[]')
             photolist = list()

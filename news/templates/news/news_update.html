@@ -10,7 +10,8 @@
                              <div class="row">
                         <div class="col-md-9">
                             <h5>{{news.region}}  {{news.menu}} ({{ news.release_date }})</h5>
-                            <div class="card-header2"> Contributed by : {{news.author}}</div>
+                            <div class="card-header2"> Informed by : {{news.author}}</div>
+                            <div class="card-header2"> Contributed by : {{news.updated_by}}</div>
                         </div>
                             {% if user.is_authenticated %}
                             <div class="col-md-3" align="right">
