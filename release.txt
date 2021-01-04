@@ -1,4 +1,4 @@
-news/templates/news/news_update.html
-photos/templates/photos/update_albums.html
-photos/views.py
-news/views.py
+web/templates/web/base.html
+photos/models.py
+news/models.py
+web/views.py

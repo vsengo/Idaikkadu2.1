@@ -17,6 +17,8 @@ class Album (models.Model):
     create_date = models.DateField(auto_now=True)
     release_date = models.DateField(default=datetime.date.today)
     updated_by = models.CharField(max_length=128, null=True)
+    class Meta:
+        ordering = ['-release_date', '-id']
 
 class Photo(models.Model):
     file = models.ImageField(upload_to='photos/%Y', blank=True,null=True)
@@ -32,7 +34,7 @@ class Comment(models.Model):
     album = models.ForeignKey(Album, on_delete=models.CASCADE, related_name='comments')
 
     class Meta:
-        ordering = ['created_on']
+        ordering = ['-created_on']
 
     def __str__(self):
         return 'Comment {} by {}'.format(self.body, self.name)

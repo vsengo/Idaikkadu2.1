@@ -25,6 +25,9 @@ class News(models.Model):
     def number_of_likes(self):
         return self.countLike.count()
 
+    class Meta:
+        ordering = ['-release_date','-id']
+
 
 class Comment(models.Model):
     approved = models.CharField(max_length=1, default='N', choices=choice.APPROVAL_CHOICES)
@@ -36,7 +39,7 @@ class Comment(models.Model):
     news = models.ForeignKey(News, on_delete=models.CASCADE, related_name='comments')
 
     class Meta:
-        ordering = ['created_on']
+        ordering = ['-created_on']
 
     def __str__(self):
         return 'Comment {} by {}'.format(self.body, self.name)
